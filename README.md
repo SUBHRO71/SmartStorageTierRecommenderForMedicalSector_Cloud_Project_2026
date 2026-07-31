@@ -159,8 +159,8 @@ AWS services they integrated.
 | Name | Reg No | Branch | Primary ownership | AWS services |
 | --- | --- | --- | --- | --- |
 | **Pratyush Chandrasekhar** | 24BIT0226 | `feature/student1` | Frontend, testing, papers 1–5 | S3 static hosting, CloudFront, CloudWatch dashboards |
-| **Subhrojyoti Das** | _TBD_ | `feature/student2` | Backend, database, auth, infrastructure, papers 6–10 | API Gateway, Lambda (API), DynamoDB, IAM, S3 Lifecycle |
-| **Mehul Anand** | _TBD_ | `feature/student3` | Dataset, ML model, results, papers 11–15 | Lambda (inference), S3 image store, CloudWatch metrics |
+| **Subhrojyoti Das** | 24BIT0194 | `feature/student2` | Backend, database, auth, infrastructure, papers 6–10 | API Gateway, Lambda (API), DynamoDB, IAM, S3 Lifecycle |
+| **Mehul Anand** | 24BIT0185 | `feature/student3` | Dataset, ML model, results, papers 11–15 | Lambda (inference), S3 image store, CloudWatch metrics |
 
 Branch names stay as `feature/studentN` because the course guidelines specify that exact structure.
 The mapping above is the authoritative record of who owns which branch.

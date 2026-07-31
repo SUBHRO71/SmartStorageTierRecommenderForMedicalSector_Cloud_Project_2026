@@ -18,13 +18,20 @@ No code, no data, no diagrams (diagrams live in [`../architecture/`](../architec
 Each member also keeps their own 5-paper analysis here, so individual contribution is visible
 in the commit history:
 
-| File | Papers | Author |
-| --- | --- | --- |
-| `Research_Gap_Student1.docx` | 1–5 | Pratyush Chandrasekhar |
-| `Research_Gap_Student2.docx` | 6–10 | Subhrojyoti Das |
-| `Research_Gap_Student3.docx` | 11–15 | Mehul Anand |
+| File | Papers | Author | Reg No | Status |
+| --- | --- | --- | --- | --- |
+| `Research_Gap_Student1.pdf` | 1–5 | Pratyush Chandrasekhar | 24BIT0226 | Committed |
+| `Research_Gap_Student2.pdf` | 6–10 | Subhrojyoti Das | 24BIT0194 | Committed |
+| `Research_Gap_Student3.pdf` | 11–15 | Mehul Anand | 24BIT0185 | Committed |
 
 Filenames keep the `StudentN` form because the course guidelines name them that way.
+
+**PDFs are committed; the source `.docx` files are not.** A PDF renders identically everywhere,
+is what a reviewer actually opens, and cannot produce a binary merge conflict. Each author keeps
+their own `.docx` locally and re-exports the PDF when it changes.
+
+Nothing in `.gitignore` blocks `.docx`, so the consolidated `Project_Report.docx` can still be
+committed later if the team decides it should be.
 
 These are later merged into the consolidated `Research_Gap.docx`.
 
