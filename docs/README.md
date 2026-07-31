@@ -30,28 +30,47 @@ Filenames keep the `StudentN` form because the course guidelines name them that 
 is what a reviewer actually opens, and cannot produce a binary merge conflict. Each author keeps
 their own `.docx` locally and re-exports the PDF when it changes.
 
-### Consolidated document
+### The consolidated report
 
-`Research_Gap_and_Literature_Survey.pdf` is the three individual analyses concatenated into one
-28-page file, in order, with **no reformatting** — each member's document appears exactly as they
-wrote it. PDF bookmarks jump to each section. This single file covers both the *Research Gap
-Analysis* and *Literature Survey* deliverables for all 15 papers.
+**`Project_Report.pdf`** is the submission document — 39 pages, four parts, with PDF bookmarks
+jumping to each. Parts A–C are the individual analyses concatenated with **no reformatting**, so
+each member's document appears exactly as they wrote it.
 
-| Section | Pages | Author |
-| --- | --- | --- |
-| Papers 1–5 | 1–8 | Pratyush Chandrasekhar |
-| Papers 6–10 | 9–18 | Subhrojyoti Das |
-| Papers 11–15 | 19–28 | Mehul Anand |
+| Part | Pages | Contents | Author |
+| --- | --- | --- | --- |
+| A | 1–8 | Papers 1–5, research gap + literature survey | Pratyush Chandrasekhar |
+| B | 9–18 | Papers 6–10, research gap + literature survey | Subhrojyoti Das |
+| C | 19–28 | Papers 11–15, research gap + literature survey | Mehul Anand |
+| D | 29–39 | Abstract, objectives, novelty, architecture, dataset, AWS services | All |
 
-An editable `Research_Gap_and_Literature_Survey.docx` sits alongside it **locally only** — it is
-listed in `.gitignore`. Word's PDF reflow is approximate, so treat it as a working copy for
-editing, never as the master. The PDF is the master.
+Part D covers the remaining guideline deliverables: the 200–300 word abstract, six measurable
+objectives, the one-page novelty summary, both mandatory architecture diagrams with walkthroughs,
+full dataset details, and the AWS services plan.
 
-To rebuild either file after someone updates their section:
+### Rebuilding the report
+
+```bash
+python architecture/make_diagrams.py
+```
+
+```bash
+python docs/build_part_d.py
+```
+
+Then open `Project_Documentation_PartD.docx` in Word and save as PDF (Word is the only converter
+available here), and assemble:
 
 ```bash
 python docs/merge_analyses.py
 ```
+
+Run the diagram step first if the architecture changed — Part D embeds the PNGs.
+
+### Word files are local only
+
+`docs/*.docx` is gitignored. PDFs are the committed artifacts; the Word files are working copies.
+Git cannot merge binaries, so two people editing one on separate branches would silently lose a
+version. Part D is regenerated from `build_part_d.py`, so its `.docx` is disposable.
 
 These are later merged into the consolidated `Research_Gap.docx`.
 

@@ -145,6 +145,8 @@ flowchart TB
 | Lambda | Inference and API | 1M requests + 400k GB-s/month, **always free** | Mehul, Subhrojyoti |
 | DynamoDB | Features, decisions | 25 GB + 25 RCU/WCU, **always free** | Subhrojyoti |
 | API Gateway | REST endpoint | Consumes credits after free allowance | Subhrojyoti |
+| **Cognito** | **User sign-in, JWT, role-based access** | **Generous monthly-active-user tier** | Subhrojyoti |
+| **SNS** | **Restore complete, wrongly-archived, failures, budget** | **1M publishes + 1,000 emails free** | Mehul |
 | CloudWatch | Logs, custom metrics, dashboard | 10 custom metrics, 5 GB logs free | Mehul, Pratyush |
 | IAM | Least-privilege roles | Free | Subhrojyoti |
 | AWS Budgets | Spend alarm | Free | All |
@@ -152,6 +154,23 @@ flowchart TB
 
 **No EC2. No RDS.** Both carry idle cost, and a forgotten instance is the most common way a
 student project drains its credits. See [ADR-001](decisions.md#adr-001--serverless-only-no-ec2).
+
+**Cognito and SNS were added on 31 July 2026** after reviewing the design against the course
+guidelines, which require the AWS diagram to show authentication and notifications. Both filled real
+gaps: IAM governs services but does not authenticate a clinician, and nothing previously told anyone
+when a scan had been wrongly archived. See
+[ADR-009](decisions.md#adr-009--add-amazon-cognito-and-amazon-sns).
+
+### Rendered diagrams for the report
+
+Mermaid is the master reference, but the report needs print-quality images:
+
+```bash
+python architecture/make_diagrams.py
+```
+
+Writes `AWS_Architecture.png` and `System_Architecture.png` at 300 DPI. Regenerate them whenever the
+design changes — do not edit the PNGs by hand.
 
 ---
 
