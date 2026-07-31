@@ -1,0 +1,158 @@
+# =============================================================
+# CREDENTIALS AND SECRETS  --  never commit these
+# Git history is permanent. A key committed once and deleted
+# later is still in the repo and must be treated as leaked.
+# =============================================================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials
+aws_credentials
+.aws/
+secrets.json
+config.secret.*
+
+# =============================================================
+# DATA  --  too large for Git, and may contain patient data
+# =============================================================
+dataset/raw/*
+dataset/processed/*
+!dataset/raw/README.md
+!dataset/processed/README.md
+!dataset/raw/sample/
+!dataset/raw/download.*
+!dataset/raw/manifest.txt
+!dataset/processed/CHANGELOG.md
+
+*.dcm
+*.nii
+*.nii.gz
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.parquet
+
+# =============================================================
+# MODEL ARTIFACTS  --  commit the training script, not weights
+# =============================================================
+*.pkl
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.pb
+*.tflite
+checkpoints/
+runs/
+wandb/
+mlruns/
+
+# =============================================================
+# PYTHON
+# =============================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# =============================================================
+# NODE / FRONTEND
+# =============================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.next/
+out/
+.nuxt/
+.cache/
+.parcel-cache/
+.vite/
+
+# =============================================================
+# TERRAFORM / INFRASTRUCTURE
+# =============================================================
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+*.tfvars
+!*.tfvars.example
+
+# =============================================================
+# LOGS AND TEMP
+# =============================================================
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+
+# =============================================================
+# DATABASES
+# =============================================================
+*.db
+*.sqlite
+*.sqlite3
+
+# =============================================================
+# OFFICE TEMP FILES  (Word/Excel lock files)
+# =============================================================
+~$*
+.~lock.*
+
+# =============================================================
+# EDITORS AND OS
+# =============================================================
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# =============================================================
+# LARGE MEDIA  --  link to it instead of committing
+# =============================================================
+*.mp4
+*.mov
+*.avi
+!presentation/demo_video.mp4
