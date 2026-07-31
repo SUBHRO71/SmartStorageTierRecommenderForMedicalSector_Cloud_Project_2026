@@ -138,6 +138,15 @@ temp/
 .~lock.*
 
 # =============================================================
+# EDITABLE SOURCE DOCUMENTS  --  local only
+# The PDF is the committed, reviewable artifact. The .docx is a
+# working copy: Word cannot merge binaries, so two people editing
+# it on different branches would silently lose one version.
+# Regenerate it from the PDF whenever you need to edit.
+# =============================================================
+docs/Research_Gap_and_Literature_Survey.docx
+
+# =============================================================
 # EDITORS AND OS
 # =============================================================
 .vscode/
