@@ -1,6 +1,6 @@
 # aws/
 
-Cloud infrastructure configuration. **Primary owner: Student 2** — but every team member must
+Cloud infrastructure configuration. **Primary owner: Subhrojyoti Das** — but every team member must
 contribute here and be able to explain their own AWS integration individually at review.
 
 ## What goes here
@@ -60,4 +60,15 @@ work. Record ownership here as it is decided:
 
 | Service | Configured by |
 | --- | --- |
-| _TBD_ | _TBD_ |
+| S3 static website hosting | Pratyush Chandrasekhar |
+| CloudFront | Pratyush Chandrasekhar |
+| CloudWatch dashboards | Pratyush Chandrasekhar |
+| API Gateway | Subhrojyoti Das |
+| Lambda — `api_handler` | Subhrojyoti Das |
+| DynamoDB | Subhrojyoti Das |
+| IAM roles and policies | Subhrojyoti Das |
+| S3 Lifecycle configuration | Subhrojyoti Das |
+| S3 image store bucket | Mehul Anand |
+| Lambda — `tier_inference` | Mehul Anand |
+| CloudWatch custom metrics | Mehul Anand |
+| AWS Budgets alarm | All — set this first |

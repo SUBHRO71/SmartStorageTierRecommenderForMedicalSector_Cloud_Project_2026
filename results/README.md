@@ -1,6 +1,6 @@
 # results/
 
-Experiment outputs, metrics, graphs and execution screenshots. **Owner: Student 3**, with
+Experiment outputs, metrics, graphs and execution screenshots. **Owner: Mehul Anand**, with
 screenshots contributed by whoever ran the component.
 
 This folder is the evidence that the project works. At review, claims made in the report need

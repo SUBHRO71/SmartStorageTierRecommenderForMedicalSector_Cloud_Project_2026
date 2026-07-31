@@ -1,6 +1,6 @@
 # src/backend/
 
-API layer, database integration, authentication, and the bridge to AWS. **Owner: Student 2.**
+API layer, database integration, authentication, and the bridge to AWS. **Owner: Subhrojyoti Das.**
 
 ## What this component does
 
@@ -19,7 +19,7 @@ Responsibilities:
 
 ## Planned endpoints
 
-To be finalised with Student 1 before the frontend is built:
+To be finalised with Pratyush Chandrasekhar before the frontend is built:
 
 | Method | Path | Returns |
 | --- | --- | --- |
@@ -43,7 +43,7 @@ To be finalised with Student 1 before the frontend is built:
 
 ## Setup
 
-To be filled in by Student 2. Must include:
+To be filled in by Subhrojyoti Das. Must include:
 
 - Python version and how to create the virtual environment
 - `pip install -r requirements.txt`

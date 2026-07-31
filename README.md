@@ -40,30 +40,64 @@ manage the storage underneath.
 
 ## 2. System architecture
 
-> **STATUS: UNDER DISCUSSION — NOT YET FINALISED.**
->
-> The architecture is being designed and will be documented here once the team agrees on it.
-> Nothing in this section should be treated as decided.
+Full design, diagrams and rationale: [`architecture/README.md`](architecture/README.md).
+Decision log with rejected alternatives: [`architecture/decisions.md`](architecture/decisions.md).
 
-When finalised, this section will contain:
+### In one paragraph
 
-- A short prose walkthrough of the end-to-end flow, from scan ingest through to a tier decision
-  being applied as an S3 lifecycle action
-- An embedded system architecture diagram (`architecture/System_Architecture.png`)
-- An embedded AWS deployment diagram (`architecture/AWS_Architecture.png`)
-- The component/service table — what each part is responsible for and what it talks to
-- Rationale for the major design decisions, so the choices can be defended at review
+A scan lands in S3 Standard. An S3 event triggers a Lambda, which pulls that scan's features from
+DynamoDB — metadata plus a precomputed image embedding — and predicts the probability the scan will
+be retrieved again. A cost rule converts that probability into the storage class with the lowest
+expected total cost, weighting a wrongly archived scan far more heavily than a slightly higher bill.
+The Lambda writes the chosen class as an S3 object tag; a tag-filtered Lifecycle rule performs the
+actual transition. Every decision and its reason is written to DynamoDB, so the dashboard can
+explain *why* a scan ended up where it did.
 
-Open questions still to be settled:
+```mermaid
+flowchart LR
+    UP(["Scan uploaded"]) --> S3S[("S3 Standard")]
+    S3S -->|event| LAM["Lambda<br/>tier_inference"]
+    DDB[("DynamoDB<br/>metadata + embedding")] --> LAM
+    LAM --> P["Stage 1<br/>P of retrieval"]
+    P --> RULE["Stage 2<br/>min expected cost"]
+    RULE -->|object tag| S3S
+    RULE -->|decision + reason| DDB
+    S3S --> LC["S3 Lifecycle<br/>tag-filtered"]
+    LC --> TIERS[("Standard-IA /<br/>Glacier /<br/>Deep Archive")]
+    DDB --> API["API Gateway<br/>+ Lambda"] --> UI["Dashboard<br/>S3 static site"]
+```
 
-- [ ] Where the model runs — Lambda at ingest, scheduled batch job, or both
-- [ ] Whether tier decisions are applied directly via the S3 API or expressed as S3 Lifecycle rules
-- [ ] Whether the image-feature model runs on every scan or only on a sampled subset
-- [ ] How the training label is derived (see [`dataset/README.md`](dataset/README.md))
-- [ ] Where DICOM metadata is indexed and queried from
-- [ ] Which AWS services each team member owns for the individual-defence requirement
+### Key decisions
 
-Working notes and diagram drafts go in [`architecture/`](architecture/).
+| Decision | Rationale |
+| --- | --- |
+| **Serverless only — no EC2, no RDS** | AWS changed the Free Tier on 15 July 2025. Lambda, DynamoDB and CloudFront keep always-free allowances that never expire; EC2 does not. Zero idle cost means nothing can quietly drain the credits. |
+| **Image embeddings precomputed offline** | Image content never changes, so recomputing it per request is waste. Keeps the Lambda package small and puts the heavy work on Colab's free GPU. |
+| **Tag-based Lifecycle rules, not direct API calls** | The model decides policy; AWS enforces mechanism. Auditable, retried by AWS, and visible in the console during the demo. |
+| **Two-stage model, not a four-class classifier** | Stage 1 learns a probability; Stage 2 is an explicit cost rule. Decisions become explainable, and the clinical penalty can be re-tuned without retraining. |
+| **NIH ChestX-ray14** | The only dataset needing no clearance of any kind. Label derived from the `Follow-up #` column. |
+| **Two-track evaluation** | Cost projected over all 112,120 records offline for the headline result; mechanism proven live on ~1,000 images inside the free allowance. |
+
+### Why the two-stage model matters
+
+A standard classifier treats every mistake as equally bad. Here they are not:
+
+- A rarely-used scan left in Standard → we overpay slightly. **Minor.**
+- A scan the doctor needs sent to Deep Archive → they wait up to 12 hours. **Serious.**
+
+Our research gap analysis argues that existing systems fail precisely because they treat all errors
+as equal. A symmetric classifier would reproduce the flaw we are criticising, so the asymmetry lives
+in an explicit, inspectable cost rule instead of being buried in a loss function.
+
+### Still open
+
+- [ ] Confirm AWS account creation date — decides which free-tier regime applies
+- [ ] DynamoDB partition key design
+- [ ] API contract between frontend and backend
+- [ ] Clinical penalty values and sensitivity sweep range
+- [ ] Whether the rubric requires EC2 or a relational database for marks
+
+Tracked in [`architecture/decisions.md`](architecture/decisions.md#open-decisions).
 
 ---
 
@@ -122,11 +156,14 @@ AWS services they integrated.
 
 ## 5. Team
 
-| | Name | Reg No | Branch | Primary ownership |
+| Name | Reg No | Branch | Primary ownership | AWS services |
 | --- | --- | --- | --- | --- |
-| Student 1 | _TBD_ | _TBD_ | `feature/student1` | Frontend, testing |
-| Student 2 | _TBD_ | _TBD_ | `feature/student2` | Backend, database, auth, AWS infrastructure |
-| Student 3 | _TBD_ | _TBD_ | `feature/student3` | Dataset, ML model, results |
+| **Pratyush Chandrasekhar** | 24BIT0226 | `feature/student1` | Frontend, testing, papers 1–5 | S3 static hosting, CloudFront, CloudWatch dashboards |
+| **Subhrojyoti Das** | _TBD_ | `feature/student2` | Backend, database, auth, infrastructure, papers 6–10 | API Gateway, Lambda (API), DynamoDB, IAM, S3 Lifecycle |
+| **Mehul Anand** | _TBD_ | `feature/student3` | Dataset, ML model, results, papers 11–15 | Lambda (inference), S3 image store, CloudWatch metrics |
+
+Branch names stay as `feature/studentN` because the course guidelines specify that exact structure.
+The mapping above is the authoritative record of who owns which branch.
 
 All three members contribute to the literature survey, research gap analysis, AWS services,
 documentation and presentation.
@@ -155,9 +192,24 @@ see [`src/backend/`](src/backend/), [`src/ml_model/`](src/ml_model/) and [`src/f
 | Literature survey (15 papers across the team) | Done |
 | Research gap analysis | Done |
 | Repository structure | Done |
-| System architecture | **In discussion** |
-| Dataset selection | In progress |
+| System architecture | Done — see [`architecture/`](architecture/) |
+| Dataset selection | Done — NIH ChestX-ray14 |
 | Implementation | Not started |
+
+### Build order
+
+| Phase | Work | Done when |
+| --- | --- | --- |
+| 0 | Check AWS account date. **Set a $1 Budget alarm before creating anything else.** Install LocalStack for free local development | Alarm confirmed |
+| 1 | Download subset, build features and label, split by `Patient ID` | `features.csv` reproducible from `raw/` |
+| 2 | Train Stage-1 probability model locally | Beats age-based baseline on AUC, calibration curve reported |
+| 3 | Build the offline cost model — **this produces the headline result** | Cost table vs. all three baselines |
+| 4 | Deploy: S3 + Lambda + DynamoDB + tagged Lifecycle | A real transition visible in the console |
+| 5 | API and dashboard | Live demo runs end to end |
+| 6 | Sensitivity sweep on the clinical penalty | Graph ready for the deck |
+
+Phase 3 is where the project's value is. Phases 4–5 prove it is real. Do not let AWS plumbing eat
+the time that belongs to phase 3.
 
 ---
 

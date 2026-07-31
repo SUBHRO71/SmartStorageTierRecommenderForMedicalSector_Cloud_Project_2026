@@ -5,9 +5,9 @@ individual contribution is visible in the commit history.
 
 | Folder | Component | Owner |
 | --- | --- | --- |
-| [`frontend/`](frontend/) | User interface — dashboard, scan browser, tier visualisation | Student 1 |
-| [`backend/`](backend/) | REST API, database, authentication, AWS integration | Student 2 |
-| [`ml_model/`](ml_model/) | Preprocessing, training, inference, evaluation | Student 3 |
+| [`frontend/`](frontend/) | User interface — dashboard, scan browser, tier visualisation | Pratyush Chandrasekhar |
+| [`backend/`](backend/) | REST API, database, authentication, AWS integration | Subhrojyoti Das |
+| [`ml_model/`](ml_model/) | Preprocessing, training, inference, evaluation | Mehul Anand |
 
 ## How the three fit together
 
@@ -23,7 +23,7 @@ developed against a mock API before the model is ready.
 
 ## Shared conventions
 
-- **Language:** Python for backend and ML. Frontend framework to be decided by Student 1.
+- **Language:** Python for backend and ML. Frontend framework to be decided by Pratyush Chandrasekhar.
 - **Config:** never hardcode a path, bucket name, endpoint or credential. Read it from an
   environment variable or a config file. Commit a `.env.example` listing the variables needed,
   never the `.env` itself.

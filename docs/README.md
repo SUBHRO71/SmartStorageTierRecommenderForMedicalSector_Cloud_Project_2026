@@ -18,9 +18,13 @@ No code, no data, no diagrams (diagrams live in [`../architecture/`](../architec
 Each member also keeps their own 5-paper analysis here, so individual contribution is visible
 in the commit history:
 
-- `Research_Gap_Student1.docx` — papers 1–5
-- `Research_Gap_Student2.docx` — papers 6–10
-- `Research_Gap_Student3.docx` — papers 11–15
+| File | Papers | Author |
+| --- | --- | --- |
+| `Research_Gap_Student1.docx` | 1–5 | Pratyush Chandrasekhar |
+| `Research_Gap_Student2.docx` | 6–10 | Subhrojyoti Das |
+| `Research_Gap_Student3.docx` | 11–15 | Mehul Anand |
+
+Filenames keep the `StudentN` form because the course guidelines name them that way.
 
 These are later merged into the consolidated `Research_Gap.docx`.
 
