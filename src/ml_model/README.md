@@ -1,6 +1,6 @@
 # src/ml_model/
 
-The deep learning model that recommends a storage tier for each scan. **Owner: Student 3.**
+The deep learning model that recommends a storage tier for each scan. **Owner: Mehul Anand.**
 
 This is the core contribution of the project — everything else exists to serve, demonstrate or
 deploy what happens here.
@@ -72,5 +72,5 @@ archive. Accuracy alone will not convince anyone that the system is worth deploy
 
 ## Setup
 
-To be filled in by Student 3 once the framework is chosen. Must include Python version, install
+To be filled in by Mehul Anand once the framework is chosen. Must include Python version, install
 steps, how to run training, and expected runtime.

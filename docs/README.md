@@ -18,9 +18,40 @@ No code, no data, no diagrams (diagrams live in [`../architecture/`](../architec
 Each member also keeps their own 5-paper analysis here, so individual contribution is visible
 in the commit history:
 
-- `Research_Gap_Student1.docx` — papers 1–5
-- `Research_Gap_Student2.docx` — papers 6–10
-- `Research_Gap_Student3.docx` — papers 11–15
+| File | Papers | Author | Reg No | Status |
+| --- | --- | --- | --- | --- |
+| `Research_Gap_Student1.pdf` | 1–5 | Pratyush Chandrasekhar | 24BIT0226 | Committed |
+| `Research_Gap_Student2.pdf` | 6–10 | Subhrojyoti Das | 24BIT0194 | Committed |
+| `Research_Gap_Student3.pdf` | 11–15 | Mehul Anand | 24BIT0185 | Committed |
+
+Filenames keep the `StudentN` form because the course guidelines name them that way.
+
+**PDFs are committed; the source `.docx` files are not.** A PDF renders identically everywhere,
+is what a reviewer actually opens, and cannot produce a binary merge conflict. Each author keeps
+their own `.docx` locally and re-exports the PDF when it changes.
+
+### Consolidated document
+
+`Research_Gap_and_Literature_Survey.pdf` is the three individual analyses concatenated into one
+28-page file, in order, with **no reformatting** — each member's document appears exactly as they
+wrote it. PDF bookmarks jump to each section. This single file covers both the *Research Gap
+Analysis* and *Literature Survey* deliverables for all 15 papers.
+
+| Section | Pages | Author |
+| --- | --- | --- |
+| Papers 1–5 | 1–8 | Pratyush Chandrasekhar |
+| Papers 6–10 | 9–18 | Subhrojyoti Das |
+| Papers 11–15 | 19–28 | Mehul Anand |
+
+An editable `Research_Gap_and_Literature_Survey.docx` sits alongside it **locally only** — it is
+listed in `.gitignore`. Word's PDF reflow is approximate, so treat it as a working copy for
+editing, never as the master. The PDF is the master.
+
+To rebuild either file after someone updates their section:
+
+```bash
+python docs/merge_analyses.py
+```
 
 These are later merged into the consolidated `Research_Gap.docx`.
 

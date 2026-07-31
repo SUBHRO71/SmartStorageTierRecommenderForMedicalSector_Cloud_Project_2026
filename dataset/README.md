@@ -1,7 +1,7 @@
 # dataset/
 
 Data used to train and evaluate the tier recommendation model, and the documentation that
-explains it. **Owner: Student 3.**
+explains it. **Owner: Mehul Anand.**
 
 ## Layout
 

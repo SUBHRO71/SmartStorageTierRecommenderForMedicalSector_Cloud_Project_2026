@@ -1,6 +1,6 @@
 # src/frontend/
 
-The user interface. **Owner: Student 1.**
+The user interface. **Owner: Pratyush Chandrasekhar.**
 
 ## What this component does
 
@@ -28,7 +28,7 @@ and the interface should answer that directly.
 
 ## Setup
 
-To be filled in by Student 1 once the framework is chosen. Must include:
+To be filled in by Pratyush Chandrasekhar once the framework is chosen. Must include:
 
 - Prerequisites and versions
 - Install command
