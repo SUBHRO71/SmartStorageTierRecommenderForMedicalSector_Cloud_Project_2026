@@ -1,0 +1,6 @@
+{
+    "roc_auc": 0.48801631820499747,
+    "brier_score": 0.26065399155223334,
+    "train_samples": 560,
+    "test_samples": 127
+}
