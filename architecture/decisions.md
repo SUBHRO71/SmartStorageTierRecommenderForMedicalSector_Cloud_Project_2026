@@ -413,6 +413,69 @@ Add two services:
 
 ---
 
+## ADR-010 — Inference-only published weights; no local model training
+
+**Status:** Accepted · **Date:** 21 September 2026 · **Owner:** Mehul Anand
+
+### Context
+
+The project owner does not want to train or fine-tune a model. The prototype's random embeddings
+and locally trained XGBoost artifact could not support the intended claim or reproduce cloud
+inference reliably.
+
+### Decision
+
+Use TorchXRayVision's published `densenet121-res224-all` weights offline to produce pathology
+scores. Do not fit a model in this repository. A checked-in, versioned fixed-weight policy combines
+those scores with metadata and access counts, and a shared cost engine chooses the S3 tier. The
+fixed coefficients are an engineering policy and must not be presented as clinically trained or
+validated probabilities.
+
+The online Lambda consumes precomputed pathology scores and therefore does not package PyTorch.
+`train.py` intentionally exits; the earlier training experiment remains as `legacy_training.py`
+for audit history.
+
+### Consequences
+
+- A user can run inference from published weights without a training dataset or GPU training job.
+- Offline feature extraction still downloads a sizeable public weight file on first use.
+- The policy is transparent and immediately testable, but its probability needs calibration before
+  any clinical or autonomous archival claim.
+- The architecture no longer depends on a local pickle artifact.
+
+---
+
+## ADR-011 — AWS code uses roles later and fails safe when features are missing
+
+**Status:** Accepted · **Date:** 21 September 2026 · **Owner:** Subhrojyoti Das
+
+### Context
+
+AWS credentials are not available during implementation. The earlier code inferred cloud mode from
+static access-key environment variables and the inference Lambda used fabricated defaults when a
+feature record was missing.
+
+### Decision
+
+Write and test AWS code without credentials. In Lambda, `boto3` will use temporary credentials from
+the execution role. Local deployment may later use the standard AWS credential provider chain.
+Never add static keys to application configuration.
+
+Use the complete S3 object key as the current canonical `scan_id`. If its registered DynamoDB
+feature record is absent, leave the object in S3 Standard and record
+`BLOCKED_MISSING_FEATURES`. Preserve existing object tags when adding the requested tier, and store
+the request as `PENDING_TRANSITION` until a later reconciler confirms the physical storage class.
+
+### Consequences
+
+- Implementation and unit tests do not wait for an AWS account.
+- Missing data cannot silently send an image to archive.
+- Existing DynamoDB fixtures keyed by a filename alone will need migration to the complete object
+  key before deployment.
+- A reconciliation worker remains required before the dashboard can report actual placement.
+
+---
+
 ## Open decisions
 
 | # | Question | Blocks | Owner |

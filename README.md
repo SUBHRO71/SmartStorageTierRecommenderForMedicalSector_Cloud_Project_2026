@@ -187,6 +187,18 @@ git checkout develop && git checkout -b feature/studentX
 Setup instructions for each component live in that component's own README —
 see [`src/backend/`](src/backend/), [`src/ml_model/`](src/ml_model/) and [`src/frontend/`](src/frontend/).
 
+The active intelligence path is inference-only. It uses published TorchXRayVision chest X-ray
+weights and a versioned, checked-in retrieval policy; it does not train or fine-tune a model:
+
+```bash
+pip install -r src/ml_model/requirements.txt
+python src/ml_model/extract_pretrained_features.py path/to/xray.png --output features.json
+python -m unittest discover -s tests -p "test_*.py" -v
+```
+
+AWS credentials are not needed to build or test this path. The Lambda will use its execution role
+when deployed later.
+
 ---
 
 ## 7. Current status
@@ -198,7 +210,7 @@ see [`src/backend/`](src/backend/), [`src/ml_model/`](src/ml_model/) and [`src/f
 | Repository structure | Done |
 | System architecture | Done — see [`architecture/`](architecture/) |
 | Dataset selection | Done — NIH ChestX-ray14 |
-| Implementation | Prototype source present: React dashboard, Flask/SQLite API, ML pipeline, and AWS handlers. Mock paths and cloud integration gaps remain; see the [implementation review](architecture/PRODUCT_AND_IMPLEMENTATION.md). |
+| Implementation | In progress: inference-only pretrained feature extraction, shared decision policy, local API integration, and credential-free Lambda packaging are implemented. AWS deployment and end-to-end validation remain; see the [implementation review](architecture/PRODUCT_AND_IMPLEMENTATION.md). |
 
 ### Build order
 
@@ -206,7 +218,7 @@ see [`src/backend/`](src/backend/), [`src/ml_model/`](src/ml_model/) and [`src/f
 | --- | --- | --- |
 | 0 | Check AWS account date. **Set a $1 Budget alarm before creating anything else.** Install LocalStack for free local development | Alarm confirmed |
 | 1 | Download subset, build features and label, split by `Patient ID` | `features.csv` reproducible from `raw/` |
-| 2 | Train Stage-1 probability model locally | Beats age-based baseline on AUC, calibration curve reported |
+| 2 | Run published pretrained chest X-ray weights and apply the versioned retrieval policy | Feature provenance recorded; no local model training required |
 | 3 | Build the offline cost model — **this produces the headline result** | Cost table vs. all three baselines |
 | 4 | Deploy: S3 + Lambda + DynamoDB + tagged Lifecycle | A real transition visible in the console |
 | 5 | API and dashboard | Live demo runs end to end |

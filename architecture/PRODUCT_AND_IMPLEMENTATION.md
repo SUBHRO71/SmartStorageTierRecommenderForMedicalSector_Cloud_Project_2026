@@ -66,9 +66,9 @@ The root README says implementation has not started. That is stale: substantial 
 | Authentication | Amplify/Cognito client integration and local mock login | Server authorization and enforced roles are not established |
 | Local backend | Flask routes, SQLite seed data, model-service adapter | Placeholder aggregate values, implicit fallbacks, incomplete input validation |
 | Cloud database | DynamoDB reads and updates | Pagination incomplete; summary implementation still opens SQLite |
-| ML | Patient-grouped splits, XGBoost, isotonic calibration, evaluation scripts | Image vectors are random; no actual CNN extractor is present |
-| Cost policy | Explicit expected-cost functions | Three implementations disagree on horizon, terms, and defaults |
-| AWS inference | Reads metadata, tags S3 objects, updates DynamoDB, emits metrics | Artifact and feature contracts differ from training; fallback probability masks failures |
+| ML | Inference-only TorchXRayVision extractor using published `densenet121-res224-all` weights | Weight download and extraction still need validation against a real image fixture |
+| Cost policy | Shared versioned retrieval weights and one pure-Python cost engine | Coefficients remain a provisional engineering policy and need sensitivity analysis |
+| AWS inference | Shared engine, lazy AWS clients, safe missing-feature state, tag preservation, Lambda bundle builder | No deployed integration proof or placement reconciler yet |
 | AWS API | Routing and basic reads/updates | Prediction, dashboard, and cost responses contain stubs |
 | Infrastructure | Lifecycle, IAM, Cognito, SNS JSON examples | No complete repeatable stack, integration proof, or restore pipeline found |
 | Evidence | Metrics JSON, cost CSV/chart, experiment plots | Results lack a complete provenance manifest and do not substantiate the product hypothesis |
@@ -262,7 +262,9 @@ The prototype uses `scan_id` as a key. Keep a stable opaque scan identity and st
 
 ### Model and feature pipeline
 
-The current learned estimator is calibrated **XGBoost**. The planned deep learning contribution is image embedding extraction; it does not exist yet. `preprocessing.py` unconditionally generates random 128-dimensional vectors, while `model_service.py` supplies zeros for those columns. The inference Lambda constructs only two metadata values plus ten embedding values and attempts to call a different artifact interface. These paths need one shared feature builder and loader.
+The active path is inference-only. `extract_pretrained_features.py` loads TorchXRayVision's published `densenet121-res224-all` chest X-ray weights and produces named pathology scores. It performs no fitting or fine-tuning. `decision_engine.py` combines those scores with metadata and access counts using `retrieval_policy_weights.json`. The previous XGBoost experiment remains in `legacy_training.py` for audit history; `train.py` exits deliberately.
+
+The checked-in retrieval coefficients are transparent engineering weights, not trained or clinically calibrated evidence. This keeps the system runnable without training while making its current limit explicit. The local API and Lambda now use the same decision engine. PyTorch remains offline; DynamoDB supplies precomputed pathology scores to Lambda.
 
 The current label is derived by checking whether a patient's follow-up number is below their maximum. It indicates that a later study exists, not that this particular image was accessed. Absence of another observed study is also not proof of permanent non-retrieval. The dataset does not supply the timestamps or access logs needed to validate a fixed retrieval horizon. Present proxy-label experiments as such, and reserve claims about actual retrieval for a future trace-backed study.
 
@@ -311,8 +313,8 @@ The following is a dependency-based delivery plan, not work already completed. E
 
 - [ ] Record Python/Node versions and supported environments. The installed Python 3.13 was used only for syntax parsing in this review; compatibility with the older pinned dependencies has not been established.
 - [ ] Resolve dependency manifests in an isolated environment. Backend imports include pandas and YAML, but its requirements do not declare them. Preprocessing writes Parquet without a declared Parquet engine.
-- [ ] Add a frontend lockfile from a successful install and build; document exact startup commands.
-- [ ] Make synthetic-data generation an explicit option and separate its outputs from authentic dataset inputs.
+- [x] Add a frontend lockfile and verify an optimized production build.
+- [x] Make synthetic-data generation an explicit option; preprocessing now requires `--demo-synthetic` when real metadata is absent.
 - [ ] Add an execution mode to API responses and UI; remove silent production fallback to mock success.
 - [ ] Replace stale component setup placeholders with actual instructions. Keep model weights, raw data, local databases, credentials, and generated dependencies excluded from Git.
 
@@ -323,7 +325,7 @@ Acceptance: a teammate can start an explicitly labeled local demo from a clean c
 - [ ] Replace placeholder download assumptions with a verified source manifest and fail on checksum/download errors.
 - [ ] Validate expected CSV columns, image existence, patient IDs, duplicate scans, age values, and view categories.
 - [ ] Document the follow-up proxy, missing observation horizon, and limitations of using findings available after interpretation.
-- [ ] Implement actual CNN extraction and a versioned 128-dimensional output contract; remove random vectors from evaluation mode.
+- [x] Implement published pretrained chest X-ray feature extraction and remove generated random embeddings from preprocessing.
 - [ ] Save patient split manifests, checksums, and fitted preprocessing artifacts. Assert no patient overlap and that each evaluation split supports the intended metrics.
 - [ ] Keep future-study information exclusively in label derivation, never in inference features.
 
@@ -331,12 +333,12 @@ Acceptance: one input image produces a reproducible embedding, and a run manifes
 
 ### M2 — Unify prediction and decision policy
 
-- [ ] Create common feature construction, artifact loading, probability prediction, and cost-policy modules used by all execution paths.
-- [ ] Package the trained model with ordered feature names, preprocessing/calibration versions, and dependency requirements.
-- [ ] Replace the Lambda's incompatible feature vector and artifact assumptions.
-- [ ] Align horizon, byte units, request costs, metadata overhead, retention effects, and tier names.
-- [ ] Separate financial cost from modeled access-delay penalty and expose a component breakdown.
-- [ ] Add policy constraints and a conservative missing-model/features outcome. Persist explicit failure reasons.
+- [x] Create common feature construction, fixed-weight scoring, and cost-policy code for the local API and inference Lambda.
+- [x] Package versioned policy weights and dependency requirements; no locally trained model artifact is required.
+- [x] Replace the Lambda's incompatible feature vector and pickle assumptions with named pathology scores.
+- [x] Align horizon, byte units, request costs, split archive metadata overhead, retention effects, and tier names in the shared engine.
+- [x] Separate financial cost from modeled access-delay penalty and expose a component breakdown.
+- [x] Keep sub-128 KB and missing-feature objects in Standard; persist the missing-feature status in Lambda.
 
 Acceptance: the same fixture yields equivalent features, probabilities, eligible tiers, and cost components offline, through Flask, and through a packaged Lambda invocation. Unit checks cover tiny objects, short horizons, probability boundaries, pinned-hot scans, and missing models.
 
@@ -367,7 +369,7 @@ Acceptance: a browser walkthrough covers successful actions, empty results, API 
 
 - [ ] Capture account/region settings and budget controls before provisioning. A budget notification is not a spending cap.
 - [ ] Add one repeatable infrastructure definition for private buckets, DynamoDB, Lambda packaging, API Gateway, authorizer, Cognito, notifications, queue/retries, logging, and permissions.
-- [ ] Use IAM roles in AWS and the standard credential provider chain locally; do not require static access-key environment variables to select cloud mode.
+- [x] Make the inference Lambda use execution-role credentials through the standard `boto3` chain; no static keys are required to build it.
 - [ ] Align resource names and scoped policies, including SNS and permissions needed to preserve tags or inspect/restore objects.
 - [ ] Deploy a small public-data fixture, register features, upload an object, and observe the resulting versioned decision and tag.
 - [ ] Verify lifecycle configuration against current service rules and wait for actual transition evidence.
@@ -403,7 +405,7 @@ Acceptance: product description, diagrams, code, demo, and report tell the same 
 | Priority | Finding | Next action |
 | --- | --- | --- |
 | P0 | Failed API mutations become mock successes | Require explicit demo mode; surface production failures |
-| P0 | Random/zero/truncated embeddings and incompatible model loading | Establish one feature/artifact contract |
+| Resolved in code; validation pending | Random/zero/truncated embeddings and incompatible model loading | Shared pretrained-score and policy contract implemented |
 | P0 | Cloud auth enforcement is not established | Implement authorizer and server-side role checks before cloud use |
 | P0 | Recommendation and actual tier are conflated | Implement requested/observed placement and reconciliation |
 | P1 | Cost formulas disagree and include penalties in bill-like totals | Share policy code and separate monetary reporting |
@@ -414,6 +416,25 @@ Acceptance: product description, diagrams, code, demo, and report tell the same 
 | P2 | Setup and root status are stale | Publish reproducible setup and verified status |
 
 The critical path is **M0 → M1 → M2 → M3 → M5**, with evaluation following M1/M2 and frontend work proceeding once M3 contracts are fixed. Prioritize trustworthy inputs and one consistent decision engine before polishing result claims.
+
+## Implementation decisions — 21 September 2026
+
+- **No model training:** use published TorchXRayVision `densenet121-res224-all` weights directly for offline chest X-ray scoring. `train.py` is disabled and the earlier experiment is retained only for audit history.
+- **Transparent retrieval policy:** combine named pathology scores, metadata, and access counts through the versioned `retrieval-policy-v1` coefficient file. These coefficients are provisional policy weights, not learned clinical evidence.
+- **One decision engine:** local Flask and the inference Lambda use the same standard-library module. Monetary cost and the access-delay penalty are returned separately.
+- **Lightweight cloud inference:** compute pathology scores before upload and store them in DynamoDB; Lambda does not carry PyTorch or the neural network weights.
+- **Credentials later:** AWS SDK clients use Lambda execution-role credentials or the standard local provider chain. Static keys are never part of source or `.env.example` requirements.
+- **Fail-safe ingest:** the complete S3 object key is the current scan ID. Missing features leave the object in Standard with `BLOCKED_MISSING_FEATURES`; successful recommendations are `PENDING_TRANSITION` until reconciliation confirms the actual class.
+- **Preserve object state:** tier tagging merges with existing S3 tags instead of replacing them.
+
+Implemented files: `src/ml_model/decision_engine.py`, `retrieval_policy_weights.json`, `extract_pretrained_features.py`; local adapter in `src/backend/model_service.py`; Lambda handler and bundle builder under `aws/lambda/tier_inference/`; unit checks under `tests/`.
+
+Validation on 21 September 2026: six Python unit tests passed, Python sources compiled, the Lambda
+source bundle was generated without AWS credentials, and the React production build completed.
+The pretrained weight download and a real-image inference run remain pending because the ML runtime
+was not installed during this slice. `npm audit --omit=dev` reports 30 transitive findings (14 high,
+7 moderate, 9 low) under Create React App 5; replacing that aging build chain is a separate frontend
+dependency task and no forced breaking audit fix was applied.
 
 ## Ownership and delivery conventions
 
