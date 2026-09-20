@@ -5,6 +5,10 @@
 Project Phase-I · BCSE355L Cloud Architecture Design · 2026
 Course Instructor: Dr. Priya V
 
+Detailed product description, current implementation review, architecture diagrams, and delivery
+plan: [`architecture/PRODUCT_AND_IMPLEMENTATION.md`](architecture/PRODUCT_AND_IMPLEMENTATION.md)
+(reviewed 21 September 2026).
+
 ---
 
 ## 1. What this project does
@@ -194,7 +198,7 @@ see [`src/backend/`](src/backend/), [`src/ml_model/`](src/ml_model/) and [`src/f
 | Repository structure | Done |
 | System architecture | Done — see [`architecture/`](architecture/) |
 | Dataset selection | Done — NIH ChestX-ray14 |
-| Implementation | Not started |
+| Implementation | Prototype source present: React dashboard, Flask/SQLite API, ML pipeline, and AWS handlers. Mock paths and cloud integration gaps remain; see the [implementation review](architecture/PRODUCT_AND_IMPLEMENTATION.md). |
 
 ### Build order
 
