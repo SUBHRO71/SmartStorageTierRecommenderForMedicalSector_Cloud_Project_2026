@@ -26,6 +26,25 @@ Which of these are actually used depends on the architecture, still under discus
 | **IAM** | Roles and least-privilege policies for every component |
 | **CloudWatch** | Logs, metrics, and the cost/latency evidence for our results |
 
+## Credential-free implementation status
+
+The inference Lambda is written and packaged without AWS access keys. In AWS, `boto3` obtains
+temporary credentials from the Lambda execution role. Local credentials can be supplied later
+through the standard AWS credential chain; they are not required to build or test the decision
+engine.
+
+Build the source bundle with:
+
+```bash
+python aws/lambda/tier_inference/build_package.py
+```
+
+The bundle copies the shared decision engine and the versioned policy weights. Image inference is
+performed before upload with published chest X-ray weights; Lambda consumes the stored
+`pathology_scores`, so PyTorch is not part of the function package. The S3 object key is currently
+the canonical `scan_id`. Missing registered features leave the object in Standard and record
+`BLOCKED_MISSING_FEATURES`.
+
 ## Rules — the first one is not negotiable
 
 **1. Never commit credentials.**

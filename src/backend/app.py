@@ -20,7 +20,9 @@ def health_check():
         'status': 'healthy',
         'service': 'Smart Storage Tier Recommender Backend',
         'mode': 'AWS DynamoDB' if db.use_aws else 'Local SQLite (Offline Dev)',
-        'model_loaded': model_service.predictor is not None
+        'model_loaded': model_service.predictor is not None,
+        'inference_mode': 'pretrained-weights-and-fixed-policy',
+        'policy_version': model_service.engine.version
     }), 200
 
 @app.route('/api/scans', methods=['GET'])
@@ -80,7 +82,11 @@ def predict_scan(scan_id):
             'predicted_class': prediction['predicted_class'],
             'probability': prediction['probability'],
             'reason': prediction['reason'],
-            'cost_breakdown': prediction['cost_breakdown']
+            'cost_breakdown': prediction['cost_breakdown'],
+            'feature_contributions': prediction['feature_contributions'],
+            'policy_version': prediction['policy_version'],
+            'price_snapshot': prediction['price_snapshot'],
+            'horizon_months': prediction['horizon_months']
         }), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500

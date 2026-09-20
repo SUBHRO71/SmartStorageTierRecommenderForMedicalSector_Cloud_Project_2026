@@ -1,6 +1,28 @@
 # src/ml_model/
 
-The deep learning model that recommends a storage tier for each scan. **Owner: Mehul Anand.**
+The inference-only model and policy that recommend a storage tier for each scan. **Owner: Mehul Anand.**
+
+## Current implementation decision
+
+The project does **not train a model locally**. `extract_pretrained_features.py` loads the
+published `densenet121-res224-all` chest X-ray weights through TorchXRayVision and produces
+pathology scores. `decision_engine.py` combines those scores with metadata using the checked-in
+`retrieval_policy_weights.json`, then applies the explicit S3 cost policy.
+
+The fixed retrieval-policy coefficients are provisional engineering weights, not fitted clinical
+evidence. This distinction is returned by the API through the policy version and must remain clear
+in reports. `train.py` intentionally exits; the old experimental trainer remains in
+`legacy_training.py` for audit history only.
+
+```bash
+pip install -r src/ml_model/requirements.txt
+python src/ml_model/extract_pretrained_features.py path/to/xray.png --output features.json
+python src/ml_model/predict.py --features features.json --metadata metadata.json --size-bytes 15728640
+python -m unittest discover -s tests -p "test_*.py" -v
+```
+
+The first feature extraction downloads the published weights into PyTorch's cache. It does not use
+AWS credentials and it does not fit or fine-tune the network.
 
 This is the core contribution of the project — everything else exists to serve, demonstrate or
 deploy what happens here.

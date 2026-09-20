@@ -1,4 +1,5 @@
 import os
+import argparse
 import yaml
 import pandas as pd
 import numpy as np
@@ -56,7 +57,7 @@ def generate_synthetic_chestxray_data(n_patients: int = 250, seed: int = 42) -> 
     return pd.DataFrame(records)
 
 def preprocess_data(df: pd.DataFrame, config: dict) -> pd.DataFrame:
-    """Preprocess DataFrame, derive retrieval label, engineer clinical metadata and embedding features."""
+    """Derive the proxy label and metadata features without training or fake embeddings."""
     df = df.copy()
     
     # 1. Target Derivation: retrieved_again
@@ -77,13 +78,6 @@ def preprocess_data(df: pd.DataFrame, config: dict) -> pd.DataFrame:
     df['gender_M'] = (df['Patient Gender'] == 'M').astype(int)
     df['view_PA'] = (df['View Position'] == 'PA').astype(int)
     
-    # 128-dimensional MobileNetV3 image embedding representation (simulated if offline)
-    np.random.seed(config.get('project', {}).get('seed', 42))
-    n_samples = len(df)
-    emb_data = np.random.normal(0, 1, (n_samples, 128)).astype(np.float32)
-    emb_df = pd.DataFrame(emb_data, columns=[f'emb_{i}' for i in range(128)], index=df.index)
-    df = pd.concat([df, emb_df], axis=1)
-        
     return df
 
 def split_data(df: pd.DataFrame, config: dict) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
@@ -108,21 +102,33 @@ def split_data(df: pd.DataFrame, config: dict) -> Tuple[pd.DataFrame, pd.DataFra
     return train_df, val_df, test_df
 
 def main():
+    parser = argparse.ArgumentParser(description="Prepare metadata without model training")
+    parser.add_argument(
+        "--demo-synthetic",
+        action="store_true",
+        help="Explicitly create synthetic demo records when the NIH metadata CSV is absent",
+    )
+    args = parser.parse_args()
     config_path = os.path.join(os.path.dirname(__file__), "config.yaml")
     config = load_config(config_path)
     
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
     raw_path = os.path.join(project_root, config['paths']['raw_data'])
     
-    if not os.path.exists(raw_path) or os.path.getsize(raw_path) < 1000:
+    if (not os.path.exists(raw_path) or os.path.getsize(raw_path) < 1000) and args.demo_synthetic:
         print(f"Generating rich synthetic demonstration dataset (1,000+ scans) at {raw_path}...")
         os.makedirs(os.path.dirname(raw_path), exist_ok=True)
         df = generate_synthetic_chestxray_data(n_patients=350, seed=config['project']['seed'])
         df.to_csv(raw_path, index=False)
         print(f"Created {len(df)} records across {df['Patient ID'].nunique()} unique patients.")
-    else:
+    elif os.path.exists(raw_path) and os.path.getsize(raw_path) >= 1000:
         df = pd.read_csv(raw_path)
         print(f"Loaded raw dataset from {raw_path} ({len(df)} records).")
+    else:
+        raise FileNotFoundError(
+            f"Dataset metadata not found at {raw_path}. Download it first or pass "
+            "--demo-synthetic for an explicitly labelled demo dataset."
+        )
         
     print("Preprocessing data and deriving retrieval target...")
     processed_df = preprocess_data(df, config)
@@ -141,13 +147,9 @@ def main():
     
     # Save features.csv and sample.csv
     sample_path = os.path.join(out_dir, "sample.csv")
-    features_summary_path = os.path.join(out_dir, "sample_features.csv")
     processed_df.head(20).to_csv(sample_path, index=False)
-    processed_df.head(20).to_csv(features_summary_path, index=False)
     
-    # Also save a features.csv with just the metadata + target
-    non_emb_cols = [c for c in processed_df.columns if not c.startswith('emb_')]
-    processed_df[non_emb_cols].to_csv(os.path.join(out_dir, "features.csv"), index=False)
+    processed_df.to_csv(os.path.join(out_dir, "features.csv"), index=False)
     
     print("Preprocessing complete!")
 

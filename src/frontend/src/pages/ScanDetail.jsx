@@ -34,7 +34,10 @@ const ScanDetail = () => {
         predicted_class: res.data.predicted_class || res.data.class,
         probability: res.data.probability,
         reason: res.data.reason,
-        cost_breakdown: res.data.cost_breakdown || prev.cost_breakdown
+        cost_breakdown: res.data.cost_breakdown || prev.cost_breakdown,
+        policy_version: res.data.policy_version,
+        price_snapshot: res.data.price_snapshot,
+        horizon_months: res.data.horizon_months
       }));
     } catch (error) {
       console.error("Error running prediction:", error);
@@ -135,7 +138,7 @@ const ScanDetail = () => {
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <div className="flex items-center space-x-2 mb-4">
               <CurrencyDollarIcon className="h-5 w-5 text-gray-500" />
-              <h2 className="text-lg font-semibold text-gray-900">Expected Annual Cost Comparison by Storage Class</h2>
+              <h2 className="text-lg font-semibold text-gray-900">Expected {data.horizon_months || 12}-Month Policy Comparison</h2>
             </div>
             
             <div className="overflow-x-auto">
@@ -143,12 +146,17 @@ const ScanDetail = () => {
                 <thead className="bg-gray-50">
                   <tr>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Storage Class</th>
-                    <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Expected Total Cost / Yr</th>
+                    <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Monetary Cost</th>
+                    <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Access Penalty</th>
+                    <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Policy Score</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {Object.entries(costBreakdown).map(([tier, cost]) => {
                     const isSelected = tier.toUpperCase() === predClass.toUpperCase();
+                    const detail = typeof cost === 'number'
+                      ? { monetary_cost: cost, access_delay_penalty: 0, policy_score: cost }
+                      : cost;
                     return (
                       <tr key={tier} className={isSelected ? "bg-green-50" : ""}>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
@@ -156,13 +164,23 @@ const ScanDetail = () => {
                           {isSelected && <span className="ml-2 text-xs text-green-700 font-bold">(Argmin Optimal)</span>}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-mono font-semibold">
-                          ${typeof cost === 'number' ? cost.toFixed(4) : cost}
+                          ${Number(detail.monetary_cost).toFixed(5)}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-mono text-gray-600">
+                          {Number(detail.access_delay_penalty).toFixed(5)}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-mono font-semibold">
+                          {Number(detail.policy_score).toFixed(5)}
                         </td>
                       </tr>
                     );
                   })}
                 </tbody>
               </table>
+              <p className="mt-3 text-xs text-gray-500">
+                Monetary cost and the modeled access-delay penalty are shown separately.
+                {data.policy_version ? ` Policy: ${data.policy_version}.` : ''}
+              </p>
             </div>
           </div>
         </div>
