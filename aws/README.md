@@ -1,93 +1,62 @@
-# aws/
+# AWS implementation
 
-Cloud infrastructure configuration. **Primary owner: Subhrojyoti Das** — but every team member must
-contribute here and be able to explain their own AWS integration individually at review.
+`template.yaml` is the deployable SAM/CloudFormation source of truth. It creates:
 
-## What goes here
+- a private, encrypted, versioned medical-image bucket with tag-filtered Lifecycle rules;
+- a private frontend bucket served through CloudFront Origin Access Control;
+- DynamoDB scan-state and append-only decision-audit tables with point-in-time recovery;
+- Cognito user pool, web client, and `viewer`, `archive-admin`, and `operator` groups;
+- API Gateway with a Cognito authorizer;
+- API and inference/reconciliation Lambda functions with scoped policies;
+- an EventBridge schedule, CloudWatch custom metrics/logs, and an SNS restore-event topic.
 
-| File | Purpose |
-| --- | --- |
-| `s3_lifecycle.json` | S3 lifecycle rules and storage class transitions |
-| `iam_policies/` | IAM roles and policies, one file per role |
-| `lambda/` | Lambda function source and deployment configuration |
-| `cloudwatch/` | Metric filters, alarms, dashboard definitions |
-| `infrastructure.yaml` | CloudFormation or Terraform definition, if used |
-| `cost_estimates.md` | Pricing assumptions and projected monthly cost |
+## Credential-free checks
 
-## Services in scope
-
-Which of these are actually used depends on the architecture, still under discussion:
-
-| Service | Likely role |
-| --- | --- |
-| **S3** | Stores the scans. The storage classes are the thing this project predicts. |
-| **Lambda** | Runs the tier prediction on ingest, or on a schedule |
-| **EC2** | Hosts the backend and, if needed, model training |
-| **IAM** | Roles and least-privilege policies for every component |
-| **CloudWatch** | Logs, metrics, and the cost/latency evidence for our results |
-
-## Credential-free implementation status
-
-The inference Lambda is written and packaged without AWS access keys. In AWS, `boto3` obtains
-temporary credentials from the Lambda execution role. Local credentials can be supplied later
-through the standard AWS credential chain; they are not required to build or test the decision
-engine.
-
-Build the source bundle with:
-
-```bash
+```powershell
+python aws/lambda/api_handler/build_package.py
 python aws/lambda/tier_inference/build_package.py
+cfn-lint aws/template.yaml
+python -m unittest discover -s tests -p "test_*.py" -v
 ```
 
-The bundle copies the shared decision engine and the versioned policy weights. Image inference is
-performed before upload with published chest X-ray weights; Lambda consumes the stored
-`pathology_scores`, so PyTorch is not part of the function package. The S3 object key is currently
-the canonical `scan_id`. Missing registered features leave the object in Standard and record
-`BLOCKED_MISSING_FEATURES`.
+The Lambda bundles include the shared pure-Python decision engine and policy JSON. PyTorch and model weights are not packaged because image scores are extracted before upload.
 
-## Rules — the first one is not negotiable
+## Deploy
 
-**1. Never commit credentials.**
-No access keys, no secret keys, no session tokens, no `.aws/credentials`, no `.env`. Git history is
-permanent — a key committed and then deleted in a later commit is still in the repository and must
-be treated as compromised and rotated immediately. Bots scan public GitHub for AWS keys within
-minutes, and the bill lands on whoever owns the account.
+Configure an AWS CLI profile, SSO session, or temporary environment credentials. SDK code uses the standard AWS chain and Lambda execution roles; no key is read from a committed file.
 
-Use environment variables locally and IAM roles in AWS. Commit `.env.example` with variable names
-and empty values.
+Create a low AWS Budget alert in the intended account, then run:
 
-**2. Least privilege.**
-Each role gets exactly the permissions it needs. Do not attach `AdministratorAccess` because it is
-faster — an over-permissive policy is the kind of thing a reviewer will notice and ask about.
+```powershell
+.\aws\deploy.ps1 -Region us-east-1 -StackName smart-storage-tier -NotificationEmail you@example.com
+```
 
-**3. Watch the cost.**
-Free tier is limited and this project moves data between storage classes. Note that:
-- S3 transitions between classes are charged **per request**
-- Glacier and Deep Archive have **minimum storage durations** — deleting early still incurs a charge
-- Retrieval from Deep Archive costs money **and** takes hours
+The script validates the caller, creates/reuses an artifact bucket, builds and packages Lambda code, deploys the stack, derives an ignored Vite production environment from outputs, builds `dist/`, uploads it, and invalidates CloudFront.
 
-These charges are exactly what our cost model must account for. The Khan et al. paper our team
-reviewed omitted them, which is one of its stated limitations — we should not repeat that mistake.
+## Ingest a scan
 
-**4. Set a billing alarm before doing anything else.** A CloudWatch billing alarm at a low
-threshold has saved many student projects from an unpleasant surprise.
+First extract scores using the published weights:
 
-## For the individual defence
+```powershell
+python src/ml_model/extract_pretrained_features.py path\to\xray.png --output temp\features.json
+```
 
-Each member must be able to say which AWS services they personally configured and explain how they
-work. Record ownership here as it is decided:
+Preview the cloud registration without changing AWS:
 
-| Service | Configured by |
-| --- | --- |
-| S3 static website hosting | Pratyush Chandrasekhar |
-| CloudFront | Pratyush Chandrasekhar |
-| CloudWatch dashboards | Pratyush Chandrasekhar |
-| API Gateway | Subhrojyoti Das |
-| Lambda — `api_handler` | Subhrojyoti Das |
-| DynamoDB | Subhrojyoti Das |
-| IAM roles and policies | Subhrojyoti Das |
-| S3 Lifecycle configuration | Subhrojyoti Das |
-| S3 image store bucket | Mehul Anand |
-| Lambda — `tier_inference` | Mehul Anand |
-| CloudWatch custom metrics | Mehul Anand |
-| AWS Budgets alarm | All — set this first |
+```powershell
+python aws/ingest_scan.py path\to\xray.png --features temp\features.json --bucket STACK_IMAGE_BUCKET --table STACK_SCAN_TABLE --dry-run
+```
+
+Remove `--dry-run` after credentials and stack outputs are available. The script registers features in DynamoDB before uploading to S3, preventing the normal event from racing ahead of its input features.
+
+## Operational behavior
+
+- Missing feature registration records `BLOCKED_MISSING_FEATURES` and leaves the object in Standard.
+- Existing S3 tags are preserved when the requested tier tag is added.
+- Tier overrides require an `archive-admin` or `operator` Cognito group and a reason.
+- Moves to a more accessible tier use a same-key S3 copy; archived sources must be restored first.
+- Archive restores call `RestoreObject`; Standard and Standard-IA return `NOT_REQUIRED`.
+- Hourly reconciliation reads S3 storage class and restore headers, updates observed state, and appends audit events.
+- Standard-IA transitions begin after 30 days. Glacier tiers use immediate eligible Lifecycle transitions, which remain asynchronous.
+
+Never commit credentials, `.env` files, generated production configuration, raw medical images, local tables, or Lambda bundles.

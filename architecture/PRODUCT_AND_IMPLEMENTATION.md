@@ -1,13 +1,13 @@
 ---
-title: CloudTierRecommender — Product, Architecture and Implementation Plan
+title: CloudTierRecommender — Product, Architecture and Implementation
 aliases:
   - Smart Storage Tier Recommender for the Medical Sector
 tags:
   - projects
-  - cloud-architecture
-  - machine-learning
+  - aws
   - medical-imaging
-status: prototype
+  - inference
+status: implementation-complete-credentials-pending
 reviewed: 2026-09-21
 ---
 
@@ -15,441 +15,337 @@ reviewed: 2026-09-21
 
 ## Product description
 
-**CloudTierRecommender is an explainable storage decision system for medical image repositories.** It aims to reduce the cost of retaining scans by recommending an Amazon S3 storage class for each object, while accounting for the consequences of delaying access to a scan that is needed again.
+CloudTierRecommender is an explainable storage placement system for medical image repositories. It recommends one of four Amazon S3 storage classes for each scan: Standard, Standard-IA, Glacier Flexible Retrieval, or Glacier Deep Archive. The product balances storage cost against the probability and operational consequence of retrieving a scan again.
 
-The full project title is **Smart Storage Tier Recommender for the Medical Sector**, developed for Project Phase-I, BCSE355L Cloud Architecture Design, 2026, under Dr. Priya V. The local repository is named `CloudTierRecommender`; this name is used for the Obsidian project folder.
+The product separates three concerns that are often mixed together:
 
-A medical archive contains studies with different access patterns. Some images will be needed repeatedly for comparisons or follow-up, while others will remain untouched for a long time. Keeping every image in immediately accessible storage can waste money. Archiving indiscriminately can create retrieval delays. The product makes this tradeoff visible and measurable rather than hiding it behind a single classification label.
+1. A published chest X-ray network converts an image into 18 named pathology scores.
+2. A versioned, fixed scoring policy combines those scores with non-identifying metadata and access counts to estimate retrieval probability.
+3. An explicit cost policy compares every eligible S3 tier and chooses the lowest policy score. Monetary cost and the modeled access-delay penalty remain separate and visible.
 
-The intended system combines image-derived features, metadata available at ingest, and access history when available. A calibrated model estimates retrieval probability. An explicit policy evaluates candidate storage classes and chooses the lowest expected cost subject to access requirements. An operator can inspect the probability, assumptions, alternatives, and reason for a recommendation before relying on it.
+No model is trained or fine-tuned by this project. Image feature extraction loads the published TorchXRayVision `densenet121-res224-all` weights directly. The former XGBoost experiment remains only as historical code in `legacy_training.py`; `train.py` deliberately exits so the active workflow cannot accidentally start training.
 
-The four initial candidates are S3 Standard, Standard-IA, Glacier Flexible Retrieval, and Glacier Deep Archive. The implementation uses `STANDARD`, `STANDARD_IA`, `GLACIER`, and `DEEP_ARCHIVE` as AWS-facing names. `GLACIER` here does not mean Glacier Instant Retrieval.
+The system supports two complete execution modes. Local mode uses Flask, SQLite, local mock authentication, and the real shared decision engine. AWS mode uses CloudFront, private S3, Cognito, API Gateway, Lambda, DynamoDB, EventBridge, SNS, and S3 Lifecycle. The application never stores access keys in source. AWS SDKs use the normal credential chain locally and Lambda execution roles in the cloud.
 
-### Product promise and research hypothesis
+### Product goals
 
-The product promise is an auditable answer to three questions: **where should this scan be stored, why, and what cost/access tradeoff does that imply?** The research hypothesis is that image content and medical metadata add predictive value beyond simple age or access-history rules, particularly when a new image has little history.
+- Give an archive administrator a clear recommendation, retrieval probability, cost breakdown, and explanation for every scan.
+- Keep the requested storage tier distinct from the tier observed on the S3 object.
+- Require a reason for manual overrides and keep an append-only audit history.
+- Support archived-object restore requests and reconcile completion from S3 state.
+- Show cost comparisons against simple baseline policies without presenting modeled penalties as an AWS bill.
+- Run the entire product locally before an AWS account is connected.
 
-This hypothesis remains to be demonstrated. The repository's broad novelty statements should be treated as the team's research positioning, not as proof that no prior work exists. Likewise, the current implementation does not establish a clinically validated retrieval prediction system.
+### Users and workflows
 
-### Users and jobs
-
-| User | Job | Product behavior |
+| User | Main workflow | Enforcement |
 | --- | --- | --- |
-| Archive administrator | Control storage placement and investigate exceptions | Browse objects, inspect decisions, request overrides, follow transition status |
-| Radiology reviewer | Understand availability of a prior study | See actual storage state, expected retrieval workflow, and restore progress |
-| Cloud operator | Keep the pipeline reliable and accountable | Monitor failures, retry work, inspect audit records, track spend |
-| Researcher or course evaluator | Assess whether the approach works | Reproduce experiments, compare baselines, inspect limitations and ablations |
+| Viewer | Sign in, view dashboard, search scans, inspect explanations and costs | Cognito authenticated read routes in AWS |
+| Archive administrator | Request tier overrides and restores | `archive-admin` Cognito group |
+| Operator | Run placement and recovery operations | `operator` Cognito group |
+| Evaluator | Run local API/UI, test inference, inspect architecture and evidence | Local mode with explicit demo identity |
 
-### Main user journeys
+The normal workflow is:
 
-1. **Review the archive:** sign in, open the dashboard, examine tier distribution and cost estimates, then filter the scan browser to investigate individual objects. Every aggregate should identify its dataset, time horizon, and whether it is simulated or measured.
-2. **Explain a recommendation:** open a scan, inspect available metadata and feature quality, review retrieval probability, compare cost components for all eligible tiers, and read the policy explanation.
-3. **Request an override:** an authorized administrator selects a tier and supplies a reason. The system records the request and shows it as pending until the storage operation is confirmed. A database edit alone must not imply the object has moved.
-4. **Retrieve an archived scan:** request restoration, show progress, notify the requester on completion, and record the access event for later policy evaluation. This workflow is planned, not implemented end to end.
-5. **Evaluate the model:** run a reproducible experiment, compare monetary cost and access-delay outcomes, and export evidence for the report. A demo dataset must remain visibly distinct from an evaluation dataset.
+1. Extract pathology scores from an image with the published model weights.
+2. Register metadata and scores in DynamoDB before uploading the object.
+3. Upload the image to the private S3 image bucket.
+4. The S3 event invokes the inference Lambda.
+5. The shared decision engine calculates retrieval probability and per-tier costs.
+6. Lambda preserves existing object tags, writes the requested `tier` tag, stores pending placement state, writes an audit event, and emits CloudWatch metrics.
+7. S3 Lifecycle performs eligible transitions asynchronously.
+8. A scheduled reconciliation invocation reads actual S3 storage and restore state and updates DynamoDB.
+9. The dashboard exposes the decision, actual state, cost model, overrides, restore state, and audit events.
 
-### Scope and boundaries
+### Safety and product boundaries
 
-The MVP covers public or synthetic research data, offline feature preparation, probability estimation, an explicit cost policy, a local dashboard/API, and a small AWS mechanism demonstration. It is a storage research prototype, not a diagnostic model or a replacement for a PACS viewer. Real hospital integration, production access controls, clinical validation, and operational service commitments are later work.
+This is a storage research and demonstration system. It is not a diagnostic tool, PACS replacement, clinical decision support product, or clinically calibrated retrieval predictor. It uses public or synthetic research data and avoids patient names and dates of birth. The fixed retrieval coefficients and access-delay penalties are transparent engineering assumptions that require sensitivity analysis before a research claim or operational rollout.
 
-The proposed design uses serverless AWS services and local/Colab training. SQLite is a development convenience; DynamoDB is the intended cloud metadata store. Serverless reduces continuously running compute, but stored data and other services can still incur charges. Free-tier eligibility and remaining credits must be checked against the actual account rather than inferred from old README statements.
+## Delivered state
 
-## Review basis and current status
-
-This document was prepared from the root and component READMEs, architecture notes and decision records, repository structure, application source, AWS configuration, and saved result artifacts on **21 September 2026**. Report PDFs were inventoried but not independently re-reviewed. No AWS deployment was executed during this review.
-
-The root README says implementation has not started. That is stale: substantial prototype code exists. Presence of source code is distinguished below from runtime verification and deployed behavior.
-
-| Area | Observed implementation | Remaining boundary |
+| Area | Delivered behavior | Remaining external action |
 | --- | --- | --- |
-| Frontend | React 18, React Router, Axios, Recharts, Tailwind; login, dashboard, browser, detail, cost pages | No build verified in this review; request failures silently return mock data |
-| Authentication | Amplify/Cognito client integration and local mock login | Server authorization and enforced roles are not established |
-| Local backend | Flask routes, SQLite seed data, model-service adapter | Placeholder aggregate values, implicit fallbacks, incomplete input validation |
-| Cloud database | DynamoDB reads and updates | Pagination incomplete; summary implementation still opens SQLite |
-| ML | Inference-only TorchXRayVision extractor using published `densenet121-res224-all` weights | Weight download and extraction still need validation against a real image fixture |
-| Cost policy | Shared versioned retrieval weights and one pure-Python cost engine | Coefficients remain a provisional engineering policy and need sensitivity analysis |
-| AWS inference | Shared engine, lazy AWS clients, safe missing-feature state, tag preservation, Lambda bundle builder | No deployed integration proof or placement reconciler yet |
-| AWS API | Routing and basic reads/updates | Prediction, dashboard, and cost responses contain stubs |
-| Infrastructure | Lifecycle, IAM, Cognito, SNS JSON examples | No complete repeatable stack, integration proof, or restore pipeline found |
-| Evidence | Metrics JSON, cost CSV/chart, experiment plots | Results lack a complete provenance manifest and do not substantiate the product hypothesis |
+| Frontend | React 18, Vite, Tailwind, Recharts; login, dashboard, search/filter browser, detail, prediction, override, restore, audit, and cost pages | Publish generated `dist/` through the deployment script |
+| Local backend | Validated Flask API, SQLite migrations/seeding, computed summaries/costs, audit log, restore simulation | None |
+| Cloud API | Cognito-protected routes, group checks, DynamoDB paging contract, real predictions, S3 tagging/restores, audit, summaries, and structured errors | Deploy with AWS credentials |
+| Inference | Official pretrained TorchXRayVision weights offline; one shared fixed policy online; no training | Run extraction on the selected project image set |
+| AWS mechanism | S3 event inference, safe missing-feature state, tag preservation, Lifecycle rules, scheduled placement/restore reconciliation, metrics, SNS restore event | Deploy and observe live service behavior |
+| Infrastructure | One validated SAM/CloudFormation template plus Lambda bundle builders and one PowerShell deployment command | Supply AWS credentials, region, and optional notification email |
+| Security | Private encrypted/versioned buckets, CloudFront OAC, Cognito authorizer/groups, scoped SAM policies, no embedded credentials | Create users and assign groups after deployment |
 
-### What the saved results actually show
-
-`results/latest_metrics.json` records 560 training samples, 127 test samples, ROC AUC **0.4880**, and Brier score **0.2607**. `results/evaluation_summary.json` records all 127 evaluated objects in Standard-IA, a modeled cost of approximately **0.4462**, all-Standard cost of **0.5258**, a reported **15.14%** reduction, and **0%** wrongly archived.
-
-These are saved prototype outputs, not independently reproduced results. AUC is near chance. Zero wrongly archived is unsurprising when no object is assigned to an archive tier. The cost calculation includes a configurable access-delay penalty, so its total must not be presented as an actual AWS bill. There is no result manifest proving that these outputs came from authentic NIH images, and preprocessing can generate synthetic records automatically. These files are useful as a pipeline checkpoint, not as headline evidence of successful deep learning.
+The implementation is complete in code. The only blocker to provisioning and live AWS evidence is an AWS identity with permission to deploy the stack. Scientific validation of the fixed policy remains a research activity rather than an application coding gap.
 
 ## Repository map
 
 ```text
 CloudTierRecommender/
-├── README.md                     Project overview, team, workflow
+├── README.md
 ├── architecture/
-│   ├── README.md                 Original logical and AWS designs
-│   ├── decisions.md              Architecture decision records
-│   ├── make_diagrams.py          Report diagram generator
-│   └── PRODUCT_AND_IMPLEMENTATION.md  This review and delivery plan
+│   ├── PRODUCT_AND_IMPLEMENTATION.md   This canonical implementation record
+│   ├── README.md                       Earlier architecture notes
+│   └── decisions.md                    Architecture decision records
 ├── aws/
-│   ├── lambda/api_handler/       Cloud API prototype
-│   ├── lambda/tier_inference/    S3-event inference prototype
-│   ├── iam_policies/             Service permission templates
-│   ├── cognito_config.json       Identity configuration example
-│   ├── sns_config.json           Notification configuration example
-│   ├── s3_lifecycle.json          Tag-filtered transition rules
-│   └── cost_estimates.md          Existing cost assumptions
-├── dataset/
-│   ├── raw/                      Downloader; local data excluded from Git
-│   └── processed/                Generated features and splits, excluded
+│   ├── template.yaml                   Deployable SAM/CloudFormation stack
+│   ├── deploy.ps1                      Package, deploy, build, publish
+│   ├── ingest_scan.py                  Register features, then upload image
+│   ├── lambda/api_handler/             Cloud REST API Lambda
+│   ├── lambda/tier_inference/          S3 inference and scheduled reconciler
+│   └── iam_policies/                   Reviewable policy references
 ├── src/
-│   ├── frontend/
-│   │   ├── public/               HTML entry
-│   │   └── src/                  Pages, components, API client, auth
-│   ├── backend/                  Flask API, database adapter, model adapter
-│   └── ml_model/                 Preprocess, train, predict, evaluate, config
-├── results/                      Saved metrics, tables, charts; weights excluded
-├── docs/                         Report PDFs and report-generation scripts
-└── presentation/                 Presentation guidance and future demo assets
+│   ├── backend/                        Flask + SQLite local application
+│   ├── frontend/                       React + Vite browser application
+│   └── ml_model/                       Pretrained extraction and shared policy
+├── tests/                              Local API, cloud handlers, and policy tests
+├── dataset/                            Data scripts and excluded local data
+├── results/                            Saved historical experiment artifacts
+└── docs/                               Course reports
 ```
 
-Keep this structure. Add shared contracts and common inference/policy code as the implementation converges; avoid rewriting the application merely to impose a new layout. The Obsidian copy of this document is self-contained. Repository paths in backticks are source references, not links that depend on the vault's location.
+Generated frontend builds, Lambda bundles, local databases, credentials, model checkpoints, and image data are ignored by Git.
 
-## Architecture diagrams
+## Architecture
 
-### Current prototype architecture
+### Local end-to-end mode
 
-Solid arrows describe code paths present in the checkout. Separate cloud nodes do not imply a verified deployment.
+```mermaid
+flowchart LR
+    USER["Browser user"] --> AUTH["Explicit local mock sign-in"]
+    AUTH --> UI["React + Vite UI"]
+    UI -->|"HTTP /api"| API["Flask API"]
+    API --> DB[("SQLite scans + audit events")]
+    API --> ENGINE["Shared decision engine"]
+    ENGINE --> WEIGHTS["Versioned fixed policy JSON"]
+    DB --> DASH["Computed dashboard and cost baselines"]
+    DASH --> API
+```
+
+Local API failures remain visible errors. Mock API data is used only when `VITE_USE_MOCK_API=true`; the client never silently converts a live failure into a successful mock mutation.
+
+### AWS deployment architecture
 
 ```mermaid
 flowchart TB
-    UI["React dashboard"] --> CLIENT["Axios API client"]
-    CLIENT --> FLASK["Flask API"]
-    CLIENT -. "on request failure" .-> MOCK["Mock responses"]
-    FLASK --> DB["DatabaseClient"]
-    DB --> SQL[("Local SQLite")]
-    DB -. "partial AWS mode" .-> DDB[("DynamoDB")]
-    FLASK --> MS["ModelService"]
-    MS --> MODEL["Saved XGBoost model or heuristic"]
-    RAW["CSV or synthetic records"] --> PRE["Preprocessing and random embeddings"]
-    PRE --> TRAIN["Patient split and calibrated training"]
-    TRAIN --> MODEL
-    MODEL --> EVAL["Offline cost evaluation"]
-    EVAL --> FILES["Metrics and result files"]
-    FILES --> FLASK
-    S3[("S3 objects")] --> LI["Separate inference Lambda prototype"]
-    DDB --> LI
-    LI --> TAG["S3 tier tag"]
-    TAG --> LC["Lifecycle configuration"]
-    LA["Separate API Lambda with stubs"] --> DDB
+    USER["Viewer / administrator / operator"] --> CF["CloudFront"]
+    CF --> WEB[("Private frontend S3 bucket")]
+    USER --> COG["Cognito User Pool"]
+    WEB --> APIGW["API Gateway + Cognito authorizer"]
+    APIGW --> API["API Lambda"]
+    API --> SCANS[("DynamoDB ScanTable")]
+    API --> AUDIT[("DynamoDB DecisionAuditTable")]
+    API --> IMG[("Private encrypted image S3 bucket")]
+
+    PRE["Official pretrained TorchXRayVision weights"] --> SCORES["18 pathology scores JSON"]
+    SCORES --> INGEST["ingest_scan.py"]
+    INGEST -->|"register first"| SCANS
+    INGEST -->|"upload second"| IMG
+
+    IMG -->|"ObjectCreated"| INF["Inference Lambda"]
+    SCANS --> INF
+    POLICY["Shared retrieval policy"] --> INF
+    INF -->|"merge requested tier tag"| IMG
+    INF --> AUDIT
+    INF --> CW["CloudWatch metrics and logs"]
+    IMG --> LIFE["Tag-filtered S3 Lifecycle"]
+    LIFE --> IMG
+
+    EB["Hourly EventBridge schedule"] --> INF
+    INF -->|"head object and reconcile"| SCANS
+    IMG -->|"restore-completed event"| SNS["SNS notification topic"]
 ```
 
-### Target architecture
-
-This is the proposed integrated architecture. Queued retries, reconciliation, restore handling, and shared packaging are implementation work, not claims about current capabilities.
-
-```mermaid
-flowchart TB
-    subgraph Offline["Offline data and model preparation"]
-        DS["Dataset and provenance manifest"] --> FE["Metadata normalization and real image embeddings"]
-        FE --> SPLIT["Patient-disjoint train, validation, test"]
-        SPLIT --> FIT["XGBoost and calibration"]
-        FIT --> ART["Versioned model and feature contract"]
-        FIT --> EXP["Baseline evaluation and sensitivity analysis"]
-    end
-    subgraph Access["User access"]
-        USER["Administrator or reviewer"] --> WEB["React through CloudFront and private S3 origin"]
-        WEB --> AUTH["Cognito"]
-        WEB --> GW["API Gateway with authorizer"]
-        GW --> API["API Lambda and role checks"]
-    end
-    subgraph Storage["Storage decision pipeline"]
-        ING["Controlled ingest"] --> IMG[("Private S3 image bucket")]
-        FE --> META[("DynamoDB scan features")]
-        IMG --> Q["Inference queue and retry handling"]
-        Q --> INF["Inference Lambda"]
-        META --> INF
-        ART --> INF
-        INF --> POLICY["Shared cost policy and access constraints"]
-        POLICY --> TAGS["Preserve tags and set requested tier"]
-        TAGS --> IMG
-        IMG --> LIFE["Eligible Lifecycle transition"]
-        LIFE --> IMG
-        POLICY --> AUDIT[("Versioned decision audit")]
-        RECON["Storage-state reconciliation"] --> META
-        IMG --> RECON
-        API --> META
-        API --> AUDIT
-        API --> RESTORE["Restore request and status handler"]
-        RESTORE --> IMG
-    end
-    INF --> OBS["CloudWatch logs, metrics and alarms"]
-    API --> OBS
-    Q --> DLQ["Failed work queue"]
-    RESTORE --> SNS["SNS completion or failure notification"]
-    EXP --> REPORT["Report and dashboard evaluation view"]
-```
-
-The model recommends; policy constrains; S3 performs eligible transitions; reconciliation confirms actual state. Training runs offline so the online service does not need to execute a large image network for each recommendation. Images remain in S3, while metadata, feature references, and decisions remain queryable independently.
-
-### Target ingest and decision sequence
+### Ingest and placement sequence
 
 ```mermaid
 sequenceDiagram
     autonumber
-    participant I as Ingest service
-    participant D as Feature store
+    participant O as Operator
+    participant X as Pretrained extractor
+    participant D as DynamoDB
     participant S as S3
-    participant Q as Work queue
-    participant L as Inference worker
-    participant A as Decision audit
-    participant R as Reconciler
-    I->>D: Register stable scan ID and feature readiness
-    I->>S: Upload object using registered identity
-    S-->>Q: Object-created event
-    Q->>L: Deliver versioned object event
-    L->>D: Fetch features and policy constraints
-    alt Features missing or incompatible
-        L->>D: Record blocked decision; retain Standard
-        L-->>Q: Retry or route to failed work queue
+    participant L as Inference Lambda
+    participant A as Audit table
+    participant R as Scheduled reconciler
+    O->>X: Extract pathology scores from image
+    X-->>O: JSON with weight name and source SHA-256
+    O->>D: Register opaque scan ID, object location, metadata, scores
+    O->>S: Upload object
+    S->>L: ObjectCreated event
+    L->>D: Read registered features
+    alt Features missing
+        L->>D: BLOCKED_MISSING_FEATURES; requested STANDARD
+        L->>A: Record blocked decision
     else Features ready
-        L->>L: Validate schema, infer probability, evaluate eligible tiers
-        L->>A: Record versioned recommendation
-        L->>S: Merge tier tag with existing tags
-        L->>D: Store requested tier and pending status
-        Note over S: Lifecycle applies eligible transition asynchronously
-        R->>S: Inspect actual storage class
-        R->>D: Update observed tier and confirmation timestamp
+        L->>L: Score retrieval and compare tier policy costs
+        L->>S: Preserve tags and set requested tier tag
+        L->>D: Store recommendation and PENDING_TRANSITION
+        L->>A: Append versioned recommendation
     end
+    R->>S: Read actual storage class and restore header
+    R->>D: Store observed tier and completion state
+    R->>A: Append reconciliation event
 ```
 
-## Component responsibilities and contracts
+## Main contracts
 
-### Frontend
+### REST API
 
-Keep the existing page structure: login, dashboard, scan browser, scan detail, and cost comparison. The dashboard should separate observed storage distribution from recommendation distribution. Detail should show requested tier, observed tier, transition status, model version, and explanation. Cost comparisons should state horizon, currency, dataset, sample count, assumptions, and run ID.
-
-Mock mode must be an explicit development setting with a visible indicator. A failed production request must produce an error state, especially for mutations; it must not become a successful mock override. Handle loading, empty results, expired login, denied actions, and retryable failures distinctly.
-
-### API and authorization
-
-The Flask implementation is the local adapter. API Gateway/Lambda is the target cloud adapter. They should invoke the same application services and share response contracts rather than implement different prediction and cost logic.
-
-| Endpoint | Present behavior | Target contract |
+| Method | Route | Behavior |
 | --- | --- | --- |
-| `GET /api/health` | Local mode/model status | Report readiness and explicit execution mode without sensitive details |
-| `GET /api/scans` | Local pagination; limited DynamoDB scan | Bounded limit, documented filtering, opaque continuation token |
-| `GET /api/scans/{id}` | Metadata and local computed costs | Stable identity, feature status, latest decision, actual storage state |
-| `POST /api/scans/{id}/predict` | Local prediction; cloud stub | Versioned decision with probability, policy costs, and status |
-| `POST /api/scans/{id}/tier` | Database-only mutation | Authorized override request with reason, request ID, pending state |
-| `GET /api/costs` | Mixed saved and placeholder values | One evaluation artifact with provenance and separate cost categories |
-| `GET /api/dashboard/summary` | Mixed aggregates and constants | Source-backed counts with freshness and measurement scope |
-| `POST /api/scans/{id}/restore` | Missing | Idempotent restore request; return job ID and accepted status |
-| `GET /api/scans/{id}/restore` | Missing | Pending, available-until, complete, or failed state |
+| `GET` | `/api/health` | Local readiness, execution mode, auth mode, policy version |
+| `GET` | `/api/scans?page=&limit=&tier=&search=` | Validated, bounded, filtered scan page |
+| `GET` | `/api/scans/{id}` | Metadata, state, explanation, per-tier costs, audit history |
+| `POST` | `/api/scans/{id}/predict` | Run and persist the shared inference-only decision |
+| `POST` | `/api/scans/{id}/tier` | Validate tier and required reason, then request/apply override |
+| `POST` | `/api/scans/{id}/restore` | Submit S3 restore or return `NOT_REQUIRED` |
+| `GET` | `/api/dashboard/summary` | Compute tier distribution, cost, and wrongly archived metrics |
+| `GET` | `/api/costs?horizon=` | Compute four baseline/policy simulations for a bounded horizon |
 
-Use consistent JSON errors with code, message, and request ID. Validate tier enums, IDs, positive limits, maximum page size, and request bodies. Use 400 for invalid input, 401/403 for identity/permission failures, 404 for unknown objects, and an explicit unavailable response for missing required model/features. Proposed roles are viewer, archive administrator, and operator; map them to actual Cognito groups and enforce them on the server.
+Errors use `{error: {code, message, request_id}}`. Local mode applies tier and restore changes immediately to SQLite. AWS mode keeps tier changes pending until the scheduled reconciler sees the requested S3 storage class. A move to a colder class uses a Lifecycle tag; a move to a more accessible class uses a same-key S3 copy. Archived objects must complete restoration before the copy, and repeat restore requests in the pending state return the existing request.
 
-### Data model
+### State model
 
-| Record | Required fields | Purpose |
-| --- | --- | --- |
-| Scan | `scan_id`, bucket, complete object key, object version, bytes, metadata, feature status | Unambiguous object identity and ingest state |
-| Feature manifest | schema version, ordered feature names, embedding version, dimensions, source checksum | Training/inference compatibility |
-| Decision | decision ID, scan ID, time, probability, model/policy/price versions, eligible tiers, cost components, reason | Reproduce and explain recommendations |
-| Placement | requested tier, observed tier, status, last confirmation, override expiry | Separate intent from physical storage state |
-| Access/restore event | event ID, scan ID, request time, completion time, outcome | Measure retrieval and restore behavior |
-| Evaluation run | dataset origin, split IDs, seed, code revision, configuration, metrics | Trace every published result |
+- `scan_id` is an opaque SHA-256-derived identifier in AWS; bucket and full key are separate fields.
+- `requested_tier` expresses intent; `current_tier`/`observed_tier` express storage state.
+- `decision_status` distinguishes ready, blocked, pending, locally applied, and AWS-applied decisions.
+- The scan table holds the latest state. The audit table stores immutable events under `(scan_id, event_id)`.
+- Pathology scores are precomputed before upload so the Lambda package stays small and never loads PyTorch.
+- Existing S3 tags are merged rather than overwritten.
 
-The prototype uses `scan_id` as a key. Keep a stable opaque scan identity and store the complete S3 location separately: stripping extensions or taking only a basename can collide and already disagrees with local seeded IDs. Design indexes from access patterns such as scan lookup and tier/status listing. Store decisions append-only with a latest-decision reference; do not overwrite the only audit record. Use supported numeric representations for DynamoDB, with deliberate JSON serialization.
+### Cost policy
 
-### Model and feature pipeline
+For each tier, the engine calculates storage cost, archive metadata overhead, transition requests, expected retrieval charges, and a separate expected access-delay penalty. It respects minimum billable object size and minimum storage duration. Objects below the S3 Lifecycle transition threshold remain in Standard. The chosen tier minimizes `monetary_cost + access_delay_penalty`, while the API exposes both parts individually.
 
-The active path is inference-only. `extract_pretrained_features.py` loads TorchXRayVision's published `densenet121-res224-all` chest X-ray weights and produces named pathology scores. It performs no fitting or fine-tuning. `decision_engine.py` combines those scores with metadata and access counts using `retrieval_policy_weights.json`. The previous XGBoost experiment remains in `legacy_training.py` for audit history; `train.py` exits deliberately.
+The checked-in price snapshot is versioned and dated. It is a planning model, not a billing quote. Prices and policy coefficients must be reviewed before a real deployment.
 
-The checked-in retrieval coefficients are transparent engineering weights, not trained or clinically calibrated evidence. This keeps the system runnable without training while making its current limit explicit. The local API and Lambda now use the same decision engine. PyTorch remains offline; DynamoDB supplies precomputed pathology scores to Lambda.
+## Run locally
 
-The current label is derived by checking whether a patient's follow-up number is below their maximum. It indicates that a later study exists, not that this particular image was accessed. Absence of another observed study is also not proof of permanent non-retrieval. The dataset does not supply the timestamps or access logs needed to validate a fixed retrieval horizon. Present proxy-label experiments as such, and reserve claims about actual retrieval for a future trace-backed study.
+Use Python 3.11–3.13 and Node.js 20 or newer.
 
-Split by patient before fitting transformations. Preserve a fixed feature order, training-only preprocessing parameters, and calibration set. Define how 128 dimensions are obtained from the chosen CNN, including any learned projection. Record image preprocessing, weights, embedding dimensions, checksums, and missing-image behavior. Missing required features should block autonomous archival rather than silently inventing values.
-
-### Cost and placement policy
-
-The decision objective should be explicit:
-
-```text
-score(tier) = expected monetary cost(tier, size, horizon, access assumptions)
-            + access-delay penalty(tier, probability, policy)
-chosen tier = lowest-score tier among tiers allowed by access constraints
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r src/backend/requirements.txt
+pip install -r src/ml_model/requirements.txt
+python src/backend/app.py
 ```
 
-Monetary components include storage, transitions, retrieval requests and bytes, metadata overhead, minimum-duration effects, restored-copy storage, and relevant service overhead. The access-delay penalty is a modeling preference, not an AWS invoice item. Report it separately. If multiple accesses per object matter, a probability of at least one access alone is insufficient; introduce an expected access count or an explicit single-access assumption.
+In another terminal:
 
-Use one implementation for offline evaluation, Flask, and Lambda. Fix size units and horizon semantics; current local/evaluation paths generally use 12 months, while Lambda calculates monthly storage with the same penalty constants. Define hard eligibility rules for pinned-hot objects, unavailable features, or required retrieval latency. A low economic score must not override a mandatory access constraint.
+```powershell
+cd src/frontend
+npm ci
+npm start
+```
 
-AWS behavior checked for this review: zero-day transitions to Standard-IA became supported on 16 July 2026, so the existing `Days: 0` rule should not be rejected using the former 30-day transition-age restriction. Transition eligibility and minimum billable duration remain separate concepts. [AWS announcement](https://aws.amazon.com/about-aws/whats-new/2026/07/s3-removes-30-day-transitions-standard-ia-one-zone-ia/).
+Open `http://127.0.0.1:5173` and use the displayed local demo login. The UI talks to the real local API by default. To use static frontend fixtures deliberately, copy `.env.example` to `.env.local` and set `VITE_USE_MOCK_API=true`.
 
-For archive costing, distinguish a billable-size floor from Lifecycle's default small-object transition filter. Glacier Flexible Retrieval and Deep Archive have 40 KB of metadata overhead split between 8 KB at Standard rates and 32 KB at the archive rate. The prototype's uniform archive floor and single-rate overhead calculation need correction. Region-specific prices must be captured in a dated price snapshot. [S3 pricing](https://aws.amazon.com/s3/pricing/), [Lifecycle transition considerations](https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-transition-general-considerations.html).
+## Run published-weight inference
 
-### Reliability and operations
+```powershell
+python src/ml_model/extract_pretrained_features.py path\to\xray.png --output temp\features.json
+python src/ml_model/predict.py --features temp\features.json --size-bytes 15728640
+```
 
-Object arrival and feature availability can race. Register metadata before upload where possible and use a readiness state plus bounded retry when features are late. Deduplicate by object identity/version and policy version. Preserve unrelated S3 tags. Handle the possibility that tagging succeeds but audit persistence fails through reconciliation rather than pretending the two services form one transaction.
+The first extraction downloads the official TorchXRayVision weights to its normal user cache. The output records the source image SHA-256, model weight name, and 18 scores. The image used for the runtime smoke test was a repository chart and therefore verifies software compatibility only; it is not evidence of medical validity.
 
-Monitor queue age, failed events, missing features, model fallback attempts, recommendation latency, tag failures, pending transitions, restore failures, and observed spending. An alert about high predicted probability is not evidence of an actual wrongly archived retrieval. Actual retrieval-delay metrics require observed access events. Align SNS topic names with IAM resources; the present topic configuration and inference-role topic ARN use different names.
+## Deploy after credentials are supplied
 
-## Detailed implementation plan
+Configure an AWS CLI profile or environment-backed session, then run:
 
-The following is a dependency-based delivery plan, not work already completed. Estimates are provisional working days with substantial variation for dataset acquisition and asynchronous cloud transitions.
+```powershell
+.\aws\deploy.ps1 -Region us-east-1 -StackName smart-storage-tier -NotificationEmail you@example.com
+```
 
-| Milestone | Estimate | Owner | Depends on | Exit evidence |
-| --- | --- | --- | --- | --- |
-| M0: Reproducible prototype | 1–2 days | All; Subhrojyoti coordinates | Existing source | Clean install/run instructions and declared demo mode |
-| M1: Data provenance and features | 3–5 days | Mehul | M0 | Genuine feature extraction, manifests, patient-disjoint splits |
-| M2: Model and shared policy | 3–4 days | Mehul + Subhrojyoti | M1 | Matching offline/local/cloud predictions and costs |
-| M3: Backend and storage state | 3–4 days | Subhrojyoti | M0, M2 | Contract tests, audit records, accurate placement states |
-| M4: Honest dashboard integration | 2–3 days | Pratyush | M3 contracts | UI reflects real responses and explicit errors |
-| M5: Repeatable AWS demonstration | 3–5 days plus transition wait | All by service ownership | M2, M3 | Ingest, decision, tag, observed transition, restore evidence |
-| M6: Defensible evaluation | 2–4 days | Mehul; all review | M1, M2 | Reproducible baselines, ablations, uncertainty and sensitivity |
-| M7: Review package | 1–2 days | All | M4–M6 | Accurate report, demo script, presentation evidence |
+The script verifies the caller, creates/reuses a regional artifact bucket, builds both Lambda source bundles, packages and deploys the SAM stack, writes an ignored Vite production environment file from stack outputs, builds the frontend, synchronizes `dist/` to the private frontend bucket, and invalidates CloudFront.
 
-### M0 — Establish a reproducible starting point
+After deployment:
 
-- [ ] Record Python/Node versions and supported environments. The installed Python 3.13 was used only for syntax parsing in this review; compatibility with the older pinned dependencies has not been established.
-- [ ] Resolve dependency manifests in an isolated environment. Backend imports include pandas and YAML, but its requirements do not declare them. Preprocessing writes Parquet without a declared Parquet engine.
-- [x] Add a frontend lockfile and verify an optimized production build.
-- [x] Make synthetic-data generation an explicit option; preprocessing now requires `--demo-synthetic` when real metadata is absent.
-- [ ] Add an execution mode to API responses and UI; remove silent production fallback to mock success.
-- [ ] Replace stale component setup placeholders with actual instructions. Keep model weights, raw data, local databases, credentials, and generated dependencies excluded from Git.
+1. Confirm any optional SNS email subscription.
+2. Create Cognito users and assign `viewer`, `archive-admin`, or `operator` groups.
+3. Extract features for a public test X-ray.
+4. Run `aws/ingest_scan.py` with the stack’s image bucket and scan table outputs.
+5. Observe the DynamoDB decision, preserved S3 tags, CloudWatch metric, Lifecycle transition state, and audit row.
+6. Request a restore in the UI and observe scheduled reconciliation and notification behavior.
 
-Acceptance: a teammate can start an explicitly labeled local demo from a clean checkout, and a backend failure is visible rather than disguised as successful data.
+No access key belongs in `.env`, the repository, the browser build, or a Lambda environment variable.
 
-### M1 — Make the dataset and features trustworthy
+## Validation completed on 21 September 2026
 
-- [ ] Replace placeholder download assumptions with a verified source manifest and fail on checksum/download errors.
-- [ ] Validate expected CSV columns, image existence, patient IDs, duplicate scans, age values, and view categories.
-- [ ] Document the follow-up proxy, missing observation horizon, and limitations of using findings available after interpretation.
-- [x] Implement published pretrained chest X-ray feature extraction and remove generated random embeddings from preprocessing.
-- [ ] Save patient split manifests, checksums, and fitted preprocessing artifacts. Assert no patient overlap and that each evaluation split supports the intended metrics.
-- [ ] Keep future-study information exclusively in label derivation, never in inference features.
+- 16 Python unit/integration tests pass across the policy engine, Flask API, cloud API Lambda, and inference Lambda.
+- The production Vite build completes and `npm audit` reports zero vulnerabilities.
+- Both Lambda source bundle builders complete.
+- `cfn-lint` accepts `aws/template.yaml` with no findings.
+- The official `densenet121-res224-all` checkpoint downloaded and produced 18 pathology scores under the installed modern PyTorch runtime.
+- A browser smoke test completed sign-in, live dashboard loading, scan browsing, scan detail, prediction, override, restore, audit display, and cost comparison against the running Flask API.
+- Python bytecode compilation and Git whitespace checks pass.
 
-Acceptance: one input image produces a reproducible embedding, and a run manifest distinguishes real images, synthetic rows, missing images, and proxy labels.
+AWS resource creation and live cloud integration were intentionally not attempted without credentials.
 
-### M2 — Unify prediction and decision policy
+## Implementation plan and status
 
-- [x] Create common feature construction, fixed-weight scoring, and cost-policy code for the local API and inference Lambda.
-- [x] Package versioned policy weights and dependency requirements; no locally trained model artifact is required.
-- [x] Replace the Lambda's incompatible feature vector and pickle assumptions with named pathology scores.
-- [x] Align horizon, byte units, request costs, split archive metadata overhead, retention effects, and tier names in the shared engine.
-- [x] Separate financial cost from modeled access-delay penalty and expose a component breakdown.
-- [x] Keep sub-128 KB and missing-feature objects in Standard; persist the missing-feature status in Lambda.
+### Completed: inference and policy
 
-Acceptance: the same fixture yields equivalent features, probabilities, eligible tiers, and cost components offline, through Flask, and through a packaged Lambda invocation. Unit checks cover tiny objects, short horizons, probability boundaries, pinned-hot scans, and missing models.
+- [x] Disable project model training and keep the old experiment clearly marked as legacy.
+- [x] Load published pretrained chest X-ray weights directly.
+- [x] Produce named pathology scores with source provenance.
+- [x] Share one pure-Python feature, probability, and cost policy across local and AWS code.
+- [x] Version weights, price assumptions, and policy output.
+- [x] Separate monetary cost from modeled access delay.
 
-### M3 — Implement the backend contract and actual state model
+### Completed: backend and state
 
-- [ ] Define an API schema and fixtures covering every screen, including pagination, failures, and decimals.
-- [ ] Replace full-scan pagination assumptions with a continuation-token contract and indexes for supported filters.
-- [ ] Implement DynamoDB summaries; eliminate the unconditional SQLite summary path in cloud mode.
-- [ ] Persist immutable decisions, requested placement, observed placement, override reason, actor, and timestamps.
-- [ ] Make override requests idempotent; retain requested state until S3 confirms it.
-- [ ] Enforce authentication and role permissions for mutations. Remove implicit cloud-to-local database fallbacks.
-- [ ] Implement restore submission and status tracking, with actual access events distinct from predictions.
+- [x] Implement the full local REST contract with validation and consistent errors.
+- [x] Add SQLite migration, deterministic seed behavior, filtering, paging, summaries, costs, overrides, restores, and audit events.
+- [x] Implement the equivalent cloud routes without placeholder responses.
+- [x] Enforce Cognito groups on cloud mutations.
+- [x] Keep requested and observed placement state distinct.
+- [x] Add immutable cloud audit events.
 
-Acceptance: SQLite and DynamoDB adapters meet the same service contract; repeated requests do not create conflicting decisions; unauthorized changes are denied; placement state remains accurate during failures.
+### Completed: frontend
 
-### M4 — Integrate dashboard behavior
+- [x] Connect every screen to the API contract.
+- [x] Show live errors rather than silently falling back to mock success.
+- [x] Show execution mode, loading/error states, decision status, restore status, audit history, and cost categories.
+- [x] Implement search, tier filters, deep links, prediction, required override reason, and restore actions.
+- [x] Migrate the build from Create React App to Vite and remove audited dependency findings.
 
-- [ ] Replace dashboard constants and hardcoded baseline outcomes with a versioned result source.
-- [ ] Show actual and recommended tiers independently, including pending, blocked, failed, and restored states.
-- [ ] Add dataset/run provenance and explicit demo indicators.
-- [ ] Present storage cost and modeled penalty separately, with horizon and currency labels.
-- [ ] Validate search/filter/pagination and deep links; retain filters when opening a detail view.
-- [ ] Disable unavailable mutations, show server validation errors, and reconcile UI state after changes.
+### Completed: AWS implementation
 
-Acceptance: a browser walkthrough covers successful actions, empty results, API outage, denied override, and pending restore without displaying fabricated success.
+- [x] Define private encrypted/versioned image and frontend buckets.
+- [x] Define DynamoDB state and audit tables with point-in-time recovery.
+- [x] Define Cognito pool/client/groups and API Gateway authorizer.
+- [x] Define API and inference Lambdas with scoped permissions.
+- [x] Define tag-filtered Lifecycle rules, CloudFront OAC, SNS, EventBridge, logs, and metrics integration.
+- [x] Add safe missing-feature behavior, stable IDs, tag merging, restore requests, and scheduled reconciliation.
+- [x] Add deterministic build, ingest, and deployment scripts.
 
-### M5 — Complete cloud infrastructure and mechanism proof
+### Credential-gated deployment checklist
 
-- [ ] Capture account/region settings and budget controls before provisioning. A budget notification is not a spending cap.
-- [ ] Add one repeatable infrastructure definition for private buckets, DynamoDB, Lambda packaging, API Gateway, authorizer, Cognito, notifications, queue/retries, logging, and permissions.
-- [x] Make the inference Lambda use execution-role credentials through the standard `boto3` chain; no static keys are required to build it.
-- [ ] Align resource names and scoped policies, including SNS and permissions needed to preserve tags or inspect/restore objects.
-- [ ] Deploy a small public-data fixture, register features, upload an object, and observe the resulting versioned decision and tag.
-- [ ] Verify lifecycle configuration against current service rules and wait for actual transition evidence.
-- [ ] Exercise duplicate events, delayed features, inference failure, and audit-write failure; demonstrate retry/reconciliation.
-- [ ] Demonstrate restore completion and cleanup, accounting for retained data and minimum-duration charges.
+- [ ] Configure AWS credentials for the intended account and region.
+- [ ] Create a low AWS Budget alert before ingesting data.
+- [ ] Run `aws/deploy.ps1` and record stack outputs.
+- [ ] Create Cognito demo users and group assignments.
+- [ ] Ingest a small public-data fixture and capture live transition/restore evidence.
+- [ ] Review incurred cost and delete non-retained test resources after the demonstration.
 
-Acceptance: saved evidence traces one object from ingest through confirmed placement and retrieval. A tag or successful Lambda invocation alone is not proof that S3 transitioned an object.
+### Separate research validation work
 
-### M6 — Produce defensible experimental results
+This work does not block the application from running, but it does block strong scientific claims: validate the retrieval proxy, run sensitivity sweeps, document dataset checksums/splits, compare fixed-policy baselines, and report uncertainty. Historical metrics under `results/` are prototype artifacts and should not be presented as clinical validation.
 
-- [ ] Compare a constant-probability baseline, metadata-only model, image-only model, and combined model on identical patient splits.
-- [ ] Report AUC, precision-recall behavior, Brier score, reliability curves, sample counts, prevalence, and uncertainty where feasible.
-- [ ] Simulate all-Standard, an actual age-transition schedule, and explicitly defined Intelligent-Tiering assumptions on the same workload. Current all-Glacier and all-IA approximations must not retain stronger baseline names.
-- [ ] Since timestamps/access logs are absent, state any synthetic timing process and show sensitivity to it rather than implying observed access history.
-- [ ] Evaluate money, modeled penalty, archive assignments, and wrongly archived outcomes separately. Standardize the denominator: the evaluation script uses positive-label scans, while the local summary uses all scans.
-- [ ] Sweep penalty strength, horizon, object size, retrieval assumptions, and price changes. Compare against an always-Standard-IA policy because the saved run selects it for every object.
-- [ ] Save code revision, dataset/source hashes, splits, model version, configuration, price snapshot, and results in an experiment manifest.
+## Decisions recorded in this implementation
 
-Acceptance: every headline number can be regenerated from a recorded run and survives comparison with simple constant policies. A proposed research target is less than 5% proxy wrongly-archived rate, but this is not a validated clinical threshold. If the model does not outperform the relevant baselines, report that outcome honestly.
+1. Published weights are consumed as-is; the application never trains a model.
+2. Offline extraction keeps PyTorch out of Lambda and records image/weight provenance.
+3. Local and cloud modes are explicit; there is no silent AWS-to-SQLite or live-to-mock fallback.
+4. Stable opaque IDs derive from bucket plus complete key, avoiding basename collisions and key disclosure.
+5. S3 tags express requested placement; reconciliation confirms physical placement.
+6. Manual decisions and automated decisions create append-only audit events.
+7. AWS credentials come later through the standard SDK chain and IAM roles.
+8. One SAM template is the source of truth for the deployable cloud stack.
+9. Vite is the frontend build system; generated cloud configuration stays ignored.
+10. Standard-IA Lifecycle transition begins at 30 days to respect S3 transition constraints.
+11. An operator move to a more accessible tier uses S3 CopyObject after any required restore; ObjectCreated replay cannot overwrite the pending manual override.
 
-### M7 — Assemble the review package
+## Maintenance rule
 
-- [ ] Update the root README status and setup documentation from verified behavior.
-- [ ] Update architecture decision records where implementation choices differ from the original design.
-- [ ] Regenerate report diagrams and ensure all screenshots identify mock versus live modes.
-- [ ] Prepare a demo script with a recorded fallback and a limitations slide explaining proxy labels and simulation assumptions.
-- [ ] Record contributions through meaningful commits and reviewed PRs into `develop`, following the project workflow.
-
-Acceptance: product description, diagrams, code, demo, and report tell the same story without treating prototypes or projections as deployed results.
-
-## Priority risks and immediate next work
-
-| Priority | Finding | Next action |
-| --- | --- | --- |
-| P0 | Failed API mutations become mock successes | Require explicit demo mode; surface production failures |
-| Resolved in code; validation pending | Random/zero/truncated embeddings and incompatible model loading | Shared pretrained-score and policy contract implemented |
-| P0 | Cloud auth enforcement is not established | Implement authorizer and server-side role checks before cloud use |
-| P0 | Recommendation and actual tier are conflated | Implement requested/observed placement and reconciliation |
-| P1 | Cost formulas disagree and include penalties in bill-like totals | Share policy code and separate monetary reporting |
-| P1 | Baseline labels overstate simulation fidelity | Implement defined timelines or rename approximations |
-| P1 | Seed probabilities depend on evaluation labels | Label as fixtures and remove from evaluation evidence |
-| P1 | Missing feature/event idempotency handling | Add readiness, retries, deduplication and audit recovery |
-| P1 | DynamoDB mode lacks complete summaries/pagination | Finish cloud adapter and contract coverage |
-| P2 | Setup and root status are stale | Publish reproducible setup and verified status |
-
-The critical path is **M0 → M1 → M2 → M3 → M5**, with evaluation following M1/M2 and frontend work proceeding once M3 contracts are fixed. Prioritize trustworthy inputs and one consistent decision engine before polishing result claims.
-
-## Implementation decisions — 21 September 2026
-
-- **No model training:** use published TorchXRayVision `densenet121-res224-all` weights directly for offline chest X-ray scoring. `train.py` is disabled and the earlier experiment is retained only for audit history.
-- **Transparent retrieval policy:** combine named pathology scores, metadata, and access counts through the versioned `retrieval-policy-v1` coefficient file. These coefficients are provisional policy weights, not learned clinical evidence.
-- **One decision engine:** local Flask and the inference Lambda use the same standard-library module. Monetary cost and the access-delay penalty are returned separately.
-- **Lightweight cloud inference:** compute pathology scores before upload and store them in DynamoDB; Lambda does not carry PyTorch or the neural network weights.
-- **Credentials later:** AWS SDK clients use Lambda execution-role credentials or the standard local provider chain. Static keys are never part of source or `.env.example` requirements.
-- **Fail-safe ingest:** the complete S3 object key is the current scan ID. Missing features leave the object in Standard with `BLOCKED_MISSING_FEATURES`; successful recommendations are `PENDING_TRANSITION` until reconciliation confirms the actual class.
-- **Preserve object state:** tier tagging merges with existing S3 tags instead of replacing them.
-
-Implemented files: `src/ml_model/decision_engine.py`, `retrieval_policy_weights.json`, `extract_pretrained_features.py`; local adapter in `src/backend/model_service.py`; Lambda handler and bundle builder under `aws/lambda/tier_inference/`; unit checks under `tests/`.
-
-Validation on 21 September 2026: six Python unit tests passed, Python sources compiled, the Lambda
-source bundle was generated without AWS credentials, and the React production build completed.
-The pretrained weight download and a real-image inference run remain pending because the ML runtime
-was not installed during this slice. `npm audit --omit=dev` reports 30 transitive findings (14 high,
-7 moderate, 9 low) under Create React App 5; replacing that aging build chain is a separate frontend
-dependency task and no forced breaking audit fix was applied.
-
-## Ownership and delivery conventions
-
-| Member | Branch convention | Main responsibility |
-| --- | --- | --- |
-| Pratyush Chandrasekhar, 24BIT0226 | `feature/student1` | Frontend, testing, hosting/CDN, dashboard presentation |
-| Subhrojyoti Das, 24BIT0194 | `feature/student2` | API, persistence, auth, infrastructure, IAM, Lifecycle |
-| Mehul Anand, 24BIT0185 | `feature/student3` | Dataset, models, evaluation, inference, storage metrics |
-
-The repository requires feature work to merge through reviewed PRs into `develop`, then stable integration into `main`. Preserve the existing student branch names. Source snapshots are prototype checkpoints, not release certifications. Do not manufacture individual authorship for already-present work across components.
-
-This review used Python AST parsing and JSON parsing for basic source/configuration validity. It did not install dependencies, run frontend builds, retrain models, or validate AWS deployment. Runtime and cloud acceptance checks belong to the milestones above.
-
-## Source index and document maintenance
-
-Local evidence: `README.md`; `architecture/README.md`; `architecture/decisions.md`; component READMEs; `src/backend/app.py`, `db.py`, `model_service.py`; `src/frontend/package.json`, `src/api/client.js`, `src/auth/CognitoAuth.jsx`; `src/ml_model/preprocessing.py`, `model.py`, `train.py`, `predict.py`, `evaluate.py`, `config.yaml`; both Lambda handlers; AWS JSON configurations; `results/latest_metrics.json`; `results/evaluation_summary.json`.
-
-The version-controlled master is `architecture/PRODUCT_AND_IMPLEMENTATION.md`. The initial identical Obsidian copy is `CloudTierRecommender/README.md` inside the active `Subhro-projects` vault. These are ordinary files, not an automatic synchronization mechanism; copy revisions deliberately to avoid divergence. Review the status table and close milestone checkboxes only when their acceptance evidence exists.
+Update this document and `architecture/decisions.md` whenever implementation behavior changes. After each update, copy this file to the Obsidian vault at `Subhro-projects/CloudTierRecommender/README.md` and verify that both files have the same SHA-256 hash.

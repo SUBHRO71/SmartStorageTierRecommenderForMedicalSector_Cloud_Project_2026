@@ -461,8 +461,8 @@ Write and test AWS code without credentials. In Lambda, `boto3` will use tempora
 the execution role. Local deployment may later use the standard AWS credential provider chain.
 Never add static keys to application configuration.
 
-Use the complete S3 object key as the current canonical `scan_id`. If its registered DynamoDB
-feature record is absent, leave the object in S3 Standard and record
+Derive a stable opaque `scan_id` from the bucket and complete S3 object key, and store the bucket
+and key as separate fields. If its registered DynamoDB feature record is absent, leave the object in S3 Standard and record
 `BLOCKED_MISSING_FEATURES`. Preserve existing object tags when adding the requested tier, and store
 the request as `PENDING_TRANSITION` until a later reconciler confirms the physical storage class.
 
@@ -470,9 +470,127 @@ the request as `PENDING_TRANSITION` until a later reconciler confirms the physic
 
 - Implementation and unit tests do not wait for an AWS account.
 - Missing data cannot silently send an image to archive.
-- Existing DynamoDB fixtures keyed by a filename alone will need migration to the complete object
-  key before deployment.
-- A reconciliation worker remains required before the dashboard can report actual placement.
+- Existing DynamoDB fixtures keyed by a filename alone will need migration to the stable identifier
+  before deployment.
+- The scheduled reconciler now confirms observed placement and completed restores.
+
+---
+
+## ADR-012 — Explicit local and AWS execution modes
+
+**Status:** Accepted · **Date:** 21 September 2026 · **Owner:** Subhrojyoti Das
+
+### Context
+
+Implicit fallback from AWS to SQLite and from failed live HTTP requests to mock responses made a
+broken integration look successful.
+
+### Decision
+
+Use SQLite unless `DATA_BACKEND=dynamodb` is set explicitly. Use live HTTP unless
+`VITE_USE_MOCK_API=true` is set explicitly. Display the selected frontend data mode and return the
+backend execution mode from `/api/health`. A live request failure is an error state.
+
+### Consequences
+
+- The credential-free local application remains easy to run.
+- Cloud misconfiguration cannot silently write a local database.
+- Failed overrides and restores cannot be mistaken for successful mock operations.
+
+---
+
+## ADR-013 — One SAM stack and scheduled state reconciliation
+
+**Status:** Accepted · **Date:** 21 September 2026 · **Owner:** Subhrojyoti Das
+
+### Context
+
+Separate JSON examples did not define a repeatable system and an S3 tag did not prove that an
+asynchronous Lifecycle transition or restore had completed.
+
+### Decision
+
+Use `aws/template.yaml` as the deployable source of truth for storage, identity, API, compute,
+state, audit, notification, and frontend resources. Invoke the inference Lambda hourly through
+EventBridge to read actual S3 object state and reconcile DynamoDB. Use `aws/deploy.ps1` to package
+both Lambdas and publish the Vite frontend from stack outputs.
+
+### Consequences
+
+- Infrastructure can be reviewed and linted without credentials.
+- Deployment requires one AWS identity and one command rather than manual console assembly.
+- Lifecycle remains asynchronous, so pending state is normal and visible.
+- Standard-IA uses a 30-day transition boundary; it cannot be demonstrated as an immediate move.
+
+---
+
+## ADR-014 — Separate latest state from append-only audit history
+
+**Status:** Accepted · **Date:** 21 September 2026 · **Owner:** Subhrojyoti Das
+
+### Context
+
+Overwriting the scan row is useful for fast reads but loses who requested a decision and how state
+changed over time.
+
+### Decision
+
+Keep current scan and placement fields in the scan table. Append prediction, override, restore,
+blocked-decision, and reconciliation events to a separate audit store. SQLite uses an
+`audit_events` table; AWS uses `DecisionAuditTable` keyed by `(scan_id, event_id)`.
+
+### Consequences
+
+- The UI can show a chronological decision history.
+- Current-state reads remain simple.
+- Audit retention and access controls can evolve separately from scan metadata.
+
+---
+
+## ADR-015 — Vite is the frontend build system
+
+**Status:** Accepted · **Date:** 21 September 2026 · **Owner:** Pratyush Chandrasekhar
+
+### Context
+
+Create React App was obsolete and its dependency tree produced numerous audit findings.
+
+### Decision
+
+Build and serve the React application with Vite. Use `VITE_` variables for public browser
+configuration, write production values from CloudFormation outputs, and publish `dist/`.
+
+### Consequences
+
+- Development startup and production builds are faster and current.
+- The verified dependency audit has no findings.
+- Amplify v5 needs `global` mapped to `globalThis` in the Vite configuration.
+
+---
+
+## ADR-016 — Use S3 copy for moves to more accessible storage
+
+**Status:** Accepted · **Date:** 21 September 2026 · **Owner:** Subhrojyoti Das
+
+### Context
+
+The tag-filtered Lifecycle mechanism in ADR-003 moves eligible objects into colder classes, but
+changing an archived object's tag to `STANDARD` cannot bring it back to hot storage. A manual
+override to a more accessible tier needs an actual S3 storage-class operation.
+
+### Decision
+
+Keep Lifecycle tags for moves to colder classes. For moves to a more accessible class, require an
+archived source to be restored first, then perform a same-key S3 copy with the requested storage
+class. Keep the decision pending until reconciliation reads the new object's storage class. Suppress
+the `ObjectCreated` inference event caused by that copy while a manual override is pending.
+
+### Consequences
+
+- Manual moves back to Standard or Standard-IA have an executable mechanism.
+- Restore and copy charges must be included when evaluating operational costs.
+- The implementation remains limited to objects that fit a single `CopyObject` request; large
+  objects would require a multipart-copy extension before production use.
 
 ---
 
@@ -481,11 +599,8 @@ the request as `PENDING_TRANSITION` until a later reconciler confirms the physic
 | # | Question | Blocks | Owner |
 | --- | --- | --- | --- |
 | 1 | AWS account created before or after 15 July 2025? | Free-tier assumptions in ADR-001 | All |
-| 2 | DynamoDB partition key design and access patterns | Backend implementation | Subhrojyoti |
-| 3 | API contract between frontend and backend | Parallel development | Pratyush + Subhrojyoti |
-| 4 | Clinical penalty values and sensitivity sweep range | Stage 2 rule | Mehul |
-| 5 | CloudFront included, or S3 static site served directly? | Deployment diagram | Pratyush |
-| 6 | Does the rubric require EC2 or a relational database for marks? | ADR-001, ADR-004 | All |
+| 2 | Clinical penalty values and sensitivity sweep range | Research validation | Mehul |
+| 3 | Does the rubric require EC2 or a relational database for marks? | ADR-001, ADR-004 | All |
 
 Record each answer as a new ADR or an amendment to the relevant one. Do not resolve these in chat
 and leave the file stale.
