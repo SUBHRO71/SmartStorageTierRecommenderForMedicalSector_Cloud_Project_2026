@@ -45,6 +45,14 @@ class FakeCloudWatch:
         return None
 
 
+class FakeAudit:
+    def __init__(self):
+        self.items = []
+
+    def put_item(self, **kwargs):
+        self.items.append(kwargs["Item"])
+
+
 def event_record():
     return {
         "s3": {
@@ -61,6 +69,7 @@ class LambdaHandlerTests(unittest.TestCase):
             "s3": FakeS3(),
             "cloudwatch": FakeCloudWatch(),
             "sns": object(),
+            "audit": FakeAudit(),
         }
 
     def test_missing_features_are_blocked_and_not_tagged(self):
@@ -72,7 +81,7 @@ class LambdaHandlerTests(unittest.TestCase):
     def test_existing_tags_are_preserved_when_tier_is_added(self):
         resources = self.resources(
             {
-                "scan_id": "studies/patient-1/image.png",
+                "scan_id": "placeholder",
                 "patient_age": 65,
                 "finding_labels": "Effusion",
                 "pathology_scores": {"Effusion": 0.9},
