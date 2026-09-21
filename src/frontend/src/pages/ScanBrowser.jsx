@@ -8,21 +8,27 @@ const ScanBrowser = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [tierFilter, setTierFilter] = useState('ALL');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchScans = async () => {
       setLoading(true);
       try {
-        const res = await apiClient.get('/scans?limit=50');
+        const params = new URLSearchParams({ limit: '50' });
+        if (search) params.set('search', search);
+        if (tierFilter !== 'ALL') params.set('tier', tierFilter);
+        const res = await apiClient.get(`/scans?${params.toString()}`);
         setScans(res.data.scans || []);
+        setError('');
       } catch (error) {
         console.error("Error fetching scans:", error);
+        setError(error.response?.data?.error?.message || error.message || 'Backend unavailable');
       } finally {
         setLoading(false);
       }
     };
     fetchScans();
-  }, []);
+  }, [search, tierFilter]);
 
   const filteredScans = scans.filter(scan => {
     const scanId = (scan.scan_id || '').toLowerCase();
@@ -78,7 +84,9 @@ const ScanBrowser = () => {
       </div>
 
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-        {loading ? (
+        {error ? (
+          <div className="p-8 text-center text-red-600">Unable to load scans: {error}</div>
+        ) : loading ? (
           <div className="p-8 text-center text-gray-500">Loading scans from repository...</div>
         ) : (
           <ScanTable scans={filteredScans} />

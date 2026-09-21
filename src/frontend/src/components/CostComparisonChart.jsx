@@ -7,7 +7,7 @@ const CostComparisonChart = ({ data }) => {
     name: policy.name,
     Cost: policy.cost,
     // highlight the ML model
-    fill: policy.name === 'Our ML Model' ? '#1F3B63' : '#9fb3c8'
+    fill: policy.name === 'Current Policy' ? '#1F3B63' : '#9fb3c8'
   }));
 
   return (
@@ -26,10 +26,10 @@ const CostComparisonChart = ({ data }) => {
             tick={{fontSize: 12}}
           />
           <YAxis 
-            tickFormatter={(value) => `$${value/1000}k`}
+            tickFormatter={(value) => `$${Number(value).toFixed(3)}`}
           />
           <Tooltip 
-            formatter={(value) => [`$${new Intl.NumberFormat('en').format(value)}`, 'Monthly Cost']}
+            formatter={(value) => [`$${Number(value).toFixed(4)}`, `${data.horizon}-month cost`]}
             cursor={{fill: '#f0f4f8'}}
           />
           <Bar dataKey="Cost" radius={[4, 4, 0, 0]}>

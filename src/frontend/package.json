@@ -1,8 +1,8 @@
 {
   "name": "cloud-tier-recommender-frontend",
   "version": "1.0.0",
+  "private": true,
   "description": "Smart Storage Tier Recommender for Medical Image Repositories",
-  "main": "index.js",
   "dependencies": {
     "@aws-amplify/auth": "^5.6.5",
     "@aws-amplify/core": "^5.8.5",
@@ -11,31 +11,19 @@
     "axios": "^1.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.20.0",
-    "react-scripts": "5.0.1",
+    "react-router-dom": "^7.18.4",
     "recharts": "^2.10.3"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.0",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32",
-    "tailwindcss": "^3.3.6"
+    "tailwindcss": "^3.3.6",
+    "vite": "^7.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "start": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1"
   }
 }

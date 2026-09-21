@@ -1,40 +1,34 @@
-# src/frontend/
+# Frontend
 
-The user interface. **Owner: Pratyush Chandrasekhar.**
-
-## What this component does
-
-Gives a human a way to see and interrogate what the system is doing. Without it the project is
-just a script producing numbers, and there is nothing to demonstrate at review.
-
-Planned screens:
-
-| Screen | Shows |
-| --- | --- |
-| Dashboard | Scans by storage tier, total storage cost, projected saving vs. keeping everything hot |
-| Scan browser | Searchable list of scans with modality, body part, age, current tier, predicted tier |
-| Scan detail | One scan — its DICOM metadata, access history, model prediction, and *why* the model chose that tier |
-| Cost comparison | Our tiering vs. all-hot vs. a simple age-based rule |
-
-The scan detail view matters most. A faculty member will ask "why did it put that scan in Glacier?"
-and the interface should answer that directly.
-
-## Rules
-
-- **Talk only to the backend API.** No direct AWS calls, no direct database access, no credentials
-  in frontend code — anything in the browser is public.
-- **No patient-identifiable information on screen.** Use study IDs, never names or dates of birth.
-- Build against a mock API first so this component is not blocked waiting for the backend.
+The React/Vite UI provides local and AWS-backed workflows for sign-in, dashboard metrics, scan search/filtering, decision explanations, tier overrides, restores, audit events, and policy cost comparisons.
 
 ## Setup
 
-To be filled in by Pratyush Chandrasekhar once the framework is chosen. Must include:
+```powershell
+cd src/frontend
+npm ci
+npm start
+```
 
-- Prerequisites and versions
-- Install command
-- How to run locally
-- Which environment variables are needed (and commit a `.env.example`)
+Open `http://127.0.0.1:5173`. With no Cognito values, the sign-in screen clearly identifies local mock authentication and displays the demo identity. API data remains live unless mock API mode is explicitly enabled.
 
-## Do not commit
+## Environment
 
-`node_modules/`, build output (`dist/`, `build/`), `.env`.
+| Variable | Default | Meaning |
+| --- | --- | --- |
+| `VITE_API_URL` | `http://localhost:5000/api` | Backend API root |
+| `VITE_USE_MOCK_API` | `false` | Explicit static fixture mode |
+| `VITE_COGNITO_USER_POOL_ID` | empty | Enables real Cognito authentication |
+| `VITE_COGNITO_CLIENT_ID` | empty | Cognito browser client |
+| `VITE_AWS_REGION` | `us-east-1` | Cognito region |
+
+Anything prefixed with `VITE_` is public browser configuration. Never put AWS access keys or secrets there.
+
+## Build
+
+```powershell
+npm run build
+npm audit
+```
+
+Vite writes the production site to `dist/`. Live API failures render error states; they never become successful mock mutations. The navbar identifies whether the data client is in live or explicit mock mode.

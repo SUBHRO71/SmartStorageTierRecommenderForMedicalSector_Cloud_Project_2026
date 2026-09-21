@@ -14,6 +14,7 @@ const Dashboard = () => {
   const [data, setData] = useState(null);
   const [recentScans, setRecentScans] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,6 +28,7 @@ const Dashboard = () => {
         setRecentScans(scansRes.data.scans);
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
+        setError(error.response?.data?.error?.message || error.message || 'Backend unavailable');
       } finally {
         setLoading(false);
       }
@@ -45,7 +47,7 @@ const Dashboard = () => {
     </div>;
   }
 
-  if (!data) return <div>Error loading dashboard.</div>;
+  if (!data) return <div className="rounded border border-red-200 bg-red-50 p-4 text-red-700">Unable to load the dashboard: {error}</div>;
 
   const isHighErrorRate = data.wrongly_archived_rate >= 5.0;
 

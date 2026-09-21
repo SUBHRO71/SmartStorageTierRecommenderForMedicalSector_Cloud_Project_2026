@@ -2,11 +2,12 @@ import axios from 'axios';
 import { Auth } from '@aws-amplify/auth';
 import mockData from './mockData';
 
-// If explicitly true, force mock data; otherwise try real API first with mock fallback
-const FORCE_MOCK = process.env.REACT_APP_USE_MOCK_API === 'true';
+// Mock responses are used only when explicitly requested. Live failures remain failures.
+const FORCE_MOCK = import.meta.env.VITE_USE_MOCK_API === 'true';
+export const isMockMode = FORCE_MOCK;
 
 const apiClient = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
   timeout: 4000,
   headers: {
     'Content-Type': 'application/json',
@@ -46,12 +47,7 @@ const client = {
       });
     }
 
-    try {
-      return await apiClient.get(url, config);
-    } catch (err) {
-      console.warn(`[API Client] Request to ${url} failed (${err.message}). Falling back to local mock data.`);
-      return getMockResponse(url);
-    }
+    return apiClient.get(url, config);
   },
 
   post: async (url, data, config) => {
@@ -59,20 +55,14 @@ const client = {
       return new Promise((resolve) => {
         setTimeout(() => {
           if (url.includes('/predict')) resolve({ data: mockData.predictionResult });
-          else if (url.includes('/tier')) resolve({ data: { success: true, new_tier: data?.tier } });
+          else if (url.includes('/tier')) resolve({ data: { success: true, requested_tier: data?.tier, current_tier: data?.tier, decision_status: 'APPLIED_MOCK' } });
+          else if (url.includes('/restore')) resolve({ data: { restore_status: 'COMPLETE_MOCK' } });
           else resolve({ data: {} });
         }, 400);
       });
     }
 
-    try {
-      return await apiClient.post(url, data, config);
-    } catch (err) {
-      console.warn(`[API Client] POST to ${url} failed (${err.message}). Falling back to mock response.`);
-      if (url.includes('/predict')) return { data: mockData.predictionResult };
-      if (url.includes('/tier')) return { data: { success: true, new_tier: data?.tier } };
-      return { data: {} };
-    }
+    return apiClient.post(url, data, config);
   }
 };
 

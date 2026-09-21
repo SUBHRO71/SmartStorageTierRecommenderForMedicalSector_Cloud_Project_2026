@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './auth/CognitoAuth';
 import ProtectedRoute from './auth/ProtectedRoute';
 import Navbar from './components/Navbar';
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
-import ScanBrowser from './pages/ScanBrowser';
-import ScanDetail from './pages/ScanDetail';
-import CostComparison from './pages/CostComparison';
+const Login = lazy(() => import('./pages/Login'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const ScanBrowser = lazy(() => import('./pages/ScanBrowser'));
+const ScanDetail = lazy(() => import('./pages/ScanDetail'));
+const CostComparison = lazy(() => import('./pages/CostComparison'));
 
 function App() {
   return (
     <AuthProvider>
       <Router>
         <div className="min-h-screen flex flex-col bg-gray-50">
+          <Suspense fallback={<div className="p-8 text-center text-gray-500">Loading page...</div>}>
           <Routes>
             <Route path="/login" element={<Login />} />
             
@@ -56,6 +57,7 @@ function App() {
             
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
+          </Suspense>
         </div>
       </Router>
     </AuthProvider>

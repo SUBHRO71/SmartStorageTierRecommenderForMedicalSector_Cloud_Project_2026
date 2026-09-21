@@ -93,7 +93,7 @@ const Login = () => {
             </button>
           </div>
           
-          {!process.env.REACT_APP_COGNITO_USER_POOL_ID && (
+          {!import.meta.env.VITE_COGNITO_USER_POOL_ID && (
             <div className="text-xs text-center text-gray-500 mt-4 bg-gray-50 p-2 rounded border border-gray-200">
               <strong>Mock Mode:</strong> Use <code className="bg-gray-200 px-1 rounded">admin@hospital.com</code> / <code className="bg-gray-200 px-1 rounded">password</code>
             </div>

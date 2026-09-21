@@ -33,7 +33,7 @@ const ScanTable = ({ scans }) => {
             return (
               <tr 
                 key={scan.scan_id} 
-                onClick={() => navigate(`/scans/${scan.scan_id}`)}
+                onClick={() => navigate(`/scans/${encodeURIComponent(scan.scan_id)}`)}
                 className="hover:bg-blue-50 cursor-pointer transition-colors"
               >
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-navy-900">

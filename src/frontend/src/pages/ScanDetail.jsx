@@ -10,25 +10,33 @@ const ScanDetail = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [repredicting, setRepredicting] = useState(false);
+  const [error, setError] = useState('');
+  const [actionMessage, setActionMessage] = useState('');
+  const [selectedTier, setSelectedTier] = useState('STANDARD');
+  const [overrideReason, setOverrideReason] = useState('');
+
+  const scanPath = encodeURIComponent(id);
 
   useEffect(() => {
     const fetchDetail = async () => {
       try {
-        const res = await apiClient.get(`/scans/${id}`);
+        const res = await apiClient.get(`/scans/${scanPath}`);
         setData(res.data);
+        setSelectedTier(res.data.current_tier || res.data.predicted_class || 'STANDARD');
       } catch (error) {
         console.error("Error fetching scan details:", error);
+        setError(error.response?.data?.error?.message || error.message || 'Backend unavailable');
       } finally {
         setLoading(false);
       }
     };
     fetchDetail();
-  }, [id]);
+  }, [id, scanPath]);
 
   const handleRepredict = async () => {
     setRepredicting(true);
     try {
-      const res = await apiClient.post(`/scans/${id}/predict`);
+      const res = await apiClient.post(`/scans/${scanPath}/predict`);
       setData(prev => ({
         ...prev,
         predicted_class: res.data.predicted_class || res.data.class,
@@ -37,30 +45,61 @@ const ScanDetail = () => {
         cost_breakdown: res.data.cost_breakdown || prev.cost_breakdown,
         policy_version: res.data.policy_version,
         price_snapshot: res.data.price_snapshot,
-        horizon_months: res.data.horizon_months
+        horizon_months: res.data.horizon_months,
+        current_tier: res.data.current_tier || prev.current_tier,
+        requested_tier: res.data.requested_tier || res.data.predicted_class,
+        decision_status: res.data.decision_status || prev.decision_status
       }));
+      setActionMessage(`Recommendation updated using ${res.data.policy_version}.`);
     } catch (error) {
       console.error("Error running prediction:", error);
-      alert("Failed to re-run prediction");
+      setActionMessage(error.response?.data?.error?.message || 'Prediction failed');
     } finally {
       setRepredicting(false);
     }
   };
 
+  const handleOverride = async () => {
+    setActionMessage('');
+    try {
+      const res = await apiClient.post(`/scans/${scanPath}/tier`, {
+        tier: selectedTier,
+        reason: overrideReason
+      });
+      setData(prev => ({
+        ...prev,
+        requested_tier: res.data.requested_tier,
+        current_tier: res.data.current_tier || prev.current_tier,
+        decision_status: res.data.decision_status,
+        override_reason: overrideReason
+      }));
+      setActionMessage(`Tier request accepted: ${res.data.decision_status}.`);
+    } catch (requestError) {
+      setActionMessage(requestError.response?.data?.error?.message || 'Tier override failed');
+    }
+  };
+
+  const handleRestore = async () => {
+    setActionMessage('');
+    try {
+      const res = await apiClient.post(`/scans/${scanPath}/restore`);
+      setData(prev => ({ ...prev, restore_status: res.data.restore_status }));
+      setActionMessage(`Restore status: ${res.data.restore_status}.`);
+    } catch (requestError) {
+      setActionMessage(requestError.response?.data?.error?.message || 'Restore request failed');
+    }
+  };
+
   if (loading) return <div className="p-8 text-center text-gray-500">Loading scan details...</div>;
-  if (!data) return <div className="p-8 text-center text-red-500">Scan not found.</div>;
+  if (!data) return <div className="p-8 text-center text-red-500">Unable to load scan: {error || 'Scan not found.'}</div>;
 
   // Normalization layer for backend/mock compatibility
   const scanId = data.scan_id || id;
   const predClass = data.predicted_class || data.prediction?.class || data.current_tier || 'STANDARD';
+  const currentTier = data.current_tier || 'STANDARD';
   const predProb = data.probability !== undefined ? data.probability : (data.prediction?.probability || 0.5);
   const predReason = data.reason || data.prediction?.reason || 'Calculated optimal tier minimizing total expected cost.';
-  const costBreakdown = data.cost_breakdown || {
-    'STANDARD': 0.0041,
-    'STANDARD_IA': 0.0032,
-    'GLACIER': 0.0044,
-    'DEEP_ARCHIVE': 0.0096
-  };
+  const costBreakdown = data.cost_breakdown || {};
   
   const patientAge = data.patient_age || data.metadata?.patient_age || 50;
   const patientGender = data.patient_gender || data.metadata?.patient_gender || 'M';
@@ -69,9 +108,13 @@ const ScanDetail = () => {
   const modality = data.metadata?.modality || 'DX (Digital Radiography)';
   const bodyPart = data.metadata?.body_part || 'CHEST';
   const fileSizeMb = data.object_size_bytes ? (data.object_size_bytes / (1024 * 1024)).toFixed(1) : (data.metadata?.file_size_mb || 15.0);
-  const accessHistory = data.access_history || [
-    { date: data.last_accessed || new Date().toISOString(), user: 'PACS Auto-Ingest', reason: 'Initial ingestion and feature extraction' }
-  ];
+  const accessHistory = (data.audit_history || data.access_history || []).map((record) => ({
+    date: record.created_at || record.date,
+    user: record.actor || record.user,
+    reason: record.event_type
+      ? `${record.event_type}: ${JSON.stringify(record.details || {})}`
+      : record.reason,
+  }));
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
@@ -181,6 +224,49 @@ const ScanDetail = () => {
                 Monetary cost and the modeled access-delay penalty are shown separately.
                 {data.policy_version ? ` Policy: ${data.policy_version}.` : ''}
               </p>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Storage Operations</h2>
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between">
+                <span className="text-gray-500">Observed tier</span>
+                <TierBadge tier={currentTier} />
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-500">Decision status</span>
+                <span className="font-medium">{data.decision_status || 'READY'}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-500">Restore status</span>
+                <span className="font-medium">{data.restore_status || 'NOT_REQUESTED'}</span>
+              </div>
+              <select
+                value={selectedTier}
+                onChange={(event) => setSelectedTier(event.target.value)}
+                className="w-full rounded-md border-gray-300"
+              >
+                <option value="STANDARD">Standard</option>
+                <option value="STANDARD_IA">Standard-IA</option>
+                <option value="GLACIER">Glacier</option>
+                <option value="DEEP_ARCHIVE">Deep Archive</option>
+              </select>
+              <input
+                value={overrideReason}
+                onChange={(event) => setOverrideReason(event.target.value)}
+                placeholder="Reason for manual override"
+                className="w-full rounded-md border border-gray-300 px-3 py-2"
+              />
+              <div className="grid grid-cols-2 gap-2">
+                <button onClick={handleOverride} className="rounded bg-navy-900 px-3 py-2 text-white hover:bg-navy-800">
+                  Request tier
+                </button>
+                <button onClick={handleRestore} className="rounded border border-blue-600 px-3 py-2 text-blue-700 hover:bg-blue-50">
+                  Request restore
+                </button>
+              </div>
+              {actionMessage && <p className="rounded bg-gray-50 p-2 text-xs text-gray-700">{actionMessage}</p>}
             </div>
           </div>
         </div>

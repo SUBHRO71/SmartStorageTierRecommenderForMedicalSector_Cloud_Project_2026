@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../auth/CognitoAuth';
 import { ChartPieIcon, TableCellsIcon, CurrencyDollarIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
+import { isMockMode } from '../api/client';
 
 const Navbar = () => {
   const { signOut, user } = useAuth();
@@ -43,6 +44,9 @@ const Navbar = () => {
           </div>
           
           <div className="flex items-center">
+            <span className={`hidden sm:inline-flex mr-4 rounded-full px-2 py-1 text-xs font-semibold ${isMockMode ? 'bg-amber-400 text-amber-950' : 'bg-emerald-500 text-white'}`}>
+              {isMockMode ? 'MOCK DATA' : 'LIVE API'}
+            </span>
             <div className="hidden md:block text-sm text-gray-300 mr-4">
               {user?.attributes?.email || user?.username || 'Doctor'}
             </div>

@@ -3,12 +3,12 @@ import { Amplify } from '@aws-amplify/core';
 import { Auth } from '@aws-amplify/auth';
 
 // Configure Amplify (only if real env vars are present, otherwise mock)
-if (process.env.REACT_APP_COGNITO_USER_POOL_ID) {
+if (import.meta.env.VITE_COGNITO_USER_POOL_ID) {
   Amplify.configure({
     Auth: {
-      region: process.env.REACT_APP_AWS_REGION || 'us-east-1',
-      userPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID,
-      userPoolWebClientId: process.env.REACT_APP_COGNITO_CLIENT_ID,
+      region: import.meta.env.VITE_AWS_REGION || 'us-east-1',
+      userPoolId: import.meta.env.VITE_COGNITO_USER_POOL_ID,
+      userPoolWebClientId: import.meta.env.VITE_COGNITO_CLIENT_ID,
     }
   });
 }
@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   
   // Use mock auth if no AWS configuration is provided
-  const isMockAuth = !process.env.REACT_APP_COGNITO_USER_POOL_ID;
+  const isMockAuth = !import.meta.env.VITE_COGNITO_USER_POOL_ID;
 
   useEffect(() => {
     checkUser();
