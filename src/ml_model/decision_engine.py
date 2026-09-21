@@ -8,6 +8,7 @@ published pretrained weights; Lambda receives the resulting pathology scores.
 from __future__ import annotations
 
 import json
+import hashlib
 import math
 from pathlib import Path
 from typing import Any, Dict, Iterable, Mapping, Optional
@@ -16,6 +17,12 @@ BYTES_PER_GB = 1024**3
 LIFECYCLE_MINIMUM_OBJECT_BYTES = 128 * 1024
 ARCHIVE_STANDARD_METADATA_BYTES = 8 * 1024
 ARCHIVE_TIER_METADATA_BYTES = 32 * 1024
+
+
+def stable_scan_id(bucket: str, object_key: str) -> str:
+    """Return a URL-safe stable identifier without exposing the complete object key."""
+    material = f"{bucket}/{object_key}".encode("utf-8")
+    return f"scan-{hashlib.sha256(material).hexdigest()[:24]}"
 
 
 class DecisionEngine:

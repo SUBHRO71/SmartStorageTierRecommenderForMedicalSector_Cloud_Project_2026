@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import sys
 from pathlib import Path
 
 
@@ -16,6 +17,8 @@ class PretrainedChestXrayExtractor:
     model_name = "densenet121-res224-all"
 
     def __init__(self):
+        if hasattr(sys.stdout, "reconfigure"):
+            sys.stdout.reconfigure(encoding="utf-8")
         try:
             import torch
             import torchxrayvision as xrv
@@ -25,7 +28,20 @@ class PretrainedChestXrayExtractor:
             ) from exc
         self.torch = torch
         self.xrv = xrv
-        self.model = xrv.models.DenseNet(weights=self.model_name)
+        # PyTorch 2.6+ defaults torch.load to weights_only=True, while the
+        # published TorchXRayVision checkpoint predates that format. Scope the
+        # compatibility override to loading this official package checkpoint.
+        original_torch_load = torch.load
+
+        def load_official_checkpoint(*args, **kwargs):
+            kwargs.setdefault("weights_only", False)
+            return original_torch_load(*args, **kwargs)
+
+        torch.load = load_official_checkpoint
+        try:
+            self.model = xrv.models.DenseNet(weights=self.model_name)
+        finally:
+            torch.load = original_torch_load
         self.model.eval()
         self.transforms = (
             xrv.datasets.XRayCenterCrop(),
@@ -33,10 +49,20 @@ class PretrainedChestXrayExtractor:
         )
 
     def extract(self, image_path: str):
-        image = self.xrv.utils.load_image(image_path)
-        tensor = self.torch.from_numpy(image)
+        import imageio.v2 as imageio
+        import numpy as np
+
+        image = imageio.imread(image_path)
+        if image.ndim > 2:
+            image = image[..., 0]
+        if np.issubdtype(image.dtype, np.integer):
+            max_value = np.iinfo(image.dtype).max
+        else:
+            max_value = 1.0 if float(image.max()) <= 1.0 else 255.0
+        image = self.xrv.datasets.normalize(image, max_value, reshape=True)
         for transform in self.transforms:
-            tensor = transform(tensor)
+            image = transform(image)
+        tensor = self.torch.from_numpy(image)
         with self.torch.inference_mode():
             probabilities = self.model(tensor[None, ...])[0].cpu().tolist()
         return {
@@ -62,7 +88,9 @@ def main() -> None:
     }
     payload = json.dumps(output, indent=2)
     if args.output:
-        Path(args.output).write_text(payload + "\n", encoding="utf-8")
+        output_path = Path(args.output)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(payload + "\n", encoding="utf-8")
     else:
         print(payload)
 
