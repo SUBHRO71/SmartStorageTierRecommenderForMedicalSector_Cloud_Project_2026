@@ -124,6 +124,7 @@ temp/
 *.bak
 *.swp
 aws/lambda/*/dist/
+aws/packaged.yaml
 
 # =============================================================
 # DATABASES
