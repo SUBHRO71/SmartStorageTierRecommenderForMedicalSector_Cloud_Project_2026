@@ -1,0 +1,10 @@
+pandas>=2.2,<3
+numpy>=1.26,<3
+scikit-learn>=1.5,<2
+pyyaml>=6.0.3,<7
+torch>=2.6,<3
+torchvision>=0.21,<1
+torchxrayvision==0.0.31
+Pillow>=10.4,<13
+imageio>=2.37,<3
+tqdm==4.66.1

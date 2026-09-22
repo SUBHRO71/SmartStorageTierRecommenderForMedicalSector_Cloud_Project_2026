@@ -1,0 +1,12 @@
+{
+    "total_scans": 127,
+    "cost_standard": 0.5258096,
+    "cost_age_based": 0.6916352895507812,
+    "cost_intelligent": 0.450004,
+    "cost_model": 0.44619400000000004,
+    "savings_vs_standard_pct": 15.141526514540615,
+    "wrongly_archived_rate_pct": 0.0,
+    "tier_distribution": {
+        "s3_standard_ia": 127
+    }
+}

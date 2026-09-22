@@ -359,16 +359,248 @@ the overhead-corrected saving **side by side**.
 
 ---
 
+## ADR-009 — Add Amazon Cognito and Amazon SNS
+
+**Status:** Accepted · **Date:** 31 July 2026 · **Owner:** Subhrojyoti Das
+
+### Context
+
+The course guidelines make two architecture diagrams mandatory, and specify that the AWS Cloud
+Architecture diagram must show **data flow, storage, processing, authentication, notifications and
+monitoring**.
+
+Reviewing the design against that list exposed two genuine gaps, not merely diagram omissions:
+
+- **No user authentication.** AWS IAM governs what *services* may do; it does not authenticate a
+  radiologist logging into a dashboard. The dashboard had no access control at all.
+- **No notification path.** The wrongly-archived rate was defined as the headline safety metric, but
+  nothing told anyone when it happened. A clinician would have discovered a stranded scan by waiting
+  twelve hours for it.
+
+### Decision
+
+Add two services:
+
+- **Amazon Cognito** — a user pool authenticating radiologists and archive administrators, issuing
+  JWTs. API Gateway is configured with a Cognito authorizer so every API call is validated before it
+  reaches a Lambda.
+- **Amazon SNS** — a notification topic publishing to email and SMS subscribers on archive restore
+  completion, on a scan being retrieved from cold storage (and therefore logged as wrongly
+  archived), on inference failure, and on the AWS Budgets threshold being crossed.
+
+### Consequences
+
+- The mandatory diagram requirements are satisfied by real components rather than boxes drawn to
+  tick a box.
+- The wrongly-archived metric becomes actionable: a mistake surfaces immediately instead of being
+  discovered by a waiting clinician.
+- Both stay inside the zero-budget constraint. Cognito's user pool tier covers a generous monthly
+  active user count, and SNS allows 1 million publishes and 1,000 email notifications per month.
+- Adds two services for each member to understand for the individual defence.
+- Cognito introduces real token handling in the frontend, which is more work for
+  [ADR-001](#adr-001--serverless-only-no-ec2)'s serverless model than a no-auth dashboard would be.
+- SNS on every archive retrieval could become noisy at scale; a threshold or digest may be needed.
+
+### Rejected alternatives
+
+| Option | Why rejected |
+| --- | --- |
+| No authentication at all | Indefensible for a system handling medical imaging, even with a public dataset |
+| Hand-rolled auth in the backend | Storing password hashes ourselves is worse in every respect than a managed user pool |
+| IAM users for each clinician | IAM is for service and operator identity, not application end users |
+| Amazon SES instead of SNS | Email only; SNS also covers SMS and fans out to multiple subscriber types |
+| CloudWatch alarms with no SNS | CloudWatch alarms need a notification target — SNS is that target |
+
+---
+
+## ADR-010 — Inference-only published weights; no local model training
+
+**Status:** Accepted · **Date:** 21 September 2026 · **Owner:** Mehul Anand
+
+### Context
+
+The project owner does not want to train or fine-tune a model. The prototype's random embeddings
+and locally trained XGBoost artifact could not support the intended claim or reproduce cloud
+inference reliably.
+
+### Decision
+
+Use TorchXRayVision's published `densenet121-res224-all` weights offline to produce pathology
+scores. Do not fit a model in this repository. A checked-in, versioned fixed-weight policy combines
+those scores with metadata and access counts, and a shared cost engine chooses the S3 tier. The
+fixed coefficients are an engineering policy and must not be presented as clinically trained or
+validated probabilities.
+
+The online Lambda consumes precomputed pathology scores and therefore does not package PyTorch.
+`train.py` intentionally exits; the earlier training experiment remains as `legacy_training.py`
+for audit history.
+
+### Consequences
+
+- A user can run inference from published weights without a training dataset or GPU training job.
+- Offline feature extraction still downloads a sizeable public weight file on first use.
+- The policy is transparent and immediately testable, but its probability needs calibration before
+  any clinical or autonomous archival claim.
+- The architecture no longer depends on a local pickle artifact.
+
+---
+
+## ADR-011 — AWS code uses roles later and fails safe when features are missing
+
+**Status:** Accepted · **Date:** 21 September 2026 · **Owner:** Subhrojyoti Das
+
+### Context
+
+AWS credentials are not available during implementation. The earlier code inferred cloud mode from
+static access-key environment variables and the inference Lambda used fabricated defaults when a
+feature record was missing.
+
+### Decision
+
+Write and test AWS code without credentials. In Lambda, `boto3` will use temporary credentials from
+the execution role. Local deployment may later use the standard AWS credential provider chain.
+Never add static keys to application configuration.
+
+Derive a stable opaque `scan_id` from the bucket and complete S3 object key, and store the bucket
+and key as separate fields. If its registered DynamoDB feature record is absent, leave the object in S3 Standard and record
+`BLOCKED_MISSING_FEATURES`. Preserve existing object tags when adding the requested tier, and store
+the request as `PENDING_TRANSITION` until a later reconciler confirms the physical storage class.
+
+### Consequences
+
+- Implementation and unit tests do not wait for an AWS account.
+- Missing data cannot silently send an image to archive.
+- Existing DynamoDB fixtures keyed by a filename alone will need migration to the stable identifier
+  before deployment.
+- The scheduled reconciler now confirms observed placement and completed restores.
+
+---
+
+## ADR-012 — Explicit local and AWS execution modes
+
+**Status:** Accepted · **Date:** 21 September 2026 · **Owner:** Subhrojyoti Das
+
+### Context
+
+Implicit fallback from AWS to SQLite and from failed live HTTP requests to mock responses made a
+broken integration look successful.
+
+### Decision
+
+Use SQLite unless `DATA_BACKEND=dynamodb` is set explicitly. Use live HTTP unless
+`VITE_USE_MOCK_API=true` is set explicitly. Display the selected frontend data mode and return the
+backend execution mode from `/api/health`. A live request failure is an error state.
+
+### Consequences
+
+- The credential-free local application remains easy to run.
+- Cloud misconfiguration cannot silently write a local database.
+- Failed overrides and restores cannot be mistaken for successful mock operations.
+
+---
+
+## ADR-013 — One SAM stack and scheduled state reconciliation
+
+**Status:** Accepted · **Date:** 21 September 2026 · **Owner:** Subhrojyoti Das
+
+### Context
+
+Separate JSON examples did not define a repeatable system and an S3 tag did not prove that an
+asynchronous Lifecycle transition or restore had completed.
+
+### Decision
+
+Use `aws/template.yaml` as the deployable source of truth for storage, identity, API, compute,
+state, audit, notification, and frontend resources. Invoke the inference Lambda hourly through
+EventBridge to read actual S3 object state and reconcile DynamoDB. Use `aws/deploy.ps1` to package
+both Lambdas and publish the Vite frontend from stack outputs.
+
+### Consequences
+
+- Infrastructure can be reviewed and linted without credentials.
+- Deployment requires one AWS identity and one command rather than manual console assembly.
+- Lifecycle remains asynchronous, so pending state is normal and visible.
+- Standard-IA uses a 30-day transition boundary; it cannot be demonstrated as an immediate move.
+
+---
+
+## ADR-014 — Separate latest state from append-only audit history
+
+**Status:** Accepted · **Date:** 21 September 2026 · **Owner:** Subhrojyoti Das
+
+### Context
+
+Overwriting the scan row is useful for fast reads but loses who requested a decision and how state
+changed over time.
+
+### Decision
+
+Keep current scan and placement fields in the scan table. Append prediction, override, restore,
+blocked-decision, and reconciliation events to a separate audit store. SQLite uses an
+`audit_events` table; AWS uses `DecisionAuditTable` keyed by `(scan_id, event_id)`.
+
+### Consequences
+
+- The UI can show a chronological decision history.
+- Current-state reads remain simple.
+- Audit retention and access controls can evolve separately from scan metadata.
+
+---
+
+## ADR-015 — Vite is the frontend build system
+
+**Status:** Accepted · **Date:** 21 September 2026 · **Owner:** Pratyush Chandrasekhar
+
+### Context
+
+Create React App was obsolete and its dependency tree produced numerous audit findings.
+
+### Decision
+
+Build and serve the React application with Vite. Use `VITE_` variables for public browser
+configuration, write production values from CloudFormation outputs, and publish `dist/`.
+
+### Consequences
+
+- Development startup and production builds are faster and current.
+- The verified dependency audit has no findings.
+- Amplify v5 needs `global` mapped to `globalThis` in the Vite configuration.
+
+---
+
+## ADR-016 — Use S3 copy for moves to more accessible storage
+
+**Status:** Accepted · **Date:** 21 September 2026 · **Owner:** Subhrojyoti Das
+
+### Context
+
+The tag-filtered Lifecycle mechanism in ADR-003 moves eligible objects into colder classes, but
+changing an archived object's tag to `STANDARD` cannot bring it back to hot storage. A manual
+override to a more accessible tier needs an actual S3 storage-class operation.
+
+### Decision
+
+Keep Lifecycle tags for moves to colder classes. For moves to a more accessible class, require an
+archived source to be restored first, then perform a same-key S3 copy with the requested storage
+class. Keep the decision pending until reconciliation reads the new object's storage class. Suppress
+the `ObjectCreated` inference event caused by that copy while a manual override is pending.
+
+### Consequences
+
+- Manual moves back to Standard or Standard-IA have an executable mechanism.
+- Restore and copy charges must be included when evaluating operational costs.
+- The implementation remains limited to objects that fit a single `CopyObject` request; large
+  objects would require a multipart-copy extension before production use.
+
+---
+
 ## Open decisions
 
 | # | Question | Blocks | Owner |
 | --- | --- | --- | --- |
 | 1 | AWS account created before or after 15 July 2025? | Free-tier assumptions in ADR-001 | All |
-| 2 | DynamoDB partition key design and access patterns | Backend implementation | Subhrojyoti |
-| 3 | API contract between frontend and backend | Parallel development | Pratyush + Subhrojyoti |
-| 4 | Clinical penalty values and sensitivity sweep range | Stage 2 rule | Mehul |
-| 5 | CloudFront included, or S3 static site served directly? | Deployment diagram | Pratyush |
-| 6 | Does the rubric require EC2 or a relational database for marks? | ADR-001, ADR-004 | All |
+| 2 | Clinical penalty values and sensitivity sweep range | Research validation | Mehul |
+| 3 | Does the rubric require EC2 or a relational database for marks? | ADR-001, ADR-004 | All |
 
 Record each answer as a new ADR or an amendment to the relevant one. Do not resolve these in chat
 and leave the file stale.

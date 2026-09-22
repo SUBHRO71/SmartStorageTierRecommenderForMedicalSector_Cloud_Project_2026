@@ -1,0 +1,24 @@
+{
+  "UserPool": {
+    "PoolName": "SmartStorageUserPool",
+    "Policies": {
+      "PasswordPolicy": {
+        "MinimumLength": 8,
+        "RequireUppercase": true,
+        "RequireLowercase": true,
+        "RequireNumbers": true,
+        "RequireSymbols": true
+      }
+    },
+    "AutoVerifiedAttributes": ["email"],
+    "UsernameAttributes": ["email"]
+  },
+  "UserPoolClient": {
+    "ClientName": "SmartStorageWebClient",
+    "GenerateSecret": false,
+    "ExplicitAuthFlows": [
+      "ALLOW_USER_SRP_AUTH",
+      "ALLOW_REFRESH_TOKEN_AUTH"
+    ]
+  }
+}
