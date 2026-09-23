@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../auth/CognitoAuth';
-import { ChartPieIcon, TableCellsIcon, CurrencyDollarIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
+import { ChartPieIcon, TableCellsIcon, CurrencyDollarIcon, ArrowRightOnRectangleIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 import { isMockMode } from '../api/client';
 
 const Navbar = () => {
   const { signOut, user } = useAuth();
   const location = useLocation();
+  const [darkMode, setDarkMode] = useState(() => localStorage.getItem('theme') === 'dark');
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', darkMode);
+    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+  }, [darkMode]);
 
   const navItems = [
     { name: 'Dashboard', path: '/', icon: ChartPieIcon },
