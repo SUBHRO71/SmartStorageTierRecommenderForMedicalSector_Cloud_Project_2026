@@ -44,7 +44,7 @@ const Navbar = () => {
           </div>
           
           <div className="flex items-center">
-            <span className={`hidden sm:inline-flex mr-4 rounded-full px-2 py-1 text-xs font-semibold ${isMockMode ? 'bg-amber-400 text-amber-950' : 'bg-emerald-500 text-white'}`}>
+            <span className={`inline-flex mr-4 rounded-full px-2 py-1 text-xs font-semibold ${isMockMode ? 'bg-amber-400 text-amber-950' : 'bg-emerald-500 text-white'}`}>
               {isMockMode ? 'MOCK DATA' : 'LIVE API'}
             </span>
             <div className="hidden md:block text-sm text-gray-300 mr-4">
