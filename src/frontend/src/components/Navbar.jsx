@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../auth/CognitoAuth';
-import { ChartPieIcon, TableCellsIcon, CurrencyDollarIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
+import { ChartPieIcon, TableCellsIcon, CurrencyDollarIcon, ArrowRightOnRectangleIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 import { isMockMode } from '../api/client';
 
 const Navbar = () => {
   const { signOut, user } = useAuth();
   const location = useLocation();
+  const [darkMode, setDarkMode] = useState(() => localStorage.getItem('theme') === 'dark');
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', darkMode);
+    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+  }, [darkMode]);
 
   const navItems = [
     { name: 'Dashboard', path: '/', icon: ChartPieIcon },
@@ -47,9 +53,16 @@ const Navbar = () => {
             <span className={`hidden sm:inline-flex mr-4 rounded-full px-2 py-1 text-xs font-semibold ${isMockMode ? 'bg-amber-400 text-amber-950' : 'bg-emerald-500 text-white'}`}>
               {isMockMode ? 'MOCK DATA' : 'LIVE API'}
             </span>
-            <div className="hidden md:block text-sm text-gray-300 mr-4">
+                       <div className="hidden md:block text-sm text-gray-300 mr-4">
               {user?.attributes?.email || user?.username || 'Doctor'}
             </div>
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className="mr-4 text-gray-300 hover:text-white transition-colors"
+              title="Toggle dark mode"
+            >
+              {darkMode ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
+            </button>
             <button
               onClick={signOut}
               className="flex items-center text-gray-300 hover:text-white transition-colors"
