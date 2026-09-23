@@ -205,7 +205,7 @@ const ScanDetail = () => {
                       ? { monetary_cost: cost, access_delay_penalty: 0, policy_score: cost }
                       : cost;
                     return (
-                      <tr key={tier} className={isSelected ? "bg-green-50" : ""}>
+                      <tr key={tier} className={isSelected ? "bg-green-50 font-semibold" : ""}>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
                           <TierBadge tier={tier} />
                           {isSelected && <span className="ml-2 text-xs text-green-700 font-bold">(Argmin Optimal)</span>}
