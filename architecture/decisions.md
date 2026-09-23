@@ -359,6 +359,60 @@ the overhead-corrected saving **side by side**.
 
 ---
 
+## ADR-009 — Add Amazon Cognito and Amazon SNS
+
+**Status:** Accepted · **Date:** 31 July 2026 · **Owner:** Subhrojyoti Das
+
+### Context
+
+The course guidelines make two architecture diagrams mandatory, and specify that the AWS Cloud
+Architecture diagram must show **data flow, storage, processing, authentication, notifications and
+monitoring**.
+
+Reviewing the design against that list exposed two genuine gaps, not merely diagram omissions:
+
+- **No user authentication.** AWS IAM governs what *services* may do; it does not authenticate a
+  radiologist logging into a dashboard. The dashboard had no access control at all.
+- **No notification path.** The wrongly-archived rate was defined as the headline safety metric, but
+  nothing told anyone when it happened. A clinician would have discovered a stranded scan by waiting
+  twelve hours for it.
+
+### Decision
+
+Add two services:
+
+- **Amazon Cognito** — a user pool authenticating radiologists and archive administrators, issuing
+  JWTs. API Gateway is configured with a Cognito authorizer so every API call is validated before it
+  reaches a Lambda.
+- **Amazon SNS** — a notification topic publishing to email and SMS subscribers on archive restore
+  completion, on a scan being retrieved from cold storage (and therefore logged as wrongly
+  archived), on inference failure, and on the AWS Budgets threshold being crossed.
+
+### Consequences
+
+- The mandatory diagram requirements are satisfied by real components rather than boxes drawn to
+  tick a box.
+- The wrongly-archived metric becomes actionable: a mistake surfaces immediately instead of being
+  discovered by a waiting clinician.
+- Both stay inside the zero-budget constraint. Cognito's user pool tier covers a generous monthly
+  active user count, and SNS allows 1 million publishes and 1,000 email notifications per month.
+- Adds two services for each member to understand for the individual defence.
+- Cognito introduces real token handling in the frontend, which is more work for
+  [ADR-001](#adr-001--serverless-only-no-ec2)'s serverless model than a no-auth dashboard would be.
+- SNS on every archive retrieval could become noisy at scale; a threshold or digest may be needed.
+
+### Rejected alternatives
+
+| Option | Why rejected |
+| --- | --- |
+| No authentication at all | Indefensible for a system handling medical imaging, even with a public dataset |
+| Hand-rolled auth in the backend | Storing password hashes ourselves is worse in every respect than a managed user pool |
+| IAM users for each clinician | IAM is for service and operator identity, not application end users |
+| Amazon SES instead of SNS | Email only; SNS also covers SMS and fans out to multiple subscriber types |
+| CloudWatch alarms with no SNS | CloudWatch alarms need a notification target — SNS is that target |
+
+---
+
 ## Open decisions
 
 | # | Question | Blocks | Owner |

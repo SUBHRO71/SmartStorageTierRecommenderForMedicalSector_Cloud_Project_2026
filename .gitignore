@@ -139,12 +139,12 @@ temp/
 
 # =============================================================
 # EDITABLE SOURCE DOCUMENTS  --  local only
-# The PDF is the committed, reviewable artifact. The .docx is a
-# working copy: Word cannot merge binaries, so two people editing
-# it on different branches would silently lose one version.
-# Regenerate it from the PDF whenever you need to edit.
+# PDFs are the committed, reviewable artifacts. Word files are
+# working copies: Git cannot merge binaries, so two people
+# editing one on different branches silently lose a version.
+# Part D is regenerated with  python docs/build_part_d.py
 # =============================================================
-docs/Research_Gap_and_Literature_Survey.docx
+docs/*.docx
 
 # =============================================================
 # EDITORS AND OS
