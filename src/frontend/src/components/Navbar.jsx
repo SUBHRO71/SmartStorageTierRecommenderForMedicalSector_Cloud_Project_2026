@@ -28,19 +28,12 @@ const Navbar = () => {
             <Link to="/" className="flex items-center flex-shrink-0 font-bold text-xl tracking-wide">
               MedStorage<span className="text-blue-300 font-light ml-1">AI</span>
             </Link>
-            
             <div className="hidden md:flex space-x-4">
               {navItems.map((item) => {
                 const isActive = location.pathname === item.path || (item.path !== '/' && location.pathname.startsWith(item.path));
                 const Icon = item.icon;
                 return (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      isActive ? 'bg-navy-800 text-white' : 'text-gray-300 hover:bg-navy-700 hover:text-white'
-                    }`}
-                  >
+                  <Link key={item.name} to={item.path} className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${isActive ? 'bg-navy-800 text-white' : 'text-gray-300 hover:bg-navy-700 hover:text-white'}`}>
                     <Icon className="h-4 w-4 mr-2" />
                     {item.name}
                   </Link>
@@ -48,26 +41,17 @@ const Navbar = () => {
               })}
             </div>
           </div>
-          
           <div className="flex items-center">
             <span className={`hidden sm:inline-flex mr-4 rounded-full px-2 py-1 text-xs font-semibold ${isMockMode ? 'bg-amber-400 text-amber-950' : 'bg-emerald-500 text-white'}`}>
               {isMockMode ? 'MOCK DATA' : 'LIVE API'}
             </span>
-                       <div className="hidden md:block text-sm text-gray-300 mr-4">
+            <div className="hidden md:block text-sm text-gray-300 mr-4">
               {user?.attributes?.email || user?.username || 'Doctor'}
             </div>
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="mr-4 text-gray-300 hover:text-white transition-colors"
-              title="Toggle dark mode"
-            >
+            <button onClick={() => setDarkMode(!darkMode)} className="mr-4 text-gray-300 hover:text-white transition-colors" title="Toggle dark mode">
               {darkMode ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
             </button>
-            <button
-              onClick={signOut}
-              className="flex items-center text-gray-300 hover:text-white transition-colors"
-              title="Sign Out"
-            >
+            <button onClick={signOut} className="flex items-center text-gray-300 hover:text-white transition-colors" title="Sign Out">
               <ArrowRightOnRectangleIcon className="h-5 w-5" />
             </button>
           </div>

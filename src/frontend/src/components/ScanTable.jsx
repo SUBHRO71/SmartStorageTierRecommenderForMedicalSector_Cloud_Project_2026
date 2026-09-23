@@ -34,7 +34,8 @@ const ScanTable = ({ scans }) => {
               <tr 
                 key={scan.scan_id} 
                 onClick={() => navigate(`/scans/${encodeURIComponent(scan.scan_id)}`)}
-                className="hover:bg-blue-50 cursor-pointer transition-colors"
+                className=hover:bg-navy-50 cursor-pointer transition-colors duration-150
+git commit -am "style(ui): adjust ScanTable row hover color"
               >
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-navy-900">
                   {scan.scan_id}

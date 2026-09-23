@@ -31,13 +31,13 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-lg border border-gray-100">
+      <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-xl border-t-4 border-t-navy-900 border border-gray-100">
         <div>
           <h2 className="mt-2 text-center text-3xl font-extrabold text-navy-900">
             MedStorage<span className="text-blue-500 font-light">AI</span>
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Smart Storage Tier Recommender
+            Smart Storage Tier Recommender for Medical Sector
           </p>
         </div>
         

@@ -58,6 +58,9 @@ function App() {
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
           </Suspense>
+          <footer className="text-center text-xs text-gray-400 py-4">
+            CloudTierRecommender — BCSE355L Cloud Architecture Design, 2026
+          </footer>
         </div>
       </Router>
     </AuthProvider>

@@ -53,20 +53,21 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-end">
+      <div className="rounded-xl bg-gradient-to-r from-navy-900 to-navy-700 text-white p-6 flex justify-between items-center shadow-lg">
         <div>
-          <h1 className="text-2xl font-bold text-navy-900">System Dashboard</h1>
-          <p className="text-gray-500 mt-1">Overview of your medical image repository.</p>
+          <h1 className="text-2xl font-bold">System Dashboard</h1>
+          <p className="text-navy-100 mt-1">Overview of your medical image repository.</p>
         </div>
+        <CircleStackIcon className="h-16 w-16 text-navy-500 opacity-40 hidden sm:block" />
       </div>
 
       {/* Stats Row */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard 
           title="Total Scans Processed" 
           value={new Intl.NumberFormat('en').format(data.total_scans)}
           icon={DocumentChartBarIcon}
-          colorClass="bg-blue-500"
+          colorClass="bg-navy-700"
         />
         <StatCard 
           title="Projected Monthly Cost" 
@@ -100,7 +101,7 @@ const Dashboard = () => {
         <div className="card lg:col-span-2 flex flex-col">
           <div className="p-6 border-b border-gray-200 flex justify-between items-center">
             <h2 className="text-lg font-semibold text-gray-900">Recent Automated Decisions</h2>
-            <a href="/scans" className="text-sm font-medium text-blue-600 hover:text-blue-800">View all &rarr;</a>
+            <a href="/scans" className="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline">View all scans &rarr;</a>
           </div>
           <div className="flex-grow overflow-auto">
             <ScanTable scans={recentScans} />

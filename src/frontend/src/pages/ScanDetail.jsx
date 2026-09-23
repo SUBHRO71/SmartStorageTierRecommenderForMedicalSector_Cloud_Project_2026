@@ -60,6 +60,7 @@ const ScanDetail = () => {
   };
 
   const handleOverride = async () => {
+    if (!window.confirm('Apply this manual tier override?')) return;
     setActionMessage('');
     try {
       const res = await apiClient.post(`/scans/${scanPath}/tier`, {
@@ -127,7 +128,10 @@ const ScanDetail = () => {
           <ArrowLeftIcon className="h-5 w-5 text-gray-600" />
         </button>
         <div>
-          <h1 className="text-2xl font-bold text-navy-900">Scan: {scanId}</h1>
+          <h1 className="text-2xl font-bold text-navy-900">
+  Scan: {scanId}
+  <button onClick={() => navigator.clipboard.writeText(scanId)} className="ml-2 text-xs text-blue-600 hover:underline">Copy ID</button>
+</h1>
           <p className="text-sm text-gray-500">Modality: {modality} | Body Part: {bodyPart}</p>
         </div>
       </div>
@@ -151,9 +155,21 @@ const ScanDetail = () => {
             </div>
             
             <div className="bg-gray-50 p-4 rounded-lg mb-6 border border-gray-100 flex flex-col sm:flex-row justify-between items-center sm:items-start gap-4">
-              <div>
-                <p className="text-sm text-gray-500 mb-1">Recommended Storage Tier</p>
-                <div className="text-2xl"><TierBadge tier={predClass} /></div>
+                            <div className="w-full">
+                <p className="text-sm text-gray-500 mb-2">Recommended Storage Tier</p>
+                <div className="flex items-center gap-1">
+                  {['STANDARD', 'STANDARD_IA', 'GLACIER', 'DEEP_ARCHIVE'].map((tier, i) => {
+                    const isActive = tier === predClass.toUpperCase() || (tier === 'STANDARD_IA' && predClass.toUpperCase() === 'INFREQUENT_ACCESS');
+                    return (
+                      <div key={tier} className="flex-1 flex flex-col items-center">
+                        <div className={`w-full h-3 rounded-full ${isActive ? 'bg-navy-700' : 'bg-gray-200'}`}></div>
+                        <span className={`text-[10px] mt-1 text-center ${isActive ? 'font-bold text-navy-900' : 'text-gray-400'}`}>
+                          {tier.replace('_', ' ')}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
               
               <div className="w-full sm:w-1/2">
@@ -190,7 +206,7 @@ const ScanDetail = () => {
                   <tr>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Storage Class</th>
                     <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Monetary Cost</th>
-                    <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Access Penalty</th>
+                    <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase" title="Modeled cost of retrieval delay if this scan is needed again">Access Penalty</th>
                     <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Policy Score</th>
                   </tr>
                 </thead>
@@ -201,7 +217,7 @@ const ScanDetail = () => {
                       ? { monetary_cost: cost, access_delay_penalty: 0, policy_score: cost }
                       : cost;
                     return (
-                      <tr key={tier} className={isSelected ? "bg-green-50" : ""}>
+                      <tr key={tier} className={isSelected ? "bg-green-50 font-semibold" : ""}>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
                           <TierBadge tier={tier} />
                           {isSelected && <span className="ml-2 text-xs text-green-700 font-bold">(Argmin Optimal)</span>}
