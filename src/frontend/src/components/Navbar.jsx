@@ -20,7 +20,7 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center space-x-8">
             <Link to="/" className="flex items-center flex-shrink-0 font-bold text-xl tracking-wide">
-              MedStorage<span className="text-blue-300 font-light ml-1">AI</span>
+              MedStorage<span className="text-navy-300 font-light ml-1">AI</span>
             </Link>
             
             <div className="hidden md:flex space-x-4">
