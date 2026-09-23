@@ -62,7 +62,6 @@ const Dashboard = () => {
 
       {/* Stats Row */}
      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-git commit -am "style(ui): tighten StatCard grid spacing"
         <StatCard 
           title="Total Scans Processed" 
           value={new Intl.NumberFormat('en').format(data.total_scans)}
