@@ -101,7 +101,7 @@ git commit -am "style(ui): tighten StatCard grid spacing"
         <div className="card lg:col-span-2 flex flex-col">
           <div className="p-6 border-b border-gray-200 flex justify-between items-center">
             <h2 className="text-lg font-semibold text-gray-900">Recent Automated Decisions</h2>
-            <a href="/scans" className="text-sm font-medium text-blue-600 hover:text-blue-800">View all &rarr;</a>
+           <a href="/scans" className="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline">View all scans &rarr;</a>
           </div>
           <div className="flex-grow overflow-auto">
             <ScanTable scans={recentScans} />
