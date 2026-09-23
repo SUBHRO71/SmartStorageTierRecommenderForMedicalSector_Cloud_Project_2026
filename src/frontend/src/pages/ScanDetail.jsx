@@ -127,7 +127,10 @@ const ScanDetail = () => {
           <ArrowLeftIcon className="h-5 w-5 text-gray-600" />
         </button>
         <div>
-          <h1 className="text-2xl font-bold text-navy-900">Scan: {scanId}</h1>
+          <h1 className="text-2xl font-bold text-navy-900">
+  Scan: {scanId}
+  <button onClick={() => navigator.clipboard.writeText(scanId)} className="ml-2 text-xs text-blue-600 hover:underline">Copy ID</button>
+</h1>
           <p className="text-sm text-gray-500">Modality: {modality} | Body Part: {bodyPart}</p>
         </div>
       </div>
