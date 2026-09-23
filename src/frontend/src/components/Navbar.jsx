@@ -38,4 +38,4 @@ const Navbar = () => {
                     key={item.name}
                     to={item.path}
                     className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                      isActive ? 'border-b-2
+                               isActive ? 'border-b-2 border-white text-white' : 'text-gray-300 hover:text-white'
