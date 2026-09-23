@@ -66,7 +66,7 @@ const Dashboard = () => {
           title="Total Scans Processed" 
           value={new Intl.NumberFormat('en').format(data.total_scans)}
           icon={DocumentChartBarIcon}
-          colorClass="bg-blue-500"
+          colorClass="bg-navy-700"
         />
         <StatCard 
           title="Projected Monthly Cost" 
