@@ -16,7 +16,7 @@ const TierDistributionChart = ({ data }) => {
             dataKey="value"
           >
             {data.map((entry, index) => (
-              <Cell key={cell-${index}} fill={entry.color} stroke="#fff" strokeWidth={2} />
+              <Cell key={"cell-" + index} fill={entry.color} stroke="#fff" strokeWidth={2} />
             ))}
           </Pie>
           <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)} />
