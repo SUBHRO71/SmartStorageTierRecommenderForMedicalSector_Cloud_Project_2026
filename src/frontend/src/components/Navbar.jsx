@@ -31,7 +31,7 @@ const Navbar = () => {
                   <Link
                     key={item.name}
                     to={item.path}
-                    className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${{
                       isActive ? 'bg-navy-800 text-white' : 'text-gray-300 hover:bg-navy-700 hover:text-white'
                     }`}
                   >
