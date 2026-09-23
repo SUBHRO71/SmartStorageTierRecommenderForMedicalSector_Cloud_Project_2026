@@ -53,9 +53,16 @@ const Navbar = () => {
             <span className={`inline-flex mr-4 rounded-full px-2 py-1 text-xs font-semibold ${isMockMode ? 'bg-amber-400 text-amber-950' : 'bg-emerald-500 text-white'}`}>
               {isMockMode ? 'MOCK DATA' : 'LIVE API'}
             </span>
-            <div className="hidden md:block text-sm text-gray-300 mr-4">
+                       <div className="hidden md:block text-sm text-gray-300 mr-4">
               {user?.attributes?.email || user?.username || 'Doctor'}
             </div>
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className="mr-4 text-gray-300 hover:text-white transition-colors"
+              title="Toggle dark mode"
+            >
+              {darkMode ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
+            </button>
             <button
               onClick={signOut}
               className="flex items-center text-gray-300 hover:text-white transition-colors"
