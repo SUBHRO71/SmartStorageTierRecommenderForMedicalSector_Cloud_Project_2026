@@ -36,45 +36,6 @@ const Navbar = () => {
                 return (
                   <Link
                     key={item.name}
-                                        to={item.path}
+                    to={item.path}
                     className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                      isActive ? 'border-b-2 border-white text-white' : 'text-gray-300 hover:text-white'
-                    }`}
-                  >
-                    <Icon className="h-4 w-4 mr-2" />
-                    {item.name}
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-          
-          <div className="flex items-center">
-            <span className={`inline-flex mr-4 rounded-full px-2 py-1 text-xs font-semibold ${isMockMode ? 'bg-amber-400 text-amber-950' : 'bg-emerald-500 text-white'}`}>
-              {isMockMode ? 'MOCK DATA' : 'LIVE API'}
-            </span>
-                       <div className="hidden md:block text-sm text-gray-300 mr-4">
-              {user?.attributes?.email || user?.username || 'Doctor'}
-            </div>
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="mr-4 text-gray-300 hover:text-white transition-colors"
-              title="Toggle dark mode"
-            >
-              {darkMode ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
-            </button>
-            <button
-              onClick={signOut}
-              className="flex items-center text-gray-300 hover:text-white transition-colors"
-              title="Sign Out"
-            >
-              <ArrowRightOnRectangleIcon className="h-5 w-5" />
-            </button>
-          </div>
-        </div>
-      </div>
-    </nav>
-  );
-};
-
-export default Navbar;
+                      isActive ? 'border-b-2
