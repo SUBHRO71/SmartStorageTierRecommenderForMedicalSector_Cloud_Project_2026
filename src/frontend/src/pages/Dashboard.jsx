@@ -52,6 +52,7 @@ const Dashboard = () => {
   const isHighErrorRate = data.wrongly_archived_rate >= 5.0;
 
   return (
+    <div className="space-y-6">
       <div className="rounded-xl bg-gradient-to-r from-navy-900 to-navy-700 text-white p-6 flex justify-between items-center shadow-lg">
         <div>
           <h1 className="text-2xl font-bold">System Dashboard</h1>
@@ -61,7 +62,7 @@ const Dashboard = () => {
       </div>
 
       {/* Stats Row */}
-     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard 
           title="Total Scans Processed" 
           value={new Intl.NumberFormat('en').format(data.total_scans)}
@@ -100,7 +101,7 @@ const Dashboard = () => {
         <div className="card lg:col-span-2 flex flex-col">
           <div className="p-6 border-b border-gray-200 flex justify-between items-center">
             <h2 className="text-lg font-semibold text-gray-900">Recent Automated Decisions</h2>
-           <a href="/scans" className="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline">View all scans &rarr;</a>
+            <a href="/scans" className="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline">View all scans &rarr;</a>
           </div>
           <div className="flex-grow overflow-auto">
             <ScanTable scans={recentScans} />
