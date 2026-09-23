@@ -155,9 +155,21 @@ const ScanDetail = () => {
             </div>
             
             <div className="bg-gray-50 p-4 rounded-lg mb-6 border border-gray-100 flex flex-col sm:flex-row justify-between items-center sm:items-start gap-4">
-              <div>
-                <p className="text-sm text-gray-500 mb-1">Recommended Storage Tier</p>
-                <div className="text-2xl"><TierBadge tier={predClass} /></div>
+                            <div className="w-full">
+                <p className="text-sm text-gray-500 mb-2">Recommended Storage Tier</p>
+                <div className="flex items-center gap-1">
+                  {['STANDARD', 'STANDARD_IA', 'GLACIER', 'DEEP_ARCHIVE'].map((tier, i) => {
+                    const isActive = tier === predClass.toUpperCase() || (tier === 'STANDARD_IA' && predClass.toUpperCase() === 'INFREQUENT_ACCESS');
+                    return (
+                      <div key={tier} className="flex-1 flex flex-col items-center">
+                        <div className={`w-full h-3 rounded-full ${isActive ? 'bg-navy-700' : 'bg-gray-200'}`}></div>
+                        <span className={`text-[10px] mt-1 text-center ${isActive ? 'font-bold text-navy-900' : 'text-gray-400'}`}>
+                          {tier.replace('_', ' ')}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
               
               <div className="w-full sm:w-1/2">
