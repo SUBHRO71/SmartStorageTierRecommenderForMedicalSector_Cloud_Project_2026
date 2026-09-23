@@ -60,6 +60,7 @@ const ScanDetail = () => {
   };
 
   const handleOverride = async () => {
+    if (!window.confirm('Apply this manual tier override?')) return;
     setActionMessage('');
     try {
       const res = await apiClient.post(`/scans/${scanPath}/tier`, {
