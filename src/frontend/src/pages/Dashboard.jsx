@@ -52,12 +52,12 @@ const Dashboard = () => {
   const isHighErrorRate = data.wrongly_archived_rate >= 5.0;
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-end">
+      <div className="rounded-xl bg-gradient-to-r from-navy-900 to-navy-700 text-white p-6 flex justify-between items-center shadow-lg">
         <div>
-          <h1 className="text-2xl font-bold text-navy-900">System Dashboard</h1>
-          <p className="text-gray-500 mt-1">Overview of your medical image repository.</p>
+          <h1 className="text-2xl font-bold">System Dashboard</h1>
+          <p className="text-navy-100 mt-1">Overview of your medical image repository.</p>
         </div>
+        <CircleStackIcon className="h-16 w-16 text-navy-500 opacity-40 hidden sm:block" />
       </div>
 
       {/* Stats Row */}
