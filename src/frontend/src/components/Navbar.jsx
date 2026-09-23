@@ -1,114 +1,72 @@
-import React, { useState, useEffect } from 'react';
-import apiClient from '../api/client';
-import StatCard from '../components/StatCard';
-import TierDistributionChart from '../components/TierDistributionChart';
-import ScanTable from '../components/ScanTable';
-import { 
-  DocumentChartBarIcon, 
-  CurrencyDollarIcon, 
-  ExclamationTriangleIcon,
-  CircleStackIcon
-} from '@heroicons/react/24/outline';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import TierBadge from './TierBadge';
 
-const Dashboard = () => {
-  const [data, setData] = useState(null);
-  const [recentScans, setRecentScans] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+const ScanTable = ({ scans }) => {
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [summaryRes, scansRes] = await Promise.all([
-          apiClient.get('/dashboard/summary'),
-          apiClient.get('/scans?limit=5')
-        ]);
-        
-        setData(summaryRes.data);
-        setRecentScans(scansRes.data.scans);
-      } catch (error) {
-        console.error("Error fetching dashboard data:", error);
-        setError(error.response?.data?.error?.message || error.message || 'Backend unavailable');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) {
-    return <div className="animate-pulse space-y-6">
-      <div className="h-8 bg-gray-200 rounded w-1/4"></div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {[1,2,3,4].map(i => <div key={i} className="h-24 bg-gray-200 rounded"></div>)}
-      </div>
-      <div className="h-64 bg-gray-200 rounded"></div>
-    </div>;
+  if (!scans || scans.length === 0) {
+    return <div className="text-center py-8 text-gray-500">No medical scans found matching query.</div>;
   }
 
-  if (!data) return <div className="rounded border border-red-200 bg-red-50 p-4 text-red-700">Unable to load the dashboard: {error}</div>;
-
-  const isHighErrorRate = data.wrongly_archived_rate >= 5.0;
-
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-end">
-        <div>
-          <h1 className="text-2xl font-bold text-navy-900">System Dashboard</h1>
-          <p className="text-gray-500 mt-1">Overview of your medical image repository.</p>
-        </div>
-      </div>
+    <div className="overflow-x-auto">
+      <table className="min-w-full divide-y divide-gray-200">
+        <thead className="bg-gray-50">
+          <tr>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Scan ID</th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Patient Profile & Findings</th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Current Class</th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Recommended Tier</th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">P(retrieve)</th>
+          </tr>
+        </thead>
+        <tbody className="bg-white divide-y divide-gray-200">
+          {scans.map((scan) => {
+            const currentTier = scan.current_tier || scan.predicted_class || 'STANDARD';
+            const predTier = scan.predicted_class || scan.predicted_tier || currentTier;
+            const prob = scan.probability !== undefined ? scan.probability : (scan.prediction?.probability || 0.5);
+            const patientAge = scan.patient_age || scan.age || 50;
+            const patientGender = scan.patient_gender || 'M';
+            const findings = scan.finding_labels || scan.modality || 'No Finding';
 
-      {/* Stats Row */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard 
-          title="Total Scans Processed" 
-          value={new Intl.NumberFormat('en').format(data.total_scans)}
-          icon={DocumentChartBarIcon}
-          colorClass="bg-blue-500"
-        />
-        <StatCard 
-          title="Projected Monthly Cost" 
-          value={`$${new Intl.NumberFormat('en').format(data.projected_monthly_cost)}`}
-          icon={CurrencyDollarIcon}
-          colorClass="bg-green-500"
-        />
-        <StatCard 
-          title="Wrongly Archived Rate" 
-          value={`${data.wrongly_archived_rate}%`}
-          subtitle={`${data.wrongly_archived_count} scans required early retrieval`}
-          icon={ExclamationTriangleIcon}
-          colorClass={isHighErrorRate ? "bg-red-500" : "bg-emerald-500"}
-        />
-        <StatCard 
-          title="Active Storage Tiers" 
-          value="4"
-          icon={CircleStackIcon}
-          colorClass="bg-navy-500"
-        />
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Chart Column */}
-        <div className="card p-6 lg:col-span-1">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Tier Distribution</h2>
-          <TierDistributionChart data={data.tier_distribution} />
-        </div>
-
-        {/* Table Column */}
-        <div className="card lg:col-span-2 flex flex-col">
-          <div className="p-6 border-b border-gray-200 flex justify-between items-center">
-            <h2 className="text-lg font-semibold text-gray-900">Recent Automated Decisions</h2>
-            <a href="/scans" className="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline">View all scans &rarr;</a>
-          </div>
-          <div className="flex-grow overflow-auto">
-            <ScanTable scans={recentScans} />
-          </div>
-        </div>
-      </div>
+            return (
+              <tr 
+                key={scan.scan_id} 
+                onClick={() => navigate(`/scans/${encodeURIComponent(scan.scan_id)}`)}
+                className="hover:bg-navy-50 cursor-pointer transition-colors duration-150"
+              >
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-navy-900">
+                  {scan.scan_id}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                  <div className="font-medium text-gray-900">DX Chest ({patientAge}y, {patientGender})</div>
+                  <div className="text-xs text-gray-500 truncate max-w-xs">{findings}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <TierBadge tier={currentTier} />
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <TierBadge tier={predTier} />
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                  <div className="flex items-center">
+                    <span className="mr-2 font-mono font-medium">{(prob * 100).toFixed(1)}%</span>
+                    <div className="w-16 bg-gray-200 rounded-full h-1.5">
+                      <div 
+                        className="bg-blue-600 h-1.5 rounded-full" 
+                        style={{ width: `${Math.min(100, Math.max(5, prob * 100))}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 };
 
-export default Dashboard;
+export default ScanTable;
