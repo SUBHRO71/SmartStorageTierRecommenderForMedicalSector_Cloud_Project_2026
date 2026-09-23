@@ -37,7 +37,7 @@ const Login = () => {
             MedStorage<span className="text-blue-500 font-light">AI</span>
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Smart Storage Tier Recommender
+            Smart Storage Tier Recommender for Medical Sector
           </p>
         </div>
         
