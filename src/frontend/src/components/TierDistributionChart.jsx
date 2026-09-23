@@ -20,7 +20,7 @@ const TierDistributionChart = ({ data }) => {
             ))}
           </Pie>
           <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)} />
-          <Legend verticalAlign="bottom" height={36}/>
+          <Legend verticalAlign="bottom" height={36} wrapperStyle={{ fontSize: '13px' }} />
         </PieChart>
       </ResponsiveContainer>
     </div>
