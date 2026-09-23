@@ -1,0 +1,61 @@
+{
+  "version": "retrieval-policy-v1",
+  "model_type": "fixed_logistic_policy",
+  "description": "Provisional, reviewable retrieval-risk policy. These coefficients are not fitted clinical evidence.",
+  "intercept": -2.0,
+  "weights": {
+    "age_scaled": 0.15,
+    "follow_up_log": 0.55,
+    "prior_access_log": 0.8,
+    "abnormal_finding": 0.65,
+    "pathology_max": 1.2,
+    "pathology_mean": 0.35
+  },
+  "price_snapshot": {
+    "currency": "USD",
+    "region": "us-east-1",
+    "reviewed_on": "2026-09-21",
+    "tiers": {
+      "STANDARD": {
+        "storage_gb_month": 0.023,
+        "retrieval_gb": 0.0,
+        "retrieval_1000_requests": 0.0004,
+        "transition_1000_requests": 0.0,
+        "minimum_duration_days": 0,
+        "minimum_billable_bytes": 0,
+        "archive_metadata_bytes": 0,
+        "access_penalty": 0.0
+      },
+      "STANDARD_IA": {
+        "storage_gb_month": 0.0125,
+        "retrieval_gb": 0.01,
+        "retrieval_1000_requests": 0.001,
+        "transition_1000_requests": 0.01,
+        "minimum_duration_days": 30,
+        "minimum_billable_bytes": 131072,
+        "archive_metadata_bytes": 0,
+        "access_penalty": 0.002
+      },
+      "GLACIER": {
+        "storage_gb_month": 0.0036,
+        "retrieval_gb": 0.01,
+        "retrieval_1000_requests": 0.03,
+        "transition_1000_requests": 0.03,
+        "minimum_duration_days": 90,
+        "minimum_billable_bytes": 0,
+        "archive_metadata_bytes": 40960,
+        "access_penalty": 0.008
+      },
+      "DEEP_ARCHIVE": {
+        "storage_gb_month": 0.00099,
+        "retrieval_gb": 0.02,
+        "retrieval_1000_requests": 0.1,
+        "transition_1000_requests": 0.05,
+        "minimum_duration_days": 180,
+        "minimum_billable_bytes": 0,
+        "archive_metadata_bytes": 40960,
+        "access_penalty": 0.02
+      }
+    }
+  }
+}

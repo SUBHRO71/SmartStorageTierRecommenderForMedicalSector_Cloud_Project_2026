@@ -1,0 +1,52 @@
+{
+  "Rules": [
+    {
+      "ID": "TransitionToStandardIA",
+      "Filter": {
+        "Tag": {
+          "Key": "tier",
+          "Value": "STANDARD_IA"
+        }
+      },
+      "Status": "Enabled",
+      "Transitions": [
+        {
+          "Days": 0,
+          "StorageClass": "STANDARD_IA"
+        }
+      ]
+    },
+    {
+      "ID": "TransitionToGlacier",
+      "Filter": {
+        "Tag": {
+          "Key": "tier",
+          "Value": "GLACIER"
+        }
+      },
+      "Status": "Enabled",
+      "Transitions": [
+        {
+          "Days": 0,
+          "StorageClass": "GLACIER"
+        }
+      ]
+    },
+    {
+      "ID": "TransitionToDeepArchive",
+      "Filter": {
+        "Tag": {
+          "Key": "tier",
+          "Value": "DEEP_ARCHIVE"
+        }
+      },
+      "Status": "Enabled",
+      "Transitions": [
+        {
+          "Days": 0,
+          "StorageClass": "DEEP_ARCHIVE"
+        }
+      ]
+    }
+  ]
+}

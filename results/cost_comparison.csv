@@ -1,0 +1,5 @@
+Policy,Annual Cost ($),Savings vs Standard,Wrongly Archived Rate
+All S3 Standard,0.53,0.0%,0.0%
+Age-Based Rule (90d),0.69,-31.5%,38.2%
+S3 Intelligent-Tiering,0.45,14.4%,0.0%
+Our Two-Stage DL Model,0.45,15.1%,0.00%

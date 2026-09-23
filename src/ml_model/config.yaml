@@ -1,0 +1,69 @@
+project:
+  name: "SmartStorageTierRecommender"
+  seed: 42
+
+paths:
+  raw_data: "dataset/raw/Data_Entry_2017.csv"
+  processed_data_dir: "dataset/processed/"
+  model_dir: "results/models/"
+  results_dir: "results/metrics/"
+
+aws_prices: # us-east-1
+  s3_standard:
+    storage_gb_mo: 0.023
+    retrieval_gb: 0.0
+    retrieval_1000_req: 0.0004
+    transition_1000_req: 0.0
+    min_duration_days: 0
+    min_billable_kb: 0
+    overhead_kb: 0
+  s3_standard_ia:
+    storage_gb_mo: 0.0125
+    retrieval_gb: 0.01
+    retrieval_1000_req: 0.001
+    transition_1000_req: 0.01
+    min_duration_days: 30
+    min_billable_kb: 128
+    overhead_kb: 0
+  s3_glacier:
+    storage_gb_mo: 0.0036
+    retrieval_gb: 0.01
+    retrieval_1000_req: 0.03
+    transition_1000_req: 0.03
+    min_duration_days: 90
+    min_billable_kb: 128
+    overhead_kb: 40
+  s3_deep_archive:
+    storage_gb_mo: 0.00099
+    retrieval_gb: 0.02
+    retrieval_1000_req: 0.10
+    transition_1000_req: 0.05
+    min_duration_days: 180
+    min_billable_kb: 128
+    overhead_kb: 40
+
+training:
+  test_size: 0.15
+  val_size: 0.15
+  model_params:
+    objective: "binary:logistic"
+    eval_metric: "auc"
+    max_depth: 6
+    learning_rate: 0.05
+    n_estimators: 200
+  calibration_method: "isotonic"
+  clinical_penalty:
+    s3_standard: 0.0
+    s3_standard_ia: 0.002
+    s3_glacier: 0.008
+    s3_deep_archive: 0.020
+
+features:
+  categorical:
+    - "Patient Gender"
+    - "View Position"
+  numerical:
+    - "Patient Age"
+    - "Follow-up #"
+    - "prior_study_count"
+  target: "retrieved_again"
