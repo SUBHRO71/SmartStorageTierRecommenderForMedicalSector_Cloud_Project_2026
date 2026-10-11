@@ -14,6 +14,9 @@ from db import VALID_TIERS, db  # noqa: E402
 from model_service import model_service  # noqa: E402
 
 app = Flask(__name__)
+app.config["MAX_CONTENT_LENGTH"] = 512 * 1024 * 1024
+from archive_routes import create_archive_blueprint  # noqa: E402
+app.register_blueprint(create_archive_blueprint(db.use_aws))
 allowed_origins = [
     origin.strip()
     for origin in os.environ.get(

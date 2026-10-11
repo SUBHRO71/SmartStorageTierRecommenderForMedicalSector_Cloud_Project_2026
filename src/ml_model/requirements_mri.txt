@@ -1,0 +1,5 @@
+# Optional v2 MRI worker. Does not alter the v1 chest X-ray runtime.
+monai==1.5.2
+nibabel==5.2.1
+pydicom>=3.0.1,<4
+huggingface-hub>=0.25,<2

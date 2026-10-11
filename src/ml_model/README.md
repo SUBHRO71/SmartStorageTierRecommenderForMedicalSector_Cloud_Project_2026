@@ -1,5 +1,11 @@
 # Inference-only model and policy
 
+## V2 MRI path
+
+The new cancer-imaging archive uses a separate pretrained SegResNet adapter in `mri_inference.py`. Install `requirements_mri.txt`, then run `python src/ml_model/mri_inference.py --download --smoke-test` from the project root. It uses pinned MONAI BraTS weights without training. Four aligned, brain-extracted 1 mm NIfTI sequences are required. See [v2 implementation and evidence](../../architecture/V2_IMPLEMENTATION.md) for the exact checkpoint, input gates, model provenance and current boundaries.
+
+## V1 chest X-ray path
+
 This component does not train or fine-tune a model. It loads TorchXRayVision’s published `densenet121-res224-all` chest X-ray weights directly, extracts 18 named pathology scores, and passes them to a versioned fixed retrieval and cost policy.
 
 The fixed coefficients are transparent engineering assumptions, not fitted or clinically calibrated probabilities. `train.py` exits deliberately. `legacy_training.py`, `model.py`, and historical evaluation scripts remain for audit history and are outside the active runtime.

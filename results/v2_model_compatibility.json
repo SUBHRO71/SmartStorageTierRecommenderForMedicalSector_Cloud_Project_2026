@@ -1,0 +1,34 @@
+{
+  "status": "READY",
+  "model": "MONAI BraTS SegResNet 0.5.4",
+  "revision": "04689f51062d1ec889c8af2e78fc0369c6fda36d",
+  "checkpoint_sha256": "860ccb3f1c21c99d0410ad8a1ac4ef6b8fab60cec0a503b0ba42675741a750ae",
+  "input_sha256": [
+    "39fbeceb62f353b4065b4c8039fbb94141a407ad5365d9cdf8d83ae0023aa775",
+    "d095c1ccc901f5a98e36adbab9be749910969bfbc4fcbeafb6cccc68ea9c8990",
+    "7a6b605588037e562e89bac7af53bd716b32af7c53e8b61c50f938844062c24a",
+    "b447579b9db1f198c528f7f64eaabf991049545161f4ec651f35b1bfc78e8830"
+  ],
+  "volumes_mL": {
+    "TC": 5.362,
+    "WT": 7.93,
+    "ET": 1.931
+  },
+  "runtime_seconds": 0.85,
+  "device": "cpu",
+  "runtime_versions": {
+    "monai": "1.5.2",
+    "torch": "2.11.0+cpu"
+  },
+  "roi": [
+    96,
+    96,
+    96
+  ],
+  "normalization": "channel-wise nonzero z-score",
+  "threshold": 0.5,
+  "postprocessing": "ET included in TC; TC included in WT, following priority-label semantics",
+  "message": "Research segmentation. No diagnostic or retrieval probability output.",
+  "input_evidence": "Synthetic 32-cube functional test; no clinical accuracy validation",
+  "date": "2026-10-11"
+}
