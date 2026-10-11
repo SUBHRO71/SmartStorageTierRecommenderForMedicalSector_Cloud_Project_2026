@@ -594,6 +594,43 @@ the `ObjectCreated` inference event caused by that copy while a manual override 
 
 ---
 
+## ADR-017 — Study-aware cancer imaging archive with pretrained MRI analysis
+
+**Status:** Product direction confirmed; implementation proposed · **Date:** 11 October 2026
+
+### Context
+
+The instructor requested TCIA DICOM/metadata, clinical information, and BraTS multimodal MRI.
+The project owner confirmed that cloud storage optimization remains the main goal and that a
+pretrained MRI model is acceptable. The chest X-ray feature extractor in ADR-010 is not compatible
+with this MRI task.
+
+### Decision
+
+Adopt the [v2 PRD](PRD_V2_TCIA_BRATS.md) as the target product specification and the
+[dashboard specification](DASHBOARD_V2_SPEC.md) as its proposed UI plan. Introduce subject,
+study, series and object manifests; verified clinical joins; and a distinct offline MONAI BraTS
+SegResNet inference adapter. Preserve ADR-010's no-training constraint. The published bundle,
+checkpoint and input contract must be pinned and verified before implementation is claimed.
+
+Study placement uses explicit access constraints and an explainable cost policy. MRI segmentation
+is a research analysis artifact, not a calibrated retrieval forecast. Public clinical/imaging
+labels do not provide a future-access target. Missing sequence/clinical states stay visible, and
+real workload evidence remains distinct from synthetic evaluations.
+
+### Consequences
+
+- The existing v1 implementation stays documented separately while the new data and API contracts
+  are introduced through versioned migrations.
+- A small paired cohort and current data permissions are the first milestone; original DICOM
+  access and clinical linkage cannot be assumed from a collection name.
+- Placement and restore operations track every required study member and expose partial state.
+- The v2 dashboard prioritizes usable studies, data quality, constraints and operation progress.
+- Clinical validity, independent segmentation performance and storage savings require their own
+  recorded evidence; this design change does not establish those results.
+
+---
+
 ## Open decisions
 
 | # | Question | Blocks | Owner |

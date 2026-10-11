@@ -1,5 +1,15 @@
 # Smart Storage Tier Recommender for the Medical Sector
 
+## Revised project direction — v2
+
+The [TCIA + BraTS v2 PRD](architecture/PRD_V2_TCIA_BRATS.md) defines the next version: clinical-context-aware cloud storage optimization for complete cancer imaging studies, with DICOM/NIfTI ingestion, verified clinical links, and pretrained multimodal MRI analysis. Cloud storage optimization remains the main goal; MRI analysis supports archive inspection and evaluation. The [dashboard design specification](architecture/DASHBOARD_V2_SPEC.md) covers the archive overview, study explorer, MRI workbench, quality queue, policy comparison, and operations.
+
+The [v2 local implementation](architecture/V2_IMPLEMENTATION.md) now provides the redesigned archive dashboard, study explorer, validated DICOM/NIfTI imports, clinical CSV joins, MRI previews and pretrained SegResNet worker, access constraints, cost comparisons, and local bundle simulations. Open the local application to use the new workspace. Its sample cohort is explicitly synthetic; real dataset acquisition and v2 AWS execution remain separate milestones.
+
+The sections below describe the existing v1 application and its verified state. The v1 X-ray browser remains available at `/scans` and its cost view at `/legacy-costs`.
+
+## Existing application — v1
+
 CloudTierRecommender is an explainable, end-to-end application that recommends an Amazon S3 storage class for each medical image. It combines pathology scores from published pretrained TorchXRayVision weights with non-identifying metadata and access history, then applies a transparent cost and access-delay policy across Standard, Standard-IA, Glacier Flexible Retrieval, and Deep Archive.
 
 **The active path does not train or fine-tune a model.** It downloads and runs the official `densenet121-res224-all` weights directly. The resulting 18 named pathology scores feed a checked-in, versioned retrieval policy shared by the local backend and both AWS Lambda functions.

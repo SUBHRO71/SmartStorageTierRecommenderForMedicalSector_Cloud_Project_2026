@@ -1,0 +1,744 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-11T00:42:19.281Z",
+  "title": "Design System: CloudTier Imaging Archive",
+  "extensions": {
+    "colorMeta": {
+      "teal": {
+        "role": "primary",
+        "displayName": "Archive Teal",
+        "tonalRamp": [
+          "oklch(15.00% 0.08595 184.31)",
+          "oklch(26.43% 0.08595 184.31)",
+          "oklch(37.86% 0.08595 184.31)",
+          "oklch(49.29% 0.08595 184.31)",
+          "oklch(60.71% 0.08595 184.31)",
+          "oklch(72.14% 0.08595 184.31)",
+          "oklch(83.57% 0.08595 184.31)",
+          "oklch(95.00% 0.08595 184.31)"
+        ]
+      },
+      "teal-hover": {
+        "role": "primary",
+        "displayName": "Deep Action Teal",
+        "tonalRamp": [
+          "oklch(15.00% 0.07117 185.61)",
+          "oklch(26.43% 0.07117 185.61)",
+          "oklch(37.86% 0.07117 185.61)",
+          "oklch(49.29% 0.07117 185.61)",
+          "oklch(60.71% 0.07117 185.61)",
+          "oklch(72.14% 0.07117 185.61)",
+          "oklch(83.57% 0.07117 185.61)",
+          "oklch(95.00% 0.07117 185.61)"
+        ]
+      },
+      "navy": {
+        "role": "secondary",
+        "displayName": "Archive Navy",
+        "tonalRamp": [
+          "oklch(15.00% 0.04147 210.23)",
+          "oklch(26.43% 0.04147 210.23)",
+          "oklch(37.86% 0.04147 210.23)",
+          "oklch(49.29% 0.04147 210.23)",
+          "oklch(60.71% 0.04147 210.23)",
+          "oklch(72.14% 0.04147 210.23)",
+          "oklch(83.57% 0.04147 210.23)",
+          "oklch(95.00% 0.04147 210.23)"
+        ]
+      },
+      "nav-hover": {
+        "role": "secondary",
+        "displayName": "Lifted Navy",
+        "tonalRamp": [
+          "oklch(15.00% 0.04488 206.38)",
+          "oklch(26.43% 0.04488 206.38)",
+          "oklch(37.86% 0.04488 206.38)",
+          "oklch(49.29% 0.04488 206.38)",
+          "oklch(60.71% 0.04488 206.38)",
+          "oklch(72.14% 0.04488 206.38)",
+          "oklch(83.57% 0.04488 206.38)",
+          "oklch(95.00% 0.04488 206.38)"
+        ]
+      },
+      "nav-active": {
+        "role": "secondary",
+        "displayName": "Selected Mint",
+        "tonalRamp": [
+          "oklch(15.00% 0.02338 165.84)",
+          "oklch(26.43% 0.02338 165.84)",
+          "oklch(37.86% 0.02338 165.84)",
+          "oklch(49.29% 0.02338 165.84)",
+          "oklch(60.71% 0.02338 165.84)",
+          "oklch(72.14% 0.02338 165.84)",
+          "oklch(83.57% 0.02338 165.84)",
+          "oklch(95.00% 0.02338 165.84)"
+        ]
+      },
+      "nav-active-ink": {
+        "role": "secondary",
+        "displayName": "Selected Teal Ink",
+        "tonalRamp": [
+          "oklch(15.00% 0.05686 186.65)",
+          "oklch(26.43% 0.05686 186.65)",
+          "oklch(37.86% 0.05686 186.65)",
+          "oklch(49.29% 0.05686 186.65)",
+          "oklch(60.71% 0.05686 186.65)",
+          "oklch(72.14% 0.05686 186.65)",
+          "oklch(83.57% 0.05686 186.65)",
+          "oklch(95.00% 0.05686 186.65)"
+        ]
+      },
+      "review-mint": {
+        "role": "secondary",
+        "displayName": "Review Mint",
+        "tonalRamp": [
+          "oklch(15.00% 0.01322 159.91)",
+          "oklch(26.43% 0.01322 159.91)",
+          "oklch(37.86% 0.01322 159.91)",
+          "oklch(49.29% 0.01322 159.91)",
+          "oklch(60.71% 0.01322 159.91)",
+          "oklch(72.14% 0.01322 159.91)",
+          "oklch(83.57% 0.01322 159.91)",
+          "oklch(95.00% 0.01322 159.91)"
+        ]
+      },
+      "review-line": {
+        "role": "secondary",
+        "displayName": "Review Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.02582 158.17)",
+          "oklch(26.43% 0.02582 158.17)",
+          "oklch(37.86% 0.02582 158.17)",
+          "oklch(49.29% 0.02582 158.17)",
+          "oklch(60.71% 0.02582 158.17)",
+          "oklch(72.14% 0.02582 158.17)",
+          "oklch(83.57% 0.02582 158.17)",
+          "oklch(95.00% 0.02582 158.17)"
+        ]
+      },
+      "success-bg": {
+        "role": "tertiary",
+        "displayName": "Success Wash",
+        "tonalRamp": [
+          "oklch(15.00% 0.01734 159.12)",
+          "oklch(26.43% 0.01734 159.12)",
+          "oklch(37.86% 0.01734 159.12)",
+          "oklch(49.29% 0.01734 159.12)",
+          "oklch(60.71% 0.01734 159.12)",
+          "oklch(72.14% 0.01734 159.12)",
+          "oklch(83.57% 0.01734 159.12)",
+          "oklch(95.00% 0.01734 159.12)"
+        ]
+      },
+      "success-ink": {
+        "role": "tertiary",
+        "displayName": "Success Ink",
+        "tonalRamp": [
+          "oklch(15.00% 0.07092 162.32)",
+          "oklch(26.43% 0.07092 162.32)",
+          "oklch(37.86% 0.07092 162.32)",
+          "oklch(49.29% 0.07092 162.32)",
+          "oklch(60.71% 0.07092 162.32)",
+          "oklch(72.14% 0.07092 162.32)",
+          "oklch(83.57% 0.07092 162.32)",
+          "oklch(95.00% 0.07092 162.32)"
+        ]
+      },
+      "attention-bg": {
+        "role": "tertiary",
+        "displayName": "Attention Wash",
+        "tonalRamp": [
+          "oklch(15.00% 0.03282 83.71)",
+          "oklch(26.43% 0.03282 83.71)",
+          "oklch(37.86% 0.03282 83.71)",
+          "oklch(49.29% 0.03282 83.71)",
+          "oklch(60.71% 0.03282 83.71)",
+          "oklch(72.14% 0.03282 83.71)",
+          "oklch(83.57% 0.03282 83.71)",
+          "oklch(95.00% 0.03282 83.71)"
+        ]
+      },
+      "attention-ink": {
+        "role": "tertiary",
+        "displayName": "Attention Ink",
+        "tonalRamp": [
+          "oklch(15.00% 0.09738 75.69)",
+          "oklch(26.43% 0.09738 75.69)",
+          "oklch(37.86% 0.09738 75.69)",
+          "oklch(49.29% 0.09738 75.69)",
+          "oklch(60.71% 0.09738 75.69)",
+          "oklch(72.14% 0.09738 75.69)",
+          "oklch(83.57% 0.09738 75.69)",
+          "oklch(95.00% 0.09738 75.69)"
+        ]
+      },
+      "status-bg": {
+        "role": "tertiary",
+        "displayName": "Neutral State Wash",
+        "tonalRamp": [
+          "oklch(15.00% 0.00688 247.90)",
+          "oklch(26.43% 0.00688 247.90)",
+          "oklch(37.86% 0.00688 247.90)",
+          "oklch(49.29% 0.00688 247.90)",
+          "oklch(60.71% 0.00688 247.90)",
+          "oklch(72.14% 0.00688 247.90)",
+          "oklch(83.57% 0.00688 247.90)",
+          "oklch(95.00% 0.00688 247.90)"
+        ]
+      },
+      "status-ink": {
+        "role": "tertiary",
+        "displayName": "Neutral State Ink",
+        "tonalRamp": [
+          "oklch(15.00% 0.03366 237.52)",
+          "oklch(26.43% 0.03366 237.52)",
+          "oklch(37.86% 0.03366 237.52)",
+          "oklch(49.29% 0.03366 237.52)",
+          "oklch(60.71% 0.03366 237.52)",
+          "oklch(72.14% 0.03366 237.52)",
+          "oklch(83.57% 0.03366 237.52)",
+          "oklch(95.00% 0.03366 237.52)"
+        ]
+      },
+      "tier-standard": {
+        "role": "tertiary",
+        "displayName": "Standard Teal",
+        "tonalRamp": [
+          "oklch(15.00% 0.09465 184.54)",
+          "oklch(26.43% 0.09465 184.54)",
+          "oklch(37.86% 0.09465 184.54)",
+          "oklch(49.29% 0.09465 184.54)",
+          "oklch(60.71% 0.09465 184.54)",
+          "oklch(72.14% 0.09465 184.54)",
+          "oklch(83.57% 0.09465 184.54)",
+          "oklch(95.00% 0.09465 184.54)"
+        ]
+      },
+      "tier-standard-ia": {
+        "role": "tertiary",
+        "displayName": "Standard-IA Blue",
+        "tonalRamp": [
+          "oklch(15.00% 0.10841 254.93)",
+          "oklch(26.43% 0.10841 254.93)",
+          "oklch(37.86% 0.10841 254.93)",
+          "oklch(49.29% 0.10841 254.93)",
+          "oklch(60.71% 0.10841 254.93)",
+          "oklch(72.14% 0.10841 254.93)",
+          "oklch(83.57% 0.10841 254.93)",
+          "oklch(95.00% 0.10841 254.93)"
+        ]
+      },
+      "tier-glacier": {
+        "role": "tertiary",
+        "displayName": "Glacier Amber",
+        "tonalRamp": [
+          "oklch(15.00% 0.12098 77.38)",
+          "oklch(26.43% 0.12098 77.38)",
+          "oklch(37.86% 0.12098 77.38)",
+          "oklch(49.29% 0.12098 77.38)",
+          "oklch(60.71% 0.12098 77.38)",
+          "oklch(72.14% 0.12098 77.38)",
+          "oklch(83.57% 0.12098 77.38)",
+          "oklch(95.00% 0.12098 77.38)"
+        ]
+      },
+      "tier-deep-archive": {
+        "role": "tertiary",
+        "displayName": "Deep Archive Lavender",
+        "tonalRamp": [
+          "oklch(15.00% 0.07942 293.51)",
+          "oklch(26.43% 0.07942 293.51)",
+          "oklch(37.86% 0.07942 293.51)",
+          "oklch(49.29% 0.07942 293.51)",
+          "oklch(60.71% 0.07942 293.51)",
+          "oklch(72.14% 0.07942 293.51)",
+          "oklch(83.57% 0.07942 293.51)",
+          "oklch(95.00% 0.07942 293.51)"
+        ]
+      },
+      "workspace-bg": {
+        "role": "neutral",
+        "displayName": "Cool Workspace",
+        "tonalRamp": [
+          "oklch(15.00% 0.00252 228.78)",
+          "oklch(26.43% 0.00252 228.78)",
+          "oklch(37.86% 0.00252 228.78)",
+          "oklch(49.29% 0.00252 228.78)",
+          "oklch(60.71% 0.00252 228.78)",
+          "oklch(72.14% 0.00252 228.78)",
+          "oklch(83.57% 0.00252 228.78)",
+          "oklch(95.00% 0.00252 228.78)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "White Surface",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 0.00)",
+          "oklch(26.43% 0.00000 0.00)",
+          "oklch(37.86% 0.00000 0.00)",
+          "oklch(49.29% 0.00000 0.00)",
+          "oklch(60.71% 0.00000 0.00)",
+          "oklch(72.14% 0.00000 0.00)",
+          "oklch(83.57% 0.00000 0.00)",
+          "oklch(95.00% 0.00000 0.00)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Archive Ink",
+        "tonalRamp": [
+          "oklch(15.00% 0.03242 233.29)",
+          "oklch(26.43% 0.03242 233.29)",
+          "oklch(37.86% 0.03242 233.29)",
+          "oklch(49.29% 0.03242 233.29)",
+          "oklch(60.71% 0.03242 233.29)",
+          "oklch(72.14% 0.03242 233.29)",
+          "oklch(83.57% 0.03242 233.29)",
+          "oklch(95.00% 0.03242 233.29)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Supporting Ink",
+        "tonalRamp": [
+          "oklch(15.00% 0.02970 235.87)",
+          "oklch(26.43% 0.02970 235.87)",
+          "oklch(37.86% 0.02970 235.87)",
+          "oklch(49.29% 0.02970 235.87)",
+          "oklch(60.71% 0.02970 235.87)",
+          "oklch(72.14% 0.02970 235.87)",
+          "oklch(83.57% 0.02970 235.87)",
+          "oklch(95.00% 0.02970 235.87)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Quiet Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.00857 225.09)",
+          "oklch(26.43% 0.00857 225.09)",
+          "oklch(37.86% 0.00857 225.09)",
+          "oklch(49.29% 0.00857 225.09)",
+          "oklch(60.71% 0.00857 225.09)",
+          "oklch(72.14% 0.00857 225.09)",
+          "oklch(83.57% 0.00857 225.09)",
+          "oklch(95.00% 0.00857 225.09)"
+        ]
+      },
+      "field-line": {
+        "role": "neutral",
+        "displayName": "Field Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.01508 218.06)",
+          "oklch(26.43% 0.01508 218.06)",
+          "oklch(37.86% 0.01508 218.06)",
+          "oklch(49.29% 0.01508 218.06)",
+          "oklch(60.71% 0.01508 218.06)",
+          "oklch(72.14% 0.01508 218.06)",
+          "oklch(83.57% 0.01508 218.06)",
+          "oklch(95.00% 0.01508 218.06)"
+        ]
+      },
+      "secondary-ink": {
+        "role": "neutral",
+        "displayName": "Secondary Action Ink",
+        "tonalRamp": [
+          "oklch(15.00% 0.03820 218.51)",
+          "oklch(26.43% 0.03820 218.51)",
+          "oklch(37.86% 0.03820 218.51)",
+          "oklch(49.29% 0.03820 218.51)",
+          "oklch(60.71% 0.03820 218.51)",
+          "oklch(72.14% 0.03820 218.51)",
+          "oklch(83.57% 0.03820 218.51)",
+          "oklch(95.00% 0.03820 218.51)"
+        ]
+      },
+      "secondary-line": {
+        "role": "neutral",
+        "displayName": "Secondary Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.01325 208.76)",
+          "oklch(26.43% 0.01325 208.76)",
+          "oklch(37.86% 0.01325 208.76)",
+          "oklch(49.29% 0.01325 208.76)",
+          "oklch(60.71% 0.01325 208.76)",
+          "oklch(72.14% 0.01325 208.76)",
+          "oklch(83.57% 0.01325 208.76)",
+          "oklch(95.00% 0.01325 208.76)"
+        ]
+      },
+      "secondary-hover": {
+        "role": "neutral",
+        "displayName": "Secondary Hover Wash",
+        "tonalRamp": [
+          "oklch(15.00% 0.00935 171.80)",
+          "oklch(26.43% 0.00935 171.80)",
+          "oklch(37.86% 0.00935 171.80)",
+          "oklch(49.29% 0.00935 171.80)",
+          "oklch(60.71% 0.00935 171.80)",
+          "oklch(72.14% 0.00935 171.80)",
+          "oklch(83.57% 0.00935 171.80)",
+          "oklch(95.00% 0.00935 171.80)"
+        ]
+      },
+      "table-head": {
+        "role": "neutral",
+        "displayName": "Table Header Wash",
+        "tonalRamp": [
+          "oklch(15.00% 0.00251 228.78)",
+          "oklch(26.43% 0.00251 228.78)",
+          "oklch(37.86% 0.00251 228.78)",
+          "oklch(49.29% 0.00251 228.78)",
+          "oklch(60.71% 0.00251 228.78)",
+          "oklch(72.14% 0.00251 228.78)",
+          "oklch(83.57% 0.00251 228.78)",
+          "oklch(95.00% 0.00251 228.78)"
+        ]
+      },
+      "table-hover": {
+        "role": "neutral",
+        "displayName": "Table Hover Wash",
+        "tonalRamp": [
+          "oklch(15.00% 0.00590 170.45)",
+          "oklch(26.43% 0.00590 170.45)",
+          "oklch(37.86% 0.00590 170.45)",
+          "oklch(49.29% 0.00590 170.45)",
+          "oklch(60.71% 0.00590 170.45)",
+          "oklch(72.14% 0.00590 170.45)",
+          "oklch(83.57% 0.00590 170.45)",
+          "oklch(95.00% 0.00590 170.45)"
+        ]
+      },
+      "viewer-panel": {
+        "role": "neutral",
+        "displayName": "MRI Enclosure",
+        "tonalRamp": [
+          "oklch(15.00% 0.03014 230.04)",
+          "oklch(26.43% 0.03014 230.04)",
+          "oklch(37.86% 0.03014 230.04)",
+          "oklch(49.29% 0.03014 230.04)",
+          "oklch(60.71% 0.03014 230.04)",
+          "oklch(72.14% 0.03014 230.04)",
+          "oklch(83.57% 0.03014 230.04)",
+          "oklch(95.00% 0.03014 230.04)"
+        ]
+      },
+      "viewer-canvas": {
+        "role": "neutral",
+        "displayName": "MRI Canvas",
+        "tonalRamp": [
+          "oklch(15.00% 0.02597 233.12)",
+          "oklch(26.43% 0.02597 233.12)",
+          "oklch(37.86% 0.02597 233.12)",
+          "oklch(49.29% 0.02597 233.12)",
+          "oklch(60.71% 0.02597 233.12)",
+          "oklch(72.14% 0.02597 233.12)",
+          "oklch(83.57% 0.02597 233.12)",
+          "oklch(95.00% 0.02597 233.12)"
+        ]
+      },
+      "viewer-control": {
+        "role": "neutral",
+        "displayName": "MRI Control Fill",
+        "tonalRamp": [
+          "oklch(15.00% 0.03549 225.38)",
+          "oklch(26.43% 0.03549 225.38)",
+          "oklch(37.86% 0.03549 225.38)",
+          "oklch(49.29% 0.03549 225.38)",
+          "oklch(60.71% 0.03549 225.38)",
+          "oklch(72.14% 0.03549 225.38)",
+          "oklch(83.57% 0.03549 225.38)",
+          "oklch(95.00% 0.03549 225.38)"
+        ]
+      },
+      "viewer-line": {
+        "role": "neutral",
+        "displayName": "MRI Control Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.03908 228.32)",
+          "oklch(26.43% 0.03908 228.32)",
+          "oklch(37.86% 0.03908 228.32)",
+          "oklch(49.29% 0.03908 228.32)",
+          "oklch(60.71% 0.03908 228.32)",
+          "oklch(72.14% 0.03908 228.32)",
+          "oklch(83.57% 0.03908 228.32)",
+          "oklch(95.00% 0.03908 228.32)"
+        ]
+      },
+      "viewer-label": {
+        "role": "neutral",
+        "displayName": "MRI Supporting Text",
+        "tonalRamp": [
+          "oklch(15.00% 0.02676 217.99)",
+          "oklch(26.43% 0.02676 217.99)",
+          "oklch(37.86% 0.02676 217.99)",
+          "oklch(49.29% 0.02676 217.99)",
+          "oklch(60.71% 0.02676 217.99)",
+          "oklch(72.14% 0.02676 217.99)",
+          "oklch(83.57% 0.02676 217.99)",
+          "oklch(95.00% 0.02676 217.99)"
+        ]
+      },
+      "nav-label": {
+        "role": "secondary",
+        "displayName": "Quiet Rail Text",
+        "tonalRamp": [
+          "oklch(15.00% 0.01947 192.76)",
+          "oklch(26.43% 0.01947 192.76)",
+          "oklch(37.86% 0.01947 192.76)",
+          "oklch(49.29% 0.01947 192.76)",
+          "oklch(60.71% 0.01947 192.76)",
+          "oklch(72.14% 0.01947 192.76)",
+          "oklch(83.57% 0.01947 192.76)",
+          "oklch(95.00% 0.01947 192.76)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Login Display",
+        "purpose": "Login story only; 32px on phones."
+      },
+      "headline": {
+        "displayName": "Archive Headline",
+        "purpose": "Page headings; 27px on phones."
+      },
+      "title": {
+        "displayName": "Section Title",
+        "purpose": "Compact panel headings."
+      },
+      "body": {
+        "displayName": "System Body",
+        "purpose": "Effective Tailwind system sans body stack; no custom font."
+      },
+      "body-detail": {
+        "displayName": "Supporting Detail",
+        "purpose": "Readable descriptions and operational evidence."
+      },
+      "label": {
+        "displayName": "State Label",
+        "purpose": "Status text and small operational labels."
+      },
+      "navigation": {
+        "displayName": "Navigation",
+        "purpose": "Rail destinations."
+      },
+      "button": {
+        "displayName": "Action Label",
+        "purpose": "Shared primary and secondary control labels."
+      },
+      "metric": {
+        "displayName": "Inventory Metric",
+        "purpose": "Tabular numerical summaries; responsive size overrides remain in CSS."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-arrival",
+        "value": "cubic-bezier(.16,1,.3,1)",
+        "purpose": "Page, bar and mobile rail transforms."
+      },
+      {
+        "name": "page-arrival",
+        "value": "380ms",
+        "purpose": "translateY(7px) to translateY(0); content stays visible."
+      },
+      {
+        "name": "placement-reveal",
+        "value": "800ms",
+        "purpose": "scaleX(.94) to scaleX(1), transform-origin left."
+      },
+      {
+        "name": "cost-reveal",
+        "value": "750ms",
+        "purpose": "scaleX(.94) to scaleX(1), transform-origin left."
+      },
+      {
+        "name": "control-feedback",
+        "value": "180ms ease",
+        "purpose": "Button background/press transforms and row backgrounds."
+      },
+      {
+        "name": "navigation-feedback",
+        "value": "200ms ease",
+        "purpose": "Rail color/background, icon-button background and bar background changes."
+      },
+      {
+        "name": "mobile-rail",
+        "value": "250ms",
+        "purpose": "translateX(-100%) to translateX(0) using ease-arrival."
+      },
+      {
+        "name": "loading-spin",
+        "value": "1.3s linear infinite",
+        "purpose": "Loading indicator rotation; accompanying status text remains visible."
+      },
+      {
+        "name": "press-displacement",
+        "value": "1px",
+        "purpose": "Enabled button press uses translateY(1px)."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation:none!important; transition:none!important; scroll-behavior:auto!important",
+        "purpose": "Applied to all elements and pseudo-elements when prefers-reduced-motion:reduce matches."
+      },
+      {
+        "name": "review-scroll",
+        "value": "instant",
+        "purpose": "Opening placement review focuses the heading without scrolling, then scrolls it into view; Cancel restores trigger focus."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide-min",
+        "value": "1600px"
+      },
+      {
+        "name": "compact-desktop-max",
+        "value": "1200px"
+      },
+      {
+        "name": "stacked-max",
+        "value": "1023px"
+      },
+      {
+        "name": "phone-max",
+        "value": "767px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Teal action with color feedback, a small press shift and visible keyboard focus.",
+      "html": "<button class=\"ds-primary ds-focus ds-motion\">Import study</button>",
+      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;font-family:ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";font-size:12px;font-weight:550;padding:10px 16px;border-radius:7px;border:1px solid transparent;cursor:pointer;transition:background .18s,transform .18s;white-space:nowrap;background:var(--teal,#14776d);color:#fff}.ds-primary:hover:not(:disabled){background:#115e57}.ds-primary:active:not(:disabled){transform:translateY(1px)}.ds-primary:disabled{opacity:.48;cursor:not-allowed}.ds-focus:focus-visible{outline:3px solid var(--focus,#14776d);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-motion,.ds-motion::before,.ds-motion::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "White bordered action for supporting operations and cancel.",
+      "html": "<button class=\"ds-secondary ds-focus ds-motion\">Cancel</button>",
+      "css": ".ds-secondary{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;font-family:ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";font-size:12px;font-weight:550;padding:10px 16px;border-radius:7px;border:1px solid transparent;cursor:pointer;transition:background .18s,transform .18s;white-space:nowrap;background:#fff;color:#3e5c65;border-color:#d0dcde}.ds-secondary:hover:not(:disabled){background:#ecf4f1}.ds-secondary:active:not(:disabled){transform:translateY(1px)}.ds-secondary:disabled{opacity:.48;cursor:not-allowed}.ds-focus:focus-visible{outline:3px solid var(--focus,#14776d);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-motion,.ds-motion::before,.ds-motion::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}"
+    },
+    {
+      "name": "Labeled Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Compact white field with a persistent label and teal focus outline.",
+      "html": "<label class=\"ds-field-label\">Placement reason<input class=\"ds-field ds-focus\" placeholder=\"Reason for this local placement\" /></label>",
+      "css": ".ds-field-label{display:grid;gap:7px;font-family:ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";font-size:12px;color:#536d78}.ds-field{min-height:42px;padding:10px 12px;border:1px solid #cfdce0;border-radius:6px;width:100%;background:#fff;color:var(--ink,#20343f);font-family:ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";font-size:12px;caret-color:var(--teal,#14776d)}.ds-field::placeholder{color:#5b6e7a}.ds-focus:focus-visible{outline:3px solid var(--focus,#14776d);outline-offset:4px}"
+    },
+    {
+      "name": "Archive Navigation",
+      "kind": "nav",
+      "refersTo": "nav-item",
+      "description": "Mint selected destination within the navy navigation rail.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Archive navigation\"><a class=\"ds-nav-item ds-focus ds-motion ds-nav-active\" href=\"#overview\" aria-current=\"page\">Overview</a><a class=\"ds-nav-item ds-focus ds-motion\" href=\"#studies\">Studies</a><a class=\"ds-nav-item ds-focus ds-motion\" href=\"#quality\">Data quality</a></nav>",
+      "css": ".ds-nav{display:grid;gap:6px;padding:18px;background:var(--sidebar,#173a40);font-family:ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"}.ds-nav-item{display:flex;align-items:center;gap:12px;min-height:46px;padding:12px 13px;border-radius:8px;color:#c2d4d3;text-decoration:none;font-size:14px;font-weight:500;transition:background .2s,color .2s}.ds-nav-item:hover{background:#244b50;color:#fff}.ds-nav-item.ds-nav-active{background:#dcefe6;color:#1b514c}.ds-focus:focus-visible{outline:3px solid var(--focus,#14776d);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-motion,.ds-motion::before,.ds-motion::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}"
+    },
+    {
+      "name": "Status Labels",
+      "kind": "chip",
+      "refersTo": "status-neutral",
+      "description": "Labeled success, attention and neutral states; color always accompanies text.",
+      "html": "<div class=\"ds-statuses\"><span class=\"ds-status ds-status-success\">Linked</span><span class=\"ds-status ds-status-attention\">Needs review</span><span class=\"ds-status ds-status-neutral\">Not run</span></div>",
+      "css": ".ds-statuses{display:flex;flex-wrap:wrap;gap:8px}.ds-status{padding:4px 7px;border-radius:5px;display:inline-flex;align-items:center;font-family:ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";font-size:11px;font-weight:500;white-space:nowrap}.ds-status-success{background:#e7f4ec;color:#3b7158}.ds-status-attention{background:#fff3dc;color:#8b621e}.ds-status-neutral{background:#edf1f5;color:#536876}"
+    },
+    {
+      "name": "Archive Panel",
+      "kind": "card",
+      "refersTo": "panel-body",
+      "description": "Flat white panel, quiet stroke, rounded corners and compact internal spacing.",
+      "html": "<section class=\"ds-panel\"><h2 class=\"ds-panel-title\">Study provenance</h2><p class=\"ds-panel-copy\">Source, release and permission stay beside the study.</p></section>",
+      "css": ".ds-panel{background:var(--surface,#fff);border:1px solid var(--line,#e0e7ea);border-radius:12px;padding:23px;color:var(--ink,#20343f);font-family:ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";overflow:hidden;min-width:0}.ds-panel-title{font-size:16px;font-weight:600;letter-spacing:-.02em;margin:0 0 15px}.ds-panel-copy{font-size:12px;line-height:1.8;color:var(--muted,#586b77);margin:0}"
+    },
+    {
+      "name": "Mint Review Queue",
+      "kind": "card",
+      "refersTo": "review-panel",
+      "description": "Mint panel groups work that needs attention before a placement decision.",
+      "html": "<section class=\"ds-review\"><h2>A little attention, a better archive.</h2><p>Resolve these before the next storage decision.</p><a class=\"ds-review-row ds-focus\" href=\"#study\"><span><strong>Review clinical linkage</strong><small>Inspect source linkage</small></span></a></section>",
+      "css": ".ds-review{background:#eaf4ee;border:1px solid #d5e8dc;border-radius:12px;padding:21px 23px 20px;font-family:ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";color:var(--ink,#20343f)}.ds-review h2{font-size:17px;font-weight:600;letter-spacing:-.02em;color:#2d5444;margin:0}.ds-review p{font-size:12px;line-height:1.55;color:#526c60;margin:5px 0 20px}.ds-review-row{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink,#20343f);padding:11px 0;border-top:1px solid #d3e4d9}.ds-review-row strong{font-size:12px;font-weight:600}.ds-review-row small{font-size:11px;display:block;margin-top:3px;color:#50685b}.ds-focus:focus-visible{outline:3px solid var(--focus,#14776d);outline-offset:4px}"
+    },
+    {
+      "name": "Study Inventory",
+      "kind": "custom",
+      "description": "A named, keyboard-focusable scroller keeps all study fields available on phones.",
+      "html": "<section class=\"ds-table-panel\"><p class=\"ds-scroll-hint\">Scroll the table horizontally to inspect placement and actions.</p><div class=\"ds-scroll ds-focus\" role=\"region\" aria-label=\"Study inventory — scroll horizontally for all columns\" tabindex=\"0\"><table class=\"ds-table\"><caption class=\"ds-caption\">Imaging studies with sequence coverage and storage state</caption><thead><tr><th>Study / subject</th><th>MRI sequences</th><th>Clinical link</th><th>Placement</th></tr></thead><tbody><tr><td>Sample study<small>Synthetic metadata</small></td><td>T1 · T1ce · T2 · FLAIR</td><td>Needs review</td><td>Standard simulation</td></tr></tbody></table></div></section>",
+      "css": ".ds-table-panel{background:#fff;border:1px solid var(--line,#e0e7ea);border-radius:12px;overflow:hidden;font-family:ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";color:var(--ink,#20343f);min-width:0}.ds-scroll{position:relative;max-width:100%;overflow-x:auto}.ds-table{width:100%;border-collapse:collapse;text-align:left}.ds-table th{font-size:11px;font-weight:550;color:#627783;background:#f9fbfc;padding:12px 20px;border-top:1px solid var(--line,#e0e7ea);border-bottom:1px solid var(--line,#e0e7ea);white-space:nowrap}.ds-table td{padding:15px 20px;font-size:12px;border-bottom:1px solid #edf1f3;vertical-align:middle}.ds-table tr:hover{background:#f4f9f7}.ds-table small{display:block;color:#627783;margin-top:4px;font-size:10px}.ds-scroll-hint{display:none;color:var(--muted,#586b77);font-size:11px;line-height:1.7;margin:0;padding:0 20px 12px}.ds-caption{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.ds-focus:focus-visible{outline:3px solid var(--focus,#14776d);outline-offset:4px}@media(max-width:767px){.ds-scroll-hint{display:block}.ds-table{min-width:660px}.ds-table th,.ds-table td{padding:13px 16px}}"
+    },
+    {
+      "name": "MRI Workbench",
+      "kind": "custom",
+      "refersTo": "viewer-panel",
+      "description": "Dark inspection surface with explicit no-pixels state; one selected sequence viewport on phones.",
+      "html": "<section class=\"ds-viewer\"><header class=\"ds-viewer-heading\"><h2>MRI workbench</h2><p>Sample metadata · no MRI imagery</p></header><label class=\"ds-sequence-picker\">MRI sequence<select class=\"ds-viewer-select ds-focus\" aria-label=\"Displayed MRI sequence\"><option>T1</option><option>T1ce</option><option>T2</option><option>FLAIR</option></select></label><div class=\"ds-volume\"><span class=\"ds-volume-label\">T1</span><div class=\"ds-volume-empty\"><span>No pixels loaded</span><small>Import a permitted MRI volume</small></div><span class=\"ds-volume-plane\">axial · 50%</span></div><p class=\"ds-viewer-note\">Independent sequence previews. Cross-sequence correspondence requires verified alignment.</p></section>",
+      "css": ".ds-viewer{background:#12252e;border-radius:12px;overflow:hidden;color:#fff;font-family:ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"}.ds-viewer-heading{padding:20px}.ds-viewer-heading h2{font-size:16px;font-weight:550;margin:0}.ds-viewer-heading p{font-size:11px;color:#a7c0c8;margin:5px 0 0}.ds-sequence-picker{display:none;gap:12px;align-items:center;padding:0 19px 17px;color:#b4cbd2;font-size:12px}.ds-viewer-select{background:#233c46;border:1px solid #476370;border-radius:5px;color:#e2eef0;min-height:40px;padding:7px 12px;font-family:ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";font-size:12px}.ds-volume{position:relative;min-height:180px;display:grid;place-items:center;background:#0c1b23;padding:25px 0;overflow:hidden;aspect-ratio:1.2;margin:0 14px}.ds-volume-label{position:absolute;top:12px;left:14px;font-size:12px;color:#d1e2e6}.ds-volume-plane{position:absolute;bottom:10px;right:13px;font-size:10px;color:#a5bcc6}.ds-volume-empty{display:grid;justify-items:center;text-align:center;color:#a2bcc7;font-size:12px;padding:8px}.ds-volume-empty small{font-size:10px;color:#a3bdc6;margin-top:6px;max-width:22ch}.ds-viewer-note{color:#a0b9c1;font-size:10px;line-height:1.7;border-top:1px solid #28434c;padding:12px 20px;margin:0}.ds-focus:focus-visible{outline:3px solid var(--focus,#14776d);outline-offset:4px}@media(max-width:767px){.ds-sequence-picker{display:flex}.ds-volume{aspect-ratio:1.3;min-height:210px}}"
+    },
+    {
+      "name": "Placement Review",
+      "kind": "custom",
+      "description": "Inline bundle review receives focus on opening and returns focus to its trigger on cancellation.",
+      "html": "<section class=\"ds-placement\"><h2 class=\"ds-focus\" tabindex=\"-1\">Review the complete bundle</h2><p>This simulates placement of the complete bundle. Local image files remain on this machine.</p><label class=\"ds-placement-reason\">Placement reason<input class=\"ds-placement-field ds-focus\" placeholder=\"Reason for this local placement\" /></label><button class=\"ds-placement-apply ds-focus ds-motion\" disabled>Apply local simulation</button></section>",
+      "css": ".ds-placement{background:var(--surface,#fff);border:1px solid var(--line,#e0e7ea);border-radius:12px;padding:23px;font-family:ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";color:var(--ink,#20343f)}.ds-placement h2{font-size:17px;font-weight:600;margin:0 0 13px;scroll-margin-top:24px}.ds-placement p{font-size:12px;line-height:1.8;color:var(--muted,#586b77)}.ds-placement-reason{display:grid;gap:7px;font-size:12px;color:#536d78;margin:19px 0}.ds-placement-field{min-height:42px;padding:10px 12px;border:1px solid #cfdce0;border-radius:6px;width:100%;background:#fff;color:var(--ink,#20343f);font-family:ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";font-size:12px}.ds-placement-apply{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;font-family:ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";font-size:12px;font-weight:550;padding:10px 16px;border-radius:7px;border:1px solid transparent;cursor:pointer;transition:background .18s,transform .18s;white-space:nowrap;background:var(--teal,#14776d);color:#fff}.ds-placement-apply:hover:not(:disabled){background:#115e57}.ds-placement-apply:active:not(:disabled){transform:translateY(1px)}.ds-placement-apply:disabled{opacity:.48;cursor:not-allowed}.ds-focus:focus-visible{outline:3px solid var(--focus,#14776d);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-motion,.ds-motion::before,.ds-motion::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Imaging Archive",
+    "overview": "The Imaging Archive is a calm operational workspace: pale working surfaces, teal actions, a fixed navy navigation rail, and a dark canvas reserved for inspecting MRI volumes. Border-defined panels and compact type let study identity, source context and storage state lead.\n\nThis records the approved v2 archive and login implementation, extracted from `src/frontend/src/archive/archive.css`, the archive React components, `pages/Login.jsx`, and the effective Tailwind body font. The earlier X-ray routes retain their existing system. Local prototype, synthetic sample and simulation labels are part of the visible interface; this design record makes no model-accuracy or cloud-validation claim.",
+    "keyCharacteristics": [
+      "Quiet light workspace with teal actions and navy navigation.",
+      "Mint review surfaces; amber attention states; stable, labeled tier hues.",
+      "Compact system typography, tabular figures and inspectable evidence.",
+      "Small state-based motion; authored animations and transitions disabled for reduced motion."
+    ],
+    "rules": [
+      {
+        "name": "The Meaning Rule",
+        "body": "Keep actions, clinical states and storage tiers visually distinct. Pair each state or tier color with a readable label; the teal action color is not a clinical verdict.",
+        "section": "colors"
+      },
+      {
+        "name": "The Evidence Rule",
+        "body": "Use compact labels and tabular figures to support study inspection. Preserve source, sample and simulation wording next to the values it qualifies.",
+        "section": "typography"
+      },
+      {
+        "name": "The Local Scroll Rule",
+        "body": "Wide study and object tables scroll inside their own focusable, named regions. Keep the phone scroll hint visible and the surrounding workspace within the viewport.",
+        "section": "layout"
+      },
+      {
+        "name": "The Border Rule",
+        "body": "Use fine borders and surface tone to group archive content. Do not add card shadows to this flat system.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Visible Motion Rule",
+        "body": "Content remains visible throughout navigation and placement reveals. Use the existing small transforms, and disable authored animation and transition when reduced motion is requested.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "**Do** keep the archive light, actions teal, navigation navy and MRI inspection dark.",
+      "**Do** repeat textual state and tier labels beside their colors.",
+      "**Do** keep phone MRI inspection to one selected sequence viewport with plane, slice and overlay controls nearby.",
+      "**Do** preserve table scroll hints, focusable scroll regions and focused placement review.",
+      "**Do** retain synthetic sample, local workspace and simulation labels beside their evidence."
+    ],
+    "donts": [
+      "**Don't** use synthetic metadata as MRI imagery or analysis output.",
+      "**Don't** present modeled cost, local placement or restore simulations as verified cloud operations.",
+      "**Don't** replace compact operational headings with oversized marketing typography inside the archive.",
+      "**Don't** add decorative card shadows or animate layout dimensions.",
+      "**Don't** hide content during arrival motion or bypass reduced-motion preferences."
+    ]
+  }
+}

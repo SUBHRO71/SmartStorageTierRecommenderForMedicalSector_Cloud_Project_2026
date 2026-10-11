@@ -13,6 +13,8 @@ reviewed: 2026-09-21
 
 # CloudTierRecommender
 
+> **Version scope:** This document records the existing v1 implementation. The [TCIA + BraTS v2 PRD](PRD_V2_TCIA_BRATS.md) and [dashboard specification](DASHBOARD_V2_SPEC.md), created on 11 October 2026, define the revised project direction and proposed implementation. Their features are not included in the delivered-state claims below.
+
 ## Product description
 
 CloudTierRecommender is an explainable storage placement system for medical image repositories. It recommends one of four Amazon S3 storage classes for each scan: Standard, Standard-IA, Glacier Flexible Retrieval, or Glacier Deep Archive. The product balances storage cost against the probability and operational consequence of retrieving a scan again.
