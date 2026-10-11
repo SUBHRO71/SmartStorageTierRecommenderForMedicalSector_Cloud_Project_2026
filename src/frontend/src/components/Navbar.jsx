@@ -15,9 +15,9 @@ const Navbar = () => {
   }, [darkMode]);
 
   const navItems = [
-    { name: 'Dashboard', path: '/', icon: ChartPieIcon },
+    { name: 'Archive Dashboard', path: '/', icon: ChartPieIcon },
     { name: 'Scan Browser', path: '/scans', icon: TableCellsIcon },
-    { name: 'Cost Analysis', path: '/costs', icon: CurrencyDollarIcon },
+    { name: 'X-ray Costs', path: '/legacy-costs', icon: CurrencyDollarIcon },
   ];
 
   return (

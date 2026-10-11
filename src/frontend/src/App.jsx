@@ -3,6 +3,14 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './auth/CognitoAuth';
 import ProtectedRoute from './auth/ProtectedRoute';
 import Navbar from './components/Navbar';
+import { ArchiveProvider } from './archive/ArchiveContext';
+import ArchiveShell from './archive/ArchiveShell';
+const Overview = lazy(() => import('./archive/Overview'));
+const Studies = lazy(() => import('./archive/Studies'));
+import { Quality, Operations } from './archive/ArchiveLists';
+const ImportStudy = lazy(() => import('./archive/ImportStudy'));
+const StudyDetail = lazy(() => import('./archive/StudyDetail'));
+const ArchiveCosts = lazy(() => import('./archive/ArchiveCosts'));
 const Login = lazy(() => import('./pages/Login'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const ScanBrowser = lazy(() => import('./pages/ScanBrowser'));
@@ -19,7 +27,16 @@ function App() {
             <Route path="/login" element={<Login />} />
             
             {/* Protected Routes */}
-            <Route path="/" element={
+            <Route element={<ProtectedRoute><ArchiveProvider><ArchiveShell /></ArchiveProvider></ProtectedRoute>}>
+              <Route index element={<Overview />} />
+              <Route path="/studies" element={<Studies />} />
+              <Route path="/studies/:id" element={<StudyDetail />} />
+              <Route path="/quality" element={<Quality />} />
+              <Route path="/operations" element={<Operations />} />
+              <Route path="/costs" element={<ArchiveCosts />} />
+              <Route path="/import" element={<ImportStudy />} />
+            </Route>
+            <Route path="/legacy" element={
               <ProtectedRoute>
                 <Navbar />
                 <main className="flex-grow container mx-auto px-4 py-8 max-w-7xl">
@@ -46,7 +63,7 @@ function App() {
               </ProtectedRoute>
             } />
             
-            <Route path="/costs" element={
+            <Route path="/legacy-costs" element={
               <ProtectedRoute>
                 <Navbar />
                 <main className="flex-grow container mx-auto px-4 py-8 max-w-7xl">
