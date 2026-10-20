@@ -1,0 +1,1900 @@
+[
+  {
+    "id": "original_pooled_hard_0",
+    "config": {
+      "id": "original_pooled_hard_0",
+      "features": "original",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 300,
+        "max_depth": 1,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.5,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6837502276708833,
+      "subject_weighted_brier_90d": 0.20647447763060506,
+      "accuracy_90d": 0.6768443432605578
+    },
+    "selective": null
+  },
+  {
+    "id": "original_pooled_hard_1",
+    "config": {
+      "id": "original_pooled_hard_1",
+      "features": "original",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 2,
+        "min_child_weight": 1,
+        "reg_lambda": 1,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6838465282079877,
+      "subject_weighted_brier_90d": 0.2148432750130834,
+      "accuracy_90d": 0.6747290946098887
+    },
+    "selective": null
+  },
+  {
+    "id": "original_pooled_hard_2",
+    "config": {
+      "id": "original_pooled_hard_2",
+      "features": "original",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 3,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.5,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6948162162179835,
+      "subject_weighted_brier_90d": 0.21062176344325928,
+      "accuracy_90d": 0.6957696564155349
+    },
+    "selective": null
+  },
+  {
+    "id": "original_pooled_hard_3",
+    "config": {
+      "id": "original_pooled_hard_3",
+      "features": "original",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 220,
+        "max_depth": 3,
+        "min_child_weight": 8,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.6,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.7061884838945189,
+      "subject_weighted_brier_90d": 0.20311448204614796,
+      "accuracy_90d": 0.6896633456407724
+    },
+    "selective": null
+  },
+  {
+    "id": "original_pooled_hard_4",
+    "config": {
+      "id": "original_pooled_hard_4",
+      "features": "original",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 4,
+        "min_child_weight": 10,
+        "reg_lambda": 20,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.5,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.706552272672863,
+      "subject_weighted_brier_90d": 0.20321097245203226,
+      "accuracy_90d": 0.6951245436294496
+    },
+    "selective": null
+  },
+  {
+    "id": "original_pooled_hard_5",
+    "config": {
+      "id": "original_pooled_hard_5",
+      "features": "original",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 5,
+        "min_child_weight": 3,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.5,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6927120276640173,
+      "subject_weighted_brier_90d": 0.20861509393632122,
+      "accuracy_90d": 0.6965471851969584
+    },
+    "selective": null
+  },
+  {
+    "id": "original_pooled_soft_0",
+    "config": {
+      "id": "original_pooled_soft_0",
+      "features": "original",
+      "strategy": "pooled",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 300,
+        "max_depth": 1,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6803393488005878,
+      "subject_weighted_brier_90d": 0.20768487910559447,
+      "accuracy_90d": 0.6601333072587774
+    },
+    "selective": null
+  },
+  {
+    "id": "original_pooled_soft_1",
+    "config": {
+      "id": "original_pooled_soft_1",
+      "features": "original",
+      "strategy": "pooled",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 2,
+        "min_child_weight": 1,
+        "reg_lambda": 1,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.6,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6799376305245804,
+      "subject_weighted_brier_90d": 0.2153415523955295,
+      "accuracy_90d": 0.6779518583806771
+    },
+    "selective": null
+  },
+  {
+    "id": "original_pooled_soft_2",
+    "config": {
+      "id": "original_pooled_soft_2",
+      "features": "original",
+      "strategy": "pooled",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 3,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6881872680706818,
+      "subject_weighted_brier_90d": 0.2113522516141202,
+      "accuracy_90d": 0.6920598859496507
+    },
+    "selective": null
+  },
+  {
+    "id": "original_pooled_soft_3",
+    "config": {
+      "id": "original_pooled_soft_3",
+      "features": "original",
+      "strategy": "pooled",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 220,
+        "max_depth": 3,
+        "min_child_weight": 8,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.6,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.69810110620221,
+      "subject_weighted_brier_90d": 0.20480176009753936,
+      "accuracy_90d": 0.6867194147765281
+    },
+    "selective": null
+  },
+  {
+    "id": "original_pooled_soft_4",
+    "config": {
+      "id": "original_pooled_soft_4",
+      "features": "original",
+      "strategy": "pooled",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 4,
+        "min_child_weight": 10,
+        "reg_lambda": 20,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6964744643801761,
+      "subject_weighted_brier_90d": 0.2055144775439941,
+      "accuracy_90d": 0.6854397324240448
+    },
+    "selective": null
+  },
+  {
+    "id": "original_pooled_soft_5",
+    "config": {
+      "id": "original_pooled_soft_5",
+      "features": "original",
+      "strategy": "pooled",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 5,
+        "min_child_weight": 3,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.5,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6878807435257391,
+      "subject_weighted_brier_90d": 0.20961092326741645,
+      "accuracy_90d": 0.6972635461246577
+    },
+    "selective": null
+  },
+  {
+    "id": "original_specialists_hard_0",
+    "config": {
+      "id": "original_specialists_hard_0",
+      "features": "original",
+      "strategy": "specialists",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 300,
+        "max_depth": 1,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6985945299869847,
+      "subject_weighted_brier_90d": 0.20404516388993485,
+      "accuracy_90d": 0.6739906736157939
+    },
+    "selective": null
+  },
+  {
+    "id": "original_specialists_hard_1",
+    "config": {
+      "id": "original_specialists_hard_1",
+      "features": "original",
+      "strategy": "specialists",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 2,
+        "min_child_weight": 1,
+        "reg_lambda": 1,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.5,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.666646932977193,
+      "subject_weighted_brier_90d": 0.22676517692446282,
+      "accuracy_90d": 0.669711709442008
+    },
+    "selective": null
+  },
+  {
+    "id": "original_specialists_hard_2",
+    "config": {
+      "id": "original_specialists_hard_2",
+      "features": "original",
+      "strategy": "specialists",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 3,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.6,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6855804073464811,
+      "subject_weighted_brier_90d": 0.21370472076505473,
+      "accuracy_90d": 0.6628999078286029
+    },
+    "selective": null
+  },
+  {
+    "id": "original_specialists_hard_3",
+    "config": {
+      "id": "original_specialists_hard_3",
+      "features": "original",
+      "strategy": "specialists",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 220,
+        "max_depth": 3,
+        "min_child_weight": 8,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.5,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.683449254717168,
+      "subject_weighted_brier_90d": 0.20947207029845494,
+      "accuracy_90d": 0.6500395072805244
+    },
+    "selective": null
+  },
+  {
+    "id": "original_specialists_hard_4",
+    "config": {
+      "id": "original_specialists_hard_4",
+      "features": "original",
+      "strategy": "specialists",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 4,
+        "min_child_weight": 10,
+        "reg_lambda": 20,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6581281064337443,
+      "subject_weighted_brier_90d": 0.22157671956706398,
+      "accuracy_90d": 0.624953632167869
+    },
+    "selective": null
+  },
+  {
+    "id": "original_specialists_hard_5",
+    "config": {
+      "id": "original_specialists_hard_5",
+      "features": "original",
+      "strategy": "specialists",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 5,
+        "min_child_weight": 3,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.5,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6892486876794435,
+      "subject_weighted_brier_90d": 0.20858208504283188,
+      "accuracy_90d": 0.6852977150928176
+    },
+    "selective": null
+  },
+  {
+    "id": "original_specialists_soft_0",
+    "config": {
+      "id": "original_specialists_soft_0",
+      "features": "original",
+      "strategy": "specialists",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 300,
+        "max_depth": 1,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.6,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6911974088713748,
+      "subject_weighted_brier_90d": 0.20565847906366347,
+      "accuracy_90d": 0.6645023972620085
+    },
+    "selective": null
+  },
+  {
+    "id": "original_specialists_soft_1",
+    "config": {
+      "id": "original_specialists_soft_1",
+      "features": "original",
+      "strategy": "specialists",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 2,
+        "min_child_weight": 1,
+        "reg_lambda": 1,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.5,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6667701339286578,
+      "subject_weighted_brier_90d": 0.22639213408051054,
+      "accuracy_90d": 0.6832357509127011
+    },
+    "selective": null
+  },
+  {
+    "id": "original_specialists_soft_2",
+    "config": {
+      "id": "original_specialists_soft_2",
+      "features": "original",
+      "strategy": "specialists",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 3,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.45,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6848145791025637,
+      "subject_weighted_brier_90d": 0.2142642877355275,
+      "accuracy_90d": 0.6905489309895436
+    },
+    "selective": null
+  },
+  {
+    "id": "original_specialists_soft_3",
+    "config": {
+      "id": "original_specialists_soft_3",
+      "features": "original",
+      "strategy": "specialists",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 220,
+        "max_depth": 3,
+        "min_child_weight": 8,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6832490468689288,
+      "subject_weighted_brier_90d": 0.21121548002063842,
+      "accuracy_90d": 0.6452737661133848
+    },
+    "selective": null
+  },
+  {
+    "id": "original_specialists_soft_4",
+    "config": {
+      "id": "original_specialists_soft_4",
+      "features": "original",
+      "strategy": "specialists",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 4,
+        "min_child_weight": 10,
+        "reg_lambda": 20,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6560841344364812,
+      "subject_weighted_brier_90d": 0.22372459552426238,
+      "accuracy_90d": 0.631593262578684
+    },
+    "selective": null
+  },
+  {
+    "id": "original_specialists_soft_5",
+    "config": {
+      "id": "original_specialists_soft_5",
+      "features": "original",
+      "strategy": "specialists",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 5,
+        "min_child_weight": 3,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.5,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6868812098238479,
+      "subject_weighted_brier_90d": 0.20901942846352126,
+      "accuracy_90d": 0.6934943335476944
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_pooled_hard_0",
+    "config": {
+      "id": "temporal_pooled_hard_0",
+      "features": "temporal",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 300,
+        "max_depth": 1,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6972480279506362,
+      "subject_weighted_brier_90d": 0.20189036445794906,
+      "accuracy_90d": 0.673309895151989
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_pooled_hard_1",
+    "config": {
+      "id": "temporal_pooled_hard_1",
+      "features": "temporal",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 2,
+        "min_child_weight": 1,
+        "reg_lambda": 1,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.6,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6810846234092177,
+      "subject_weighted_brier_90d": 0.21336451246510585,
+      "accuracy_90d": 0.6623727976626016
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_pooled_hard_2",
+    "config": {
+      "id": "temporal_pooled_hard_2",
+      "features": "temporal",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 3,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.45,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6927932878223672,
+      "subject_weighted_brier_90d": 0.20887259460150576,
+      "accuracy_90d": 0.6938456636750969
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_pooled_hard_3",
+    "config": {
+      "id": "temporal_pooled_hard_3",
+      "features": "temporal",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 220,
+        "max_depth": 3,
+        "min_child_weight": 8,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.7027164515131787,
+      "subject_weighted_brier_90d": 0.20120687769380613,
+      "accuracy_90d": 0.6874025096421295
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_pooled_hard_4",
+    "config": {
+      "id": "temporal_pooled_hard_4",
+      "features": "temporal",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 4,
+        "min_child_weight": 10,
+        "reg_lambda": 20,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.5,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.7093661910837856,
+      "subject_weighted_brier_90d": 0.20123294691916832,
+      "accuracy_90d": 0.6957736857029986
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_pooled_hard_5",
+    "config": {
+      "id": "temporal_pooled_hard_5",
+      "features": "temporal",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 5,
+        "min_child_weight": 3,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.694041537841302,
+      "subject_weighted_brier_90d": 0.20775713844772606,
+      "accuracy_90d": 0.6861772434112513
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_pooled_soft_0",
+    "config": {
+      "id": "temporal_pooled_soft_0",
+      "features": "temporal",
+      "strategy": "pooled",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 300,
+        "max_depth": 1,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6887034248312767,
+      "subject_weighted_brier_90d": 0.20369911497865933,
+      "accuracy_90d": 0.6751418592745331
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_pooled_soft_1",
+    "config": {
+      "id": "temporal_pooled_soft_1",
+      "features": "temporal",
+      "strategy": "pooled",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 2,
+        "min_child_weight": 1,
+        "reg_lambda": 1,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.65,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6824254027864315,
+      "subject_weighted_brier_90d": 0.21436939372081837,
+      "accuracy_90d": 0.6657722542591669
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_pooled_soft_2",
+    "config": {
+      "id": "temporal_pooled_soft_2",
+      "features": "temporal",
+      "strategy": "pooled",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 3,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6900709089091425,
+      "subject_weighted_brier_90d": 0.21026484807211573,
+      "accuracy_90d": 0.6893872888550959
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_pooled_soft_3",
+    "config": {
+      "id": "temporal_pooled_soft_3",
+      "features": "temporal",
+      "strategy": "pooled",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 220,
+        "max_depth": 3,
+        "min_child_weight": 8,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.6,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6995503222205987,
+      "subject_weighted_brier_90d": 0.20190142854115628,
+      "accuracy_90d": 0.6887001295586618
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_pooled_soft_4",
+    "config": {
+      "id": "temporal_pooled_soft_4",
+      "features": "temporal",
+      "strategy": "pooled",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 4,
+        "min_child_weight": 10,
+        "reg_lambda": 20,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6956604187605802,
+      "subject_weighted_brier_90d": 0.20247746786872275,
+      "accuracy_90d": 0.6878119357591462
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_pooled_soft_5",
+    "config": {
+      "id": "temporal_pooled_soft_5",
+      "features": "temporal",
+      "strategy": "pooled",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 5,
+        "min_child_weight": 3,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6896673443958138,
+      "subject_weighted_brier_90d": 0.20826857155923353,
+      "accuracy_90d": 0.6849604794053115
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_specialists_hard_0",
+    "config": {
+      "id": "temporal_specialists_hard_0",
+      "features": "temporal",
+      "strategy": "specialists",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 300,
+        "max_depth": 1,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6889510602847394,
+      "subject_weighted_brier_90d": 0.20707910339126392,
+      "accuracy_90d": 0.6663154947060917
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_specialists_hard_1",
+    "config": {
+      "id": "temporal_specialists_hard_1",
+      "features": "temporal",
+      "strategy": "specialists",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 2,
+        "min_child_weight": 1,
+        "reg_lambda": 1,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.670290349106126,
+      "subject_weighted_brier_90d": 0.22850047875490195,
+      "accuracy_90d": 0.6590462953141871
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_specialists_hard_2",
+    "config": {
+      "id": "temporal_specialists_hard_2",
+      "features": "temporal",
+      "strategy": "specialists",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 3,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6847293211992238,
+      "subject_weighted_brier_90d": 0.21491964815149184,
+      "accuracy_90d": 0.6818244914171212
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_specialists_hard_3",
+    "config": {
+      "id": "temporal_specialists_hard_3",
+      "features": "temporal",
+      "strategy": "specialists",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 220,
+        "max_depth": 3,
+        "min_child_weight": 8,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6829792037574439,
+      "subject_weighted_brier_90d": 0.20935196944705387,
+      "accuracy_90d": 0.642470925928819
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_specialists_hard_4",
+    "config": {
+      "id": "temporal_specialists_hard_4",
+      "features": "temporal",
+      "strategy": "specialists",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 4,
+        "min_child_weight": 10,
+        "reg_lambda": 20,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6611257184806316,
+      "subject_weighted_brier_90d": 0.21896293430443353,
+      "accuracy_90d": 0.6262726636349691
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_specialists_hard_5",
+    "config": {
+      "id": "temporal_specialists_hard_5",
+      "features": "temporal",
+      "strategy": "specialists",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 5,
+        "min_child_weight": 3,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.5,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6864600331611002,
+      "subject_weighted_brier_90d": 0.2109861925944298,
+      "accuracy_90d": 0.6816567572670544
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_specialists_soft_0",
+    "config": {
+      "id": "temporal_specialists_soft_0",
+      "features": "temporal",
+      "strategy": "specialists",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 300,
+        "max_depth": 1,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6844308720886689,
+      "subject_weighted_brier_90d": 0.2083872788183414,
+      "accuracy_90d": 0.6643849990898164
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_specialists_soft_1",
+    "config": {
+      "id": "temporal_specialists_soft_1",
+      "features": "temporal",
+      "strategy": "specialists",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 2,
+        "min_child_weight": 1,
+        "reg_lambda": 1,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6672339231714387,
+      "subject_weighted_brier_90d": 0.22724917366610708,
+      "accuracy_90d": 0.6570592303070877
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_specialists_soft_2",
+    "config": {
+      "id": "temporal_specialists_soft_2",
+      "features": "temporal",
+      "strategy": "specialists",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 3,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6797587236928736,
+      "subject_weighted_brier_90d": 0.2150970710326392,
+      "accuracy_90d": 0.6759658086932623
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_specialists_soft_3",
+    "config": {
+      "id": "temporal_specialists_soft_3",
+      "features": "temporal",
+      "strategy": "specialists",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 220,
+        "max_depth": 3,
+        "min_child_weight": 8,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6802924754974011,
+      "subject_weighted_brier_90d": 0.2104653811261353,
+      "accuracy_90d": 0.6523281651151462
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_specialists_soft_4",
+    "config": {
+      "id": "temporal_specialists_soft_4",
+      "features": "temporal",
+      "strategy": "specialists",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 4,
+        "min_child_weight": 10,
+        "reg_lambda": 20,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6570747372499994,
+      "subject_weighted_brier_90d": 0.2203165687916798,
+      "accuracy_90d": 0.6468437935930631
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_specialists_soft_5",
+    "config": {
+      "id": "temporal_specialists_soft_5",
+      "features": "temporal",
+      "strategy": "specialists",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 5,
+        "min_child_weight": 3,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.6,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6803312924048802,
+      "subject_weighted_brier_90d": 0.21126801451308408,
+      "accuracy_90d": 0.6635159068629605
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_pooled_hard_0",
+    "config": {
+      "id": "temporal_radiomics_pooled_hard_0",
+      "features": "temporal_radiomics",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 300,
+        "max_depth": 1,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.6,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6811275119314882,
+      "subject_weighted_brier_90d": 0.20661808346628247,
+      "accuracy_90d": 0.6556198278281207
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_pooled_hard_1",
+    "config": {
+      "id": "temporal_radiomics_pooled_hard_1",
+      "features": "temporal_radiomics",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 2,
+        "min_child_weight": 1,
+        "reg_lambda": 1,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.45,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.687311518145924,
+      "subject_weighted_brier_90d": 0.21361080177861277,
+      "accuracy_90d": 0.685218615444942
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_pooled_hard_2",
+    "config": {
+      "id": "temporal_radiomics_pooled_hard_2",
+      "features": "temporal_radiomics",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 3,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.45,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6997264741820336,
+      "subject_weighted_brier_90d": 0.20930645575883294,
+      "accuracy_90d": 0.6891734557925718
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_pooled_hard_3",
+    "config": {
+      "id": "temporal_radiomics_pooled_hard_3",
+      "features": "temporal_radiomics",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 220,
+        "max_depth": 3,
+        "min_child_weight": 8,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.5,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6969933691732167,
+      "subject_weighted_brier_90d": 0.20183387138504943,
+      "accuracy_90d": 0.6928779404503459
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_pooled_hard_4",
+    "config": {
+      "id": "temporal_radiomics_pooled_hard_4",
+      "features": "temporal_radiomics",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 4,
+        "min_child_weight": 10,
+        "reg_lambda": 20,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6942390123826845,
+      "subject_weighted_brier_90d": 0.20260064815949344,
+      "accuracy_90d": 0.6851137430143343
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_pooled_hard_5",
+    "config": {
+      "id": "temporal_radiomics_pooled_hard_5",
+      "features": "temporal_radiomics",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 5,
+        "min_child_weight": 3,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.45,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.701948982178092,
+      "subject_weighted_brier_90d": 0.20661320470662087,
+      "accuracy_90d": 0.7001390356523689
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_pooled_soft_0",
+    "config": {
+      "id": "temporal_radiomics_pooled_soft_0",
+      "features": "temporal_radiomics",
+      "strategy": "pooled",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 300,
+        "max_depth": 1,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6841083826834911,
+      "subject_weighted_brier_90d": 0.20700784898631266,
+      "accuracy_90d": 0.66938795299715
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_pooled_soft_1",
+    "config": {
+      "id": "temporal_radiomics_pooled_soft_1",
+      "features": "temporal_radiomics",
+      "strategy": "pooled",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 2,
+        "min_child_weight": 1,
+        "reg_lambda": 1,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.5,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6830212544579705,
+      "subject_weighted_brier_90d": 0.21566370151478953,
+      "accuracy_90d": 0.6794264331435516
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_pooled_soft_2",
+    "config": {
+      "id": "temporal_radiomics_pooled_soft_2",
+      "features": "temporal_radiomics",
+      "strategy": "pooled",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 3,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6957122030216331,
+      "subject_weighted_brier_90d": 0.21049580360324938,
+      "accuracy_90d": 0.6911664734416142
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_pooled_soft_3",
+    "config": {
+      "id": "temporal_radiomics_pooled_soft_3",
+      "features": "temporal_radiomics",
+      "strategy": "pooled",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 220,
+        "max_depth": 3,
+        "min_child_weight": 8,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6995223364438893,
+      "subject_weighted_brier_90d": 0.20313111775950335,
+      "accuracy_90d": 0.6900872424242394
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_pooled_soft_4",
+    "config": {
+      "id": "temporal_radiomics_pooled_soft_4",
+      "features": "temporal_radiomics",
+      "strategy": "pooled",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 4,
+        "min_child_weight": 10,
+        "reg_lambda": 20,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.5,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6920022666912253,
+      "subject_weighted_brier_90d": 0.2038375352292658,
+      "accuracy_90d": 0.6859859753478097
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_pooled_soft_5",
+    "config": {
+      "id": "temporal_radiomics_pooled_soft_5",
+      "features": "temporal_radiomics",
+      "strategy": "pooled",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 5,
+        "min_child_weight": 3,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6944448868871614,
+      "subject_weighted_brier_90d": 0.20743141327757741,
+      "accuracy_90d": 0.6971315101066612
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_specialists_hard_0",
+    "config": {
+      "id": "temporal_radiomics_specialists_hard_0",
+      "features": "temporal_radiomics",
+      "strategy": "specialists",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 300,
+        "max_depth": 1,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6872427043691722,
+      "subject_weighted_brier_90d": 0.21054796536257983,
+      "accuracy_90d": 0.6586323933161845
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_specialists_hard_1",
+    "config": {
+      "id": "temporal_radiomics_specialists_hard_1",
+      "features": "temporal_radiomics",
+      "strategy": "specialists",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 2,
+        "min_child_weight": 1,
+        "reg_lambda": 1,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.45,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6759190259556859,
+      "subject_weighted_brier_90d": 0.2274647506319684,
+      "accuracy_90d": 0.6769341526931388
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_specialists_hard_2",
+    "config": {
+      "id": "temporal_radiomics_specialists_hard_2",
+      "features": "temporal_radiomics",
+      "strategy": "specialists",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 3,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.45,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6923728858479857,
+      "subject_weighted_brier_90d": 0.2138091988127698,
+      "accuracy_90d": 0.6819045270931463
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_specialists_hard_3",
+    "config": {
+      "id": "temporal_radiomics_specialists_hard_3",
+      "features": "temporal_radiomics",
+      "strategy": "specialists",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 220,
+        "max_depth": 3,
+        "min_child_weight": 8,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.5,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6821294817211327,
+      "subject_weighted_brier_90d": 0.21098335466641224,
+      "accuracy_90d": 0.6509957038418933
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_specialists_hard_4",
+    "config": {
+      "id": "temporal_radiomics_specialists_hard_4",
+      "features": "temporal_radiomics",
+      "strategy": "specialists",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 4,
+        "min_child_weight": 10,
+        "reg_lambda": 20,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6539744932261943,
+      "subject_weighted_brier_90d": 0.223209279727313,
+      "accuracy_90d": 0.6193739444250423
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_specialists_hard_5",
+    "config": {
+      "id": "temporal_radiomics_specialists_hard_5",
+      "features": "temporal_radiomics",
+      "strategy": "specialists",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 5,
+        "min_child_weight": 3,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.5,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6932582672057223,
+      "subject_weighted_brier_90d": 0.20823937931521136,
+      "accuracy_90d": 0.6732287446419942
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_specialists_soft_0",
+    "config": {
+      "id": "temporal_radiomics_specialists_soft_0",
+      "features": "temporal_radiomics",
+      "strategy": "specialists",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 300,
+        "max_depth": 1,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.6,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6835414084833822,
+      "subject_weighted_brier_90d": 0.21187107871443073,
+      "accuracy_90d": 0.6650843602407124
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_specialists_soft_1",
+    "config": {
+      "id": "temporal_radiomics_specialists_soft_1",
+      "features": "temporal_radiomics",
+      "strategy": "specialists",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 2,
+        "min_child_weight": 1,
+        "reg_lambda": 1,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.65,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6671625065961198,
+      "subject_weighted_brier_90d": 0.23007637249260862,
+      "accuracy_90d": 0.6621429134465474
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_specialists_soft_2",
+    "config": {
+      "id": "temporal_radiomics_specialists_soft_2",
+      "features": "temporal_radiomics",
+      "strategy": "specialists",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 3,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.6,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6774798337625569,
+      "subject_weighted_brier_90d": 0.21658760838641436,
+      "accuracy_90d": 0.663835518969275
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_specialists_soft_3",
+    "config": {
+      "id": "temporal_radiomics_specialists_soft_3",
+      "features": "temporal_radiomics",
+      "strategy": "specialists",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 220,
+        "max_depth": 3,
+        "min_child_weight": 8,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6780040878254836,
+      "subject_weighted_brier_90d": 0.21281280964138757,
+      "accuracy_90d": 0.6551743992883641
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_specialists_soft_4",
+    "config": {
+      "id": "temporal_radiomics_specialists_soft_4",
+      "features": "temporal_radiomics",
+      "strategy": "specialists",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 4,
+        "min_child_weight": 10,
+        "reg_lambda": 20,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6507727452079541,
+      "subject_weighted_brier_90d": 0.2241052956843556,
+      "accuracy_90d": 0.625406038044934
+    },
+    "selective": null
+  },
+  {
+    "id": "temporal_radiomics_specialists_soft_5",
+    "config": {
+      "id": "temporal_radiomics_specialists_soft_5",
+      "features": "temporal_radiomics",
+      "strategy": "specialists",
+      "week91": "soft",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 5,
+        "min_child_weight": 3,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.5,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6843063658042008,
+      "subject_weighted_brier_90d": 0.2105351799243218,
+      "accuracy_90d": 0.6776155466916762
+    },
+    "selective": null
+  },
+  {
+    "id": "original_pooled_hard_median_reference",
+    "config": {
+      "id": "original_pooled_hard_median_reference",
+      "features": "original",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "median",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 220,
+        "max_depth": 3,
+        "min_child_weight": 8,
+        "reg_lambda": 10,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.5,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.7075762039426545,
+      "subject_weighted_brier_90d": 0.20127601086991617,
+      "accuracy_90d": 0.6971552878092675
+    },
+    "selective": null
+  }
+]

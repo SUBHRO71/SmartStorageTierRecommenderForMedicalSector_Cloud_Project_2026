@@ -1,62 +1,70 @@
-# AWS implementation
+# AWS study archive v2
 
-`template.yaml` is the deployable SAM/CloudFormation source of truth. It creates:
+The active deployment runs the current MRI study dashboard and study API.
+The old X-ray SAM deployment is retired; its reference files are in `legacy/`.
 
-- a private, encrypted, versioned medical-image bucket with tag-filtered Lifecycle rules;
-- a private frontend bucket served through CloudFront Origin Access Control;
-- DynamoDB scan-state and append-only decision-audit tables with point-in-time recovery;
-- Cognito user pool, web client, and `viewer`, `archive-admin`, and `operator` groups;
-- API Gateway with a Cognito authorizer;
-- API and inference/reconciliation Lambda functions with scoped policies;
-- an EventBridge schedule, CloudWatch custom metrics/logs, and an SNS restore-event topic.
-
-## Credential-free checks
-
-```powershell
-python aws/lambda/api_handler/build_package.py
-python aws/lambda/tier_inference/build_package.py
-cfn-lint aws/template.yaml
-python -m unittest discover -s tests -p "test_*.py" -v
-```
-
-The Lambda bundles include the shared pure-Python decision engine and policy JSON. PyTorch and model weights are not packaged because image scores are extracted before upload.
+Read the [deployment plan](../architecture/AWS_V2_DEPLOYMENT.md) for scope,
+architecture, costs, recovery boundaries and acceptance checks. Read
+[DEPLOYMENT_STATUS.md](DEPLOYMENT_STATUS.md) for the actual deployment result.
 
 ## Deploy
 
-Configure an AWS CLI profile, SSO session, or temporary environment credentials. SDK code uses the standard AWS chain and Lambda execution roles; no key is read from a committed file.
-
-Create a low AWS Budget alert in the intended account, then run:
-
-```powershell
-.\aws\deploy.ps1 -Region us-east-1 -StackName smart-storage-tier -NotificationEmail you@example.com
-```
-
-The script validates the caller, creates/reuses an artifact bucket, builds and packages Lambda code, deploys the stack, derives an ignored Vite production environment from outputs, builds `dist/`, uploads it, and invalidates CloudFront.
-
-## Ingest a scan
-
-First extract scores using the published weights:
+Prerequisites: AWS CLI credentials, Python with boto3, Node/npm, and cfn-lint.
+The default target is the reviewed account `657878533811`, region `us-east-1`.
+The script rejects an unexpected account. No keys are included in releases.
 
 ```powershell
-python src/ml_model/extract_pretrained_features.py path\to\xray.png --output temp\features.json
+./aws/deploy.ps1
 ```
 
-Preview the cloud registration without changing AWS:
+The script builds the frontend, generates/validates CloudFormation, packages only
+approved application source and built assets, provisions the stack, checks the
+server, and creates `archive-admin` without sending email. Its generated password
+is stored outside the project at `%LOCALAPPDATA%/CloudTierRecommender/aws-v2/admin-login.json`, restricted to the current OS
+user. Sign in with username `archive-admin` and that password. Existing administrator
+passwords are preserved on redeployment.
+
+Optional `-NotificationEmail` configures Budget and server alarm notifications.
+SNS subscription emails require confirmation. Without an address the Budget and
+alarm still exist but have no email recipient. Budget alerts do not cap spending.
+
+The catalog, append-only events, MRI working files and model checkpoint use
+encrypted EBS. S3 holds the source imaging members and daily backup/cache copies.
+S3 Lifecycle transitions use requested tags; member classes/restores are observed
+every five minutes. Working files remain available for previews and inference
+independently of the S3 source storage class. Costs in the UI describe S3 source
+members only and exclude the server, working cache and backup copies.
+
+## Operate
 
 ```powershell
-python aws/ingest_scan.py path\to\xray.png --features temp\features.json --bucket STACK_IMAGE_BUCKET --table STACK_SCAN_TABLE --dry-run
+./aws/operate.ps1 -Action Status
+./aws/operate.ps1 -Action Stop
+./aws/operate.ps1 -Action Start
+./aws/operate.ps1 -Action Backup
 ```
 
-Remove `--dry-run` after credentials and stack outputs are available. The script registers features in DynamoDB before uploading to S3, preventing the normal event from racing ahead of its input features.
+Stop the server when unused to avoid compute charges. EBS/S3 charges continue.
+The Lambda gateway uses the private server address, so a public IP change after stop/start does not
+change the endpoint. SSM provides administration; there is no inbound SSH.
 
-## Operational behavior
+The default instance is m7i-flex.large (eligible under the current account plan) with 60 GiB encrypted
+gp3. This is a single-server research pilot. The root EBS volume and archive bucket
+are retained on deletion; no automatic destructive cleanup is provided. Daily
+catalog backups retain 30 days; source objects and noncurrent versions are retained.
+Check the backup timer and exercise recovery before relying on this pilot for data.
 
-- Missing feature registration records `BLOCKED_MISSING_FEATURES` and leaves the object in Standard.
-- Existing S3 tags are preserved when the requested tier tag is added.
-- Tier overrides require an `archive-admin` or `operator` Cognito group and a reason.
-- Moves to a more accessible tier use a same-key S3 copy; archived sources must be restored first.
-- Archive restores call `RestoreObject`; Standard and Standard-IA return `NOT_REQUIRED`.
-- Hourly reconciliation reads S3 storage class and restore headers, updates observed state, and appends audit events.
-- Standard-IA transitions begin after 30 days. Glacier tiers use immediate eligible Lifecycle transitions, which remain asynchronous.
+## Verify
 
-Never commit credentials, `.env` files, generated production configuration, raw medical images, local tables, or Lambda bundles.
+```powershell
+python -m unittest discover -s tests -p "test_*.py" -v
+cfn-lint aws/template.yaml
+```
+
+`build_template.py` generates the checked-in CloudFormation template. Never edit
+generated template fields without updating that source. `smoke.py` performs signed
+live checks with a generated synthetic study; it never uploads local medical files.
+
+CloudFront is unavailable until AWS verifies this account. The active template
+uses a Lambda Function URL with AWS-managed HTTPS. The frontend and API share this endpoint. Large imports upload through
+short-lived, size-bound S3 URLs and owner-bound asynchronous import jobs.

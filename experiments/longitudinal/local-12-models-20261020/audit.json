@@ -1,0 +1,316 @@
+{
+  "model_bundles_verified": 12,
+  "roundtrip": {
+    "linear": {
+      "probability_max_error": 1.1102230246251565e-16,
+      "timing_max_error_days": 1.4210854715202004e-14,
+      "checksum_verified": true
+    },
+    "decision_tree": {
+      "probability_max_error": 9.71445146547012e-17,
+      "timing_max_error_days": 0.0,
+      "checksum_verified": true
+    },
+    "random_forest": {
+      "probability_max_error": 3.3306690738754696e-16,
+      "timing_max_error_days": 1.4210854715202004e-14,
+      "checksum_verified": true
+    },
+    "extra_trees": {
+      "probability_max_error": 2.220446049250313e-16,
+      "timing_max_error_days": 1.4210854715202004e-14,
+      "checksum_verified": true
+    },
+    "adaboost": {
+      "probability_max_error": 5.551115123125783e-17,
+      "timing_max_error_days": 1.4210854715202004e-14,
+      "checksum_verified": true
+    },
+    "gradient_boosting": {
+      "probability_max_error": 1.1102230246251565e-16,
+      "timing_max_error_days": 1.4210854715202004e-14,
+      "checksum_verified": true
+    },
+    "hist_gradient_boosting": {
+      "probability_max_error": 1.1102230246251565e-16,
+      "timing_max_error_days": 2.842170943040401e-14,
+      "checksum_verified": true
+    },
+    "xgboost": {
+      "probability_max_error": 2.9174804683229638e-08,
+      "timing_max_error_days": 4.775390635813892e-06,
+      "checksum_verified": true
+    },
+    "rbf_svm": {
+      "probability_max_error": 8.326672684688674e-17,
+      "timing_max_error_days": 1.4210854715202004e-14,
+      "checksum_verified": true
+    },
+    "nearest_neighbors": {
+      "probability_max_error": 1.1102230246251565e-16,
+      "timing_max_error_days": 1.4210854715202004e-14,
+      "checksum_verified": true
+    },
+    "neural_network": {
+      "probability_max_error": 1.1102230246251565e-16,
+      "timing_max_error_days": 2.842170943040401e-14,
+      "checksum_verified": true
+    },
+    "survival_forest": {
+      "probability_max_error": 2.7755575615628914e-16,
+      "timing_max_error_days": 0.0,
+      "checksum_verified": true
+    }
+  },
+  "production_artifact_unchanged": true,
+  "production_sha256": "4881b6d69961787879fb67ed6c6fe655f7d0d1557a1272ef4c7cb0456d6634af",
+  "development_long_tail": {
+    "intervals_over_365_days": 4,
+    "subjects_with_interval_over_365_days": 4,
+    "maximum_interval_days": 1462.0,
+    "note": "All long intervals are retained; archive coverage and attendance can make timing uncertain."
+  },
+  "deterministic_last_gap_rule": {
+    "description": "Predict next interval equal to last interval; first visits fall back to outer-training cohort median. Classify <=90 days; hard probabilities are uncalibrated.",
+    "metrics": {
+      "n": 603,
+      "subjects": 118,
+      "prevalence_90d": 0.5655058043117744,
+      "accuracy_90d": 0.6716417910447762,
+      "balanced_accuracy_90d": 0.653970137225493,
+      "subject_weighted_balanced_accuracy_90d": 0.6168556174601542,
+      "auc_90d": 0.653970137225493,
+      "subject_weighted_auc_90d": 0.616855617460154,
+      "brier_90d": 0.3283582089552239,
+      "subject_weighted_brier_90d": 0.3449488627579355,
+      "mae_days": 56.21558872305141,
+      "subject_weighted_mae_days": 77.716164413298,
+      "median_absolute_error_days": 35.0,
+      "within_28_days": 0.4577114427860697,
+      "confusion": {
+        "tn": 136,
+        "fp": 126,
+        "fn": 72,
+        "tp": 269
+      }
+    }
+  },
+  "paired_comparisons_against_last_gap_rule": {
+    "linear": {
+      "subject_weighted_balanced_accuracy_95ci": [
+        0.5640528757819423,
+        0.6884602445174515
+      ],
+      "subject_weighted_mae_days_95ci": [
+        43.76683170941404,
+        93.27379646514743
+      ],
+      "balanced_accuracy_improvement_over_cohort_baseline_95ci": [
+        -0.04466208238751703,
+        0.06443949027349759
+      ],
+      "mae_improvement_over_cohort_baseline_days_95ci": [
+        7.312821354203184,
+        19.77617035891263
+      ]
+    },
+    "decision_tree": {
+      "subject_weighted_balanced_accuracy_95ci": [
+        0.6216239460532862,
+        0.7339062007848306
+      ],
+      "subject_weighted_mae_days_95ci": [
+        43.298720393964345,
+        88.30393613621617
+      ],
+      "balanced_accuracy_improvement_over_cohort_baseline_95ci": [
+        0.006514927503032042,
+        0.11543546810607198
+      ],
+      "mae_improvement_over_cohort_baseline_days_95ci": [
+        5.139680857769392,
+        24.557342968320025
+      ]
+    },
+    "random_forest": {
+      "subject_weighted_balanced_accuracy_95ci": [
+        0.6117647915440446,
+        0.7226061288821093
+      ],
+      "subject_weighted_mae_days_95ci": [
+        43.12004264420021,
+        88.20153852895002
+      ],
+      "balanced_accuracy_improvement_over_cohort_baseline_95ci": [
+        -0.0029102232633082836,
+        0.1067013419391177
+      ],
+      "mae_improvement_over_cohort_baseline_days_95ci": [
+        7.435458844756731,
+        23.39858145484987
+      ]
+    },
+    "extra_trees": {
+      "subject_weighted_balanced_accuracy_95ci": [
+        0.5981515287985552,
+        0.7186138337837129
+      ],
+      "subject_weighted_mae_days_95ci": [
+        38.15535631598482,
+        84.93359840587439
+      ],
+      "balanced_accuracy_improvement_over_cohort_baseline_95ci": [
+        -0.01624034087082642,
+        0.10019165891703663
+      ],
+      "mae_improvement_over_cohort_baseline_days_95ci": [
+        13.256066775364168,
+        27.070733998541826
+      ]
+    },
+    "adaboost": {
+      "subject_weighted_balanced_accuracy_95ci": [
+        0.6081320927396499,
+        0.7138616133550115
+      ],
+      "subject_weighted_mae_days_95ci": [
+        55.62928579555728,
+        111.76661436505353
+      ],
+      "balanced_accuracy_improvement_over_cohort_baseline_95ci": [
+        -0.002994321106675349,
+        0.09205820687820132
+      ],
+      "mae_improvement_over_cohort_baseline_days_95ci": [
+        -23.358686843681365,
+        12.660036713549529
+      ]
+    },
+    "gradient_boosting": {
+      "subject_weighted_balanced_accuracy_95ci": [
+        0.6022191412536786,
+        0.7165505427293375
+      ],
+      "subject_weighted_mae_days_95ci": [
+        39.839394723832676,
+        85.85256929479331
+      ],
+      "balanced_accuracy_improvement_over_cohort_baseline_95ci": [
+        -0.01717013720783231,
+        0.09910737726033059
+      ],
+      "mae_improvement_over_cohort_baseline_days_95ci": [
+        13.108079031866158,
+        25.744504832191005
+      ]
+    },
+    "hist_gradient_boosting": {
+      "subject_weighted_balanced_accuracy_95ci": [
+        0.6102912419916203,
+        0.7147053099202755
+      ],
+      "subject_weighted_mae_days_95ci": [
+        40.155982846551055,
+        84.07742003660022
+      ],
+      "balanced_accuracy_improvement_over_cohort_baseline_95ci": [
+        -0.003995821874868119,
+        0.09786474344745796
+      ],
+      "mae_improvement_over_cohort_baseline_days_95ci": [
+        12.763523107953501,
+        26.502171563869037
+      ]
+    },
+    "xgboost": {
+      "subject_weighted_balanced_accuracy_95ci": [
+        0.6314561029842451,
+        0.739761101518223
+      ],
+      "subject_weighted_mae_days_95ci": [
+        38.9063021842799,
+        83.31045040309263
+      ],
+      "balanced_accuracy_improvement_over_cohort_baseline_95ci": [
+        0.020426593885447018,
+        0.12114049828351567
+      ],
+      "mae_improvement_over_cohort_baseline_days_95ci": [
+        13.925413435867453,
+        27.55927613976446
+      ]
+    },
+    "rbf_svm": {
+      "subject_weighted_balanced_accuracy_95ci": [
+        0.6015792771317503,
+        0.7167296018055099
+      ],
+      "subject_weighted_mae_days_95ci": [
+        39.65747016048694,
+        82.76039124660288
+      ],
+      "balanced_accuracy_improvement_over_cohort_baseline_95ci": [
+        -0.011925433857184696,
+        0.09880298728628083
+      ],
+      "mae_improvement_over_cohort_baseline_days_95ci": [
+        12.344535249139282,
+        28.075169779240806
+      ]
+    },
+    "nearest_neighbors": {
+      "subject_weighted_balanced_accuracy_95ci": [
+        0.6112075435637382,
+        0.7252806850539387
+      ],
+      "subject_weighted_mae_days_95ci": [
+        38.87432115582181,
+        86.04730525714302
+      ],
+      "balanced_accuracy_improvement_over_cohort_baseline_95ci": [
+        -0.004070994827345896,
+        0.1083512389743143
+      ],
+      "mae_improvement_over_cohort_baseline_days_95ci": [
+        12.199312142470074,
+        25.91041290408944
+      ]
+    },
+    "neural_network": {
+      "subject_weighted_balanced_accuracy_95ci": [
+        0.6060409673018622,
+        0.7104110115888409
+      ],
+      "subject_weighted_mae_days_95ci": [
+        43.54718617597952,
+        110.17656952630223
+      ],
+      "balanced_accuracy_improvement_over_cohort_baseline_95ci": [
+        0.005370602151376425,
+        0.08055433959595672
+      ],
+      "mae_improvement_over_cohort_baseline_days_95ci": [
+        -11.742002030476252,
+        17.579406372874846
+      ]
+    },
+    "survival_forest": {
+      "subject_weighted_balanced_accuracy_95ci": [
+        0.6259499000001987,
+        0.735187505956448
+      ],
+      "subject_weighted_mae_days_95ci": [
+        39.32710010757494,
+        83.4994378513574
+      ],
+      "balanced_accuracy_improvement_over_cohort_baseline_95ci": [
+        0.008021690380955293,
+        0.12037614559587138
+      ],
+      "mae_improvement_over_cohort_baseline_days_95ci": [
+        13.08346694584357,
+        26.860515736064098
+      ]
+    }
+  }
+}

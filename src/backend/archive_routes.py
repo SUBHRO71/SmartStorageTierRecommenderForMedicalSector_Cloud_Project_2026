@@ -3,22 +3,33 @@ import io
 import threading
 
 import numpy as np
-from flask import Blueprint, jsonify, request, send_file
+from flask import Blueprint, g, jsonify, request, send_file
 from PIL import Image
 
 from archive import Archive, policy, public_study
 
 
-def create_archive_blueprint(use_aws=False):
+def create_archive_blueprint(use_aws=False, archive_instance=None):
     api = Blueprint("archive", __name__, url_prefix="/api/archive")
-    archive = Archive() if not use_aws else None
+    archive = archive_instance or (Archive() if not use_aws else None)
+    cloud = getattr(archive, "mode", "LOCAL") == "AWS"
+    analysis_lock = threading.Lock()
     if archive:
         archive.recover_interrupted_analysis()
 
     @api.before_request
     def require_local():
-        if use_aws:
+        if use_aws and not archive_instance:
             return jsonify(error={"message": "The v2 study archive currently requires the local backend. Your v1 cloud scan API remains available."}), 501
+        if cloud and request.method not in ("GET", "HEAD", "OPTIONS"):
+            archive.operations.acquire()
+            g.archive_operation_locked = True
+
+    @api.teardown_request
+    def release_operation(_error):
+        if cloud and getattr(g, "archive_operation_locked", False):
+            g.archive_operation_locked = False
+            archive.operations.release()
 
     @api.errorhandler(ValueError)
     def invalid(error):
@@ -39,11 +50,11 @@ def create_archive_blueprint(use_aws=False):
     def studies():
         collection = request.args.get("collection")
         rows = [s for s in archive.studies() if not collection or s["collection"] == collection]
-        return jsonify(studies=[public_study(s) for s in rows], summary=archive.summary(rows), mode="LOCAL", events=archive.events())
+        return jsonify(studies=[public_study(s) for s in rows], summary=archive.summary(rows), mode="AWS" if cloud else "LOCAL", events=archive.events())
 
     @api.get("/studies/<identifier>")
     def detail(identifier):
-        return jsonify(study=public_study(get_study(identifier)), events=archive.events(identifier))
+        return jsonify(study=public_study(get_study(identifier)), events=archive.events(identifier), mode="AWS" if cloud else "LOCAL")
 
     @api.post("/demo")
     def demo():
@@ -78,7 +89,10 @@ def create_archive_blueprint(use_aws=False):
             raise ValueError("Access time must be between 0 and 8760 hours")
         study["access"] = {"hold": payload["hold"], "active": payload["active"], "max_hours": hours}
         study["decision"] = policy(study)
-        return jsonify(study=public_study(archive.save(study, "ACCESS_UPDATED", payload["reason"], payload.get("version"))))
+        saved = archive.save(study, "ACCESS_UPDATED", payload["reason"], payload.get("version"))
+        if cloud and saved["source"] != "SYNTHETIC" and saved["decision"]["tier"] == "STANDARD" and saved["requested_tier"] != "STANDARD":
+            saved = archive.place(identifier, saved["version"], "Access protection updated: " + payload["reason"])
+        return jsonify(study=public_study(saved))
 
     @api.post("/studies/<identifier>/recommend")
     def recommend(identifier):
@@ -89,6 +103,25 @@ def create_archive_blueprint(use_aws=False):
         study["decision"] = policy(study, float(payload.get("horizon", 12)), float(payload.get("accesses", 1)))
         return jsonify(study=public_study(archive.save(study, "RECOMMENDED", study["decision"]["reason"], payload.get("version"))))
 
+    @api.post("/studies/<identifier>/forecast")
+    def predict_visit(identifier):
+        from temporal_forecast import forecast
+        study = get_study(identifier)
+        payload = request.get_json(silent=True) or {}
+        if type(payload.get("version")) is not int:
+            raise ValueError("The current study version is required")
+        cohort = payload.get("cohort")
+        if not isinstance(cohort, str) or cohort.upper() not in study["collection"].upper():
+            raise ValueError("The historical context must match the study collection")
+        if type(payload.get("enable_storage_scenario", False)) is not bool:
+            raise ValueError("Storage-scenario enablement must be boolean")
+        study["forecast"] = forecast(payload.get("history_days"), cohort, payload.get("mask_features"), payload.get("scenario_anchor_date"))
+        study["forecast"]["storage_scenario_enabled"] = payload.get("enable_storage_scenario", False)
+        study["forecast"]["feature_provenance"] = "Caller-supplied historical visit days and current publisher segmentation summaries; not the MONAI segmentation model"
+        study["decision"] = policy(study)
+        saved = archive.save(study, "VISIT_PROXY_FORECAST", "Experimental conditional next-visit forecast; scenario date is explicitly anchored, not an observed retrieval date.", payload["version"])
+        return jsonify(study=public_study(saved))
+
     @api.post("/studies/<identifier>/placement")
     def placement(identifier):
         study = get_study(identifier)
@@ -97,6 +130,8 @@ def create_archive_blueprint(use_aws=False):
             raise ValueError("A placement reason is required")
         if payload.get("version") != study["version"]:
             raise ValueError("The study changed. Refresh before requesting placement.")
+        if cloud:
+            return jsonify(study=public_study(archive.place(identifier, payload["version"], payload["reason"])), mode="AWS"), 202
         decision = policy(study, study["decision"]["horizon"], study["decision"]["accesses"])
         for obj in study["objects"]:
             obj["tier"] = decision["tier"]
@@ -111,6 +146,8 @@ def create_archive_blueprint(use_aws=False):
         payload = request.get_json(silent=True) or {}
         if type(payload.get("version")) is not int:
             raise ValueError("The current study version is required")
+        if cloud:
+            return jsonify(study=public_study(archive.restore_bundle(identifier, payload["version"])), mode="AWS"), 202
         study["restore"] = "NOT_REQUIRED" if all(o["tier"] not in ("GLACIER", "DEEP_ARCHIVE") for o in study["objects"]) else "AVAILABLE_LOCAL"
         return jsonify(study=public_study(archive.save(study, "RESTORE_SIMULATED", "All required members available in local simulation.", payload.get("version"))), mode="LOCAL_SIMULATION")
 
@@ -177,15 +214,24 @@ def create_archive_blueprint(use_aws=False):
         from mri_inference import run_study, checkpoint_ready
         if not checkpoint_ready():
             return jsonify(error={"message": "Download the pinned MONAI checkpoint using the documented MRI setup command before running analysis."}), 503
+        if not analysis_lock.acquire(blocking=False):
+            return jsonify(error={"message": "Another MRI analysis is running. Retry after it completes."}), 409
         study["analysis"]["status"] = "RUNNING"
-        archive.save(study, "ANALYSIS_STARTED", "Frozen pretrained model; preprocessing attested by operator.", payload.get("version"))
+        try:
+            archive.save(study, "ANALYSIS_STARTED", "Frozen pretrained model; preprocessing attested by operator.", payload.get("version"))
+        except Exception:
+            analysis_lock.release()
+            raise
 
         def worker():
             try:
                 result = run_study(study)
             except Exception as error:
                 result = {"status": "FAILED", "model": "MONAI BraTS SegResNet 0.5.4", "message": str(error)}
-            archive.finish_analysis(identifier, result)
+            try:
+                archive.finish_analysis(identifier, result)
+            finally:
+                analysis_lock.release()
 
         threading.Thread(target=worker, daemon=True).start()
         return jsonify(study=public_study(study)), 202
@@ -202,7 +248,9 @@ def create_archive_blueprint(use_aws=False):
         totals = {"All Standard": 0, "Age-based": 0, "Current placement": 0, "Study policy": 0}
         components = {name: {key: 0 for key in ("storage", "transition", "retrieval", "metadata", "temporary")} for name in totals}
         for study in studies:
-            decision = policy(study, horizon, accesses)
+            # The comparison page promises one user-declared workload for all
+            # policies. Study-specific proxy scenarios belong to study detail.
+            decision = policy(study, horizon, accesses, use_forecast=False)
             by_tier = {c["tier"]: c for c in decision["candidates"]}
             age_tier = "GLACIER" if study["age_days"] >= 180 else "STANDARD"
             observed = {o["tier"] for o in study["objects"]}
@@ -213,13 +261,13 @@ def create_archive_blueprint(use_aws=False):
             # Current placement costs each actual member in its own class.
             for obj in study["objects"]:
                 single = {**study, "objects": [obj]}
-                cost = next(c for c in policy(single, horizon, accesses)["candidates"] if c["tier"] == obj["tier"])
+                cost = next(c for c in policy(single, horizon, accesses, use_forecast=False)["candidates"] if c["tier"] == obj["tier"])
                 totals["Current placement"] += cost["cost"]
                 for key in components["Current placement"]:
                     components["Current placement"][key] += cost[key]
         return jsonify(policies=[{"name": name, "cost": value, "components": components[name]} for name, value in totals.items()],
                        horizon=horizon, accesses=accesses, studies=len(studies), collection=collection or "All collections", scope="Declared workload simulation",
-                       price_snapshot=policy(studies[0], horizon, accesses)["price_snapshot"] if studies else None,
+                       price_snapshot=policy(studies[0], horizon, accesses, use_forecast=False)["price_snapshot"] if studies else None,
                        limitations="Engineering price snapshot. Excludes prior-tier exit charges, egress, compute, hot previews and other services. Age-based is an unconstrained comparison.")
 
     return api

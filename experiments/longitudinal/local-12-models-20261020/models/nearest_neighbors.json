@@ -1,0 +1,277 @@
+{
+  "family": "nearest_neighbors",
+  "label": "Nearest neighbors",
+  "nested_cv": {
+    "n": 603,
+    "subjects": 118,
+    "prevalence_90d": 0.5655058043117744,
+    "accuracy_90d": 0.6633499170812603,
+    "balanced_accuracy_90d": 0.6621130039623022,
+    "subject_weighted_balanced_accuracy_90d": 0.6671960673245712,
+    "auc_90d": 0.7292706677710372,
+    "subject_weighted_auc_90d": 0.7360770790171971,
+    "brier_90d": 0.20861055151647082,
+    "subject_weighted_brier_90d": 0.2098211420046962,
+    "mae_days": 42.98552612542631,
+    "subject_weighted_mae_days": 58.71839593058492,
+    "median_absolute_error_days": 27.495507943218087,
+    "within_28_days": 0.5074626865671642,
+    "confusion": {
+      "tn": 171,
+      "fp": 91,
+      "fn": 112,
+      "tp": 229
+    }
+  },
+  "nested_cv_threshold_05": {
+    "n": 603,
+    "subjects": 118,
+    "prevalence_90d": 0.5655058043117744,
+    "accuracy_90d": 0.6716417910447762,
+    "balanced_accuracy_90d": 0.6535280159387522,
+    "subject_weighted_balanced_accuracy_90d": 0.6331481134135359,
+    "auc_90d": 0.7292706677710372,
+    "subject_weighted_auc_90d": 0.7360770790171971,
+    "brier_90d": 0.20861055151647082,
+    "subject_weighted_brier_90d": 0.2098211420046962,
+    "mae_days": 42.98552612542631,
+    "subject_weighted_mae_days": 58.71839593058492,
+    "median_absolute_error_days": 27.495507943218087,
+    "within_28_days": 0.5074626865671642,
+    "confusion": {
+      "tn": 135,
+      "fp": 127,
+      "fn": 71,
+      "tp": 270
+    }
+  },
+  "nested_cv_by_cohort": {
+    "LUMIERE": {
+      "n": 412,
+      "subjects": 69,
+      "prevalence_90d": 0.529126213592233,
+      "accuracy_90d": 0.5922330097087378,
+      "balanced_accuracy_90d": 0.5942495034521895,
+      "subject_weighted_balanced_accuracy_90d": 0.6227454726941306,
+      "auc_90d": 0.6435850751915255,
+      "subject_weighted_auc_90d": 0.6740690907570823,
+      "brier_90d": 0.2356922161208782,
+      "subject_weighted_brier_90d": 0.2297334100244631,
+      "mae_days": 39.368955706924304,
+      "subject_weighted_mae_days": 43.41618492149837,
+      "median_absolute_error_days": 27.30981436414688,
+      "within_28_days": 0.5072815533980582,
+      "confusion": {
+        "tn": 122,
+        "fp": 72,
+        "fn": 96,
+        "tp": 122
+      }
+    },
+    "TCGA-GBM": {
+      "n": 191,
+      "subjects": 49,
+      "prevalence_90d": 0.643979057591623,
+      "accuracy_90d": 0.8167539267015707,
+      "balanced_accuracy_90d": 0.7952534672405547,
+      "subject_weighted_balanced_accuracy_90d": 0.7203432069284579,
+      "auc_90d": 0.8304638928742227,
+      "subject_weighted_auc_90d": 0.8047505067687089,
+      "brier_90d": 0.15019355771010523,
+      "subject_weighted_brier_90d": 0.18178141765033062,
+      "mae_days": 50.786714672142686,
+      "subject_weighted_mae_days": 80.2664073515435,
+      "median_absolute_error_days": 27.611424047807958,
+      "within_28_days": 0.5078534031413613,
+      "confusion": {
+        "tn": 49,
+        "fp": 19,
+        "fn": 16,
+        "tp": 107
+      }
+    }
+  },
+  "bootstrap": {
+    "subject_weighted_balanced_accuracy_95ci": [
+      0.6112075435637382,
+      0.7252806850539387
+    ],
+    "subject_weighted_mae_days_95ci": [
+      38.87432115582181,
+      86.04730525714302
+    ],
+    "balanced_accuracy_improvement_over_cohort_baseline_95ci": [
+      0.11120754356373823,
+      0.22528068505393867
+    ],
+    "mae_improvement_over_cohort_baseline_days_95ci": [
+      6.786156943316825,
+      16.343997172422224
+    ]
+  },
+  "outer_fold_metrics": [
+    {
+      "n": 112,
+      "subjects": 21,
+      "prevalence_90d": 0.5446428571428571,
+      "accuracy_90d": 0.6160714285714286,
+      "balanced_accuracy_90d": 0.6025393764063002,
+      "subject_weighted_balanced_accuracy_90d": 0.6797573842765702,
+      "auc_90d": 0.698489231758277,
+      "subject_weighted_auc_90d": 0.780325107861525,
+      "brier_90d": 0.2118814686699491,
+      "subject_weighted_brier_90d": 0.18556773893875872,
+      "mae_days": 42.68925570993529,
+      "subject_weighted_mae_days": 45.4471563022164,
+      "median_absolute_error_days": 26.02156725045595,
+      "within_28_days": 0.5178571428571429,
+      "confusion": {
+        "tn": 23,
+        "fp": 28,
+        "fn": 15,
+        "tp": 46
+      }
+    },
+    {
+      "n": 142,
+      "subjects": 24,
+      "prevalence_90d": 0.5985915492957746,
+      "accuracy_90d": 0.7676056338028169,
+      "balanced_accuracy_90d": 0.7885448916408668,
+      "subject_weighted_balanced_accuracy_90d": 0.7624877919941062,
+      "auc_90d": 0.8712074303405573,
+      "subject_weighted_auc_90d": 0.8158520821929264,
+      "brier_90d": 0.15142564656672047,
+      "subject_weighted_brier_90d": 0.17152196131283493,
+      "mae_days": 40.34474382978429,
+      "subject_weighted_mae_days": 44.536479796658334,
+      "median_absolute_error_days": 26.749599858830983,
+      "within_28_days": 0.5140845070422535,
+      "confusion": {
+        "tn": 51,
+        "fp": 6,
+        "fn": 27,
+        "tp": 58
+      }
+    },
+    {
+      "n": 117,
+      "subjects": 26,
+      "prevalence_90d": 0.5384615384615384,
+      "accuracy_90d": 0.7094017094017094,
+      "balanced_accuracy_90d": 0.716931216931217,
+      "subject_weighted_balanced_accuracy_90d": 0.7628446035882,
+      "auc_90d": 0.7745443856554968,
+      "subject_weighted_auc_90d": 0.8262580646508481,
+      "brier_90d": 0.20013600094804565,
+      "subject_weighted_brier_90d": 0.18240130848722608,
+      "mae_days": 39.1789741996964,
+      "subject_weighted_mae_days": 42.02445801849401,
+      "median_absolute_error_days": 27.287970010617883,
+      "within_28_days": 0.5128205128205128,
+      "confusion": {
+        "tn": 44,
+        "fp": 10,
+        "fn": 24,
+        "tp": 39
+      }
+    },
+    {
+      "n": 123,
+      "subjects": 23,
+      "prevalence_90d": 0.5772357723577236,
+      "accuracy_90d": 0.6178861788617886,
+      "balanced_accuracy_90d": 0.6046858071505958,
+      "subject_weighted_balanced_accuracy_90d": 0.5489635893232978,
+      "auc_90d": 0.6327193932827736,
+      "subject_weighted_auc_90d": 0.6401470321143182,
+      "brier_90d": 0.24575806236886788,
+      "subject_weighted_brier_90d": 0.25030498469177465,
+      "mae_days": 34.40912759034815,
+      "subject_weighted_mae_days": 37.251904297515345,
+      "median_absolute_error_days": 26.041975880911515,
+      "within_28_days": 0.5121951219512195,
+      "confusion": {
+        "tn": 27,
+        "fp": 25,
+        "fn": 22,
+        "tp": 49
+      }
+    },
+    {
+      "n": 109,
+      "subjects": 24,
+      "prevalence_90d": 0.5596330275229358,
+      "accuracy_90d": 0.5779816513761468,
+      "balanced_accuracy_90d": 0.5741120218579234,
+      "subject_weighted_balanced_accuracy_90d": 0.5678190094364347,
+      "auc_90d": 0.640198087431694,
+      "subject_weighted_auc_90d": 0.6310480682671397,
+      "brier_90d": 0.24692516035441484,
+      "subject_weighted_brier_90d": 0.26024985411472873,
+      "mae_days": 60.494122158831594,
+      "subject_weighted_mae_days": 123.16980062579074,
+      "median_absolute_error_days": 31.48831851926482,
+      "within_28_days": 0.47706422018348627,
+      "confusion": {
+        "tn": 26,
+        "fp": 22,
+        "fn": 24,
+        "tp": 37
+      }
+    }
+  ],
+  "final_classifier": {
+    "id": "setting0_history_masks_technical",
+    "setting": 0,
+    "feature_set": "history_masks_technical",
+    "threshold": 0.6,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6800748847644834,
+      "subject_weighted_brier_90d": 0.2115525502685096,
+      "subject_weighted_mae_days": 59.30736238009905,
+      "mae_days": 43.920039219612626
+    }
+  },
+  "final_regressor": {
+    "id": "setting0_history_masks_technical",
+    "setting": 0,
+    "feature_set": "history_masks_technical",
+    "threshold": 0.6,
+    "metrics": {
+      "subject_weighted_balanced_accuracy_90d": 0.6800748847644834,
+      "subject_weighted_brier_90d": 0.2115525502685096,
+      "subject_weighted_mae_days": 59.30736238009905,
+      "mae_days": 43.920039219612626
+    }
+  },
+  "runtime_seconds": 1.6484766001813114,
+  "previously_inspected_holdout_diagnostic": {
+    "n": 118,
+    "subjects": 25,
+    "prevalence_90d": 0.6440677966101694,
+    "accuracy_90d": 0.6016949152542372,
+    "balanced_accuracy_90d": 0.600250626566416,
+    "subject_weighted_balanced_accuracy_90d": 0.5155014064433219,
+    "auc_90d": 0.6779448621553885,
+    "subject_weighted_auc_90d": 0.5284828510620098,
+    "brier_90d": 0.22171102880950114,
+    "subject_weighted_brier_90d": 0.28537730573521314,
+    "mae_days": 42.608211258960885,
+    "subject_weighted_mae_days": 50.67672479855829,
+    "median_absolute_error_days": 27.48410819922167,
+    "within_28_days": 0.5,
+    "confusion": {
+      "tn": 25,
+      "fp": 17,
+      "fn": 30,
+      "tp": 46
+    }
+  },
+  "warnings": [],
+  "final_estimator_parameters": {
+    "classification": "KNeighborsClassifier(n_jobs=2, n_neighbors=15, weights='distance')",
+    "timing": "KNeighborsRegressor(n_jobs=2, n_neighbors=15, weights='distance')"
+  },
+  "artifact_sha256": "775fbe2e70fde49119b5819791eff74175f7ac7554df697022223f13bf654c92"
+}

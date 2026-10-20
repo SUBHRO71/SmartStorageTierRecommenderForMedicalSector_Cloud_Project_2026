@@ -1,0 +1,40 @@
+{
+  "folds": [
+    {
+      "fold": 0,
+      "full_probability_max_error": 2.220446049250313e-16,
+      "timing_max_error_days": 2.842170943040401e-14,
+      "selective_probability_max_error": 0.0,
+      "candidates": 73
+    },
+    {
+      "fold": 1,
+      "full_probability_max_error": 1.1102230246251565e-16,
+      "timing_max_error_days": 2.842170943040401e-14,
+      "selective_probability_max_error": 0.0,
+      "candidates": 73
+    },
+    {
+      "fold": 2,
+      "full_probability_max_error": 2.220446049250313e-16,
+      "timing_max_error_days": 1.4210854715202004e-14,
+      "selective_probability_max_error": 2.220446049250313e-16,
+      "candidates": 73
+    },
+    {
+      "fold": 3,
+      "full_probability_max_error": 2.220446049250313e-16,
+      "timing_max_error_days": 1.4210854715202004e-14,
+      "selective_probability_max_error": 2.220446049250313e-16,
+      "candidates": 73
+    },
+    {
+      "fold": 4,
+      "full_probability_max_error": 1.1102230246251565e-16,
+      "timing_max_error_days": 1.4210854715202004e-14,
+      "selective_probability_max_error": 2.220446049250313e-16,
+      "candidates": 73
+    }
+  ],
+  "production_model_unchanged": true
+}

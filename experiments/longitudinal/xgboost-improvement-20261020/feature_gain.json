@@ -1,0 +1,87 @@
+{
+  "note": "Training split gain only; not causal or external feature importance",
+  "models": {
+    "pooled": [
+      {
+        "feature": "minimum_prior_gap",
+        "gain": 7.019017696380615
+      },
+      {
+        "feature": "log_source_image_count",
+        "gain": 5.215115547180176
+      },
+      {
+        "feature": "previous_gap2",
+        "gain": 3.8214950561523438
+      },
+      {
+        "feature": "change_current_series_count",
+        "gain": 3.641824722290039
+      },
+      {
+        "feature": "rate_enhancing_fraction",
+        "gain": 3.0687904357910156
+      },
+      {
+        "feature": "last_gap_days",
+        "gain": 2.9819023609161377
+      },
+      {
+        "feature": "current_series_count",
+        "gain": 2.951007843017578
+      },
+      {
+        "feature": "log_mean_original_voxels",
+        "gain": 2.7783210277557373
+      },
+      {
+        "feature": "previous_current_series_count",
+        "gain": 2.766267776489258
+      },
+      {
+        "feature": "fraction_prior_gaps_90",
+        "gain": 2.4944660663604736
+      },
+      {
+        "feature": "gap_std_days",
+        "gain": 2.471642255783081
+      },
+      {
+        "feature": "maximum_prior_gap",
+        "gain": 2.3991854190826416
+      },
+      {
+        "feature": "gap_trend",
+        "gain": 2.294034004211426
+      },
+      {
+        "feature": "mean_gap_days",
+        "gain": 2.211998224258423
+      },
+      {
+        "feature": "log_source_bytes",
+        "gain": 2.1996448040008545
+      },
+      {
+        "feature": "change_mean_mask_sphericity",
+        "gain": 2.13114070892334
+      },
+      {
+        "feature": "previous_log_source_bytes",
+        "gain": 2.1261045932769775
+      },
+      {
+        "feature": "log_mask_volume",
+        "gain": 2.109804391860962
+      },
+      {
+        "feature": "enhancing_fraction",
+        "gain": 2.0638861656188965
+      },
+      {
+        "feature": "rate_log_source_image_count",
+        "gain": 2.0629043579101562
+      }
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "in_sample_accuracy": 0.7810945273631841,
+  "in_sample_subject_weighted_balanced_accuracy": 0.802316326362076,
+  "nested_cv_accuracy": 0.6865671641791045,
+  "nested_cv_subject_weighted_balanced_accuracy": 0.6849617045788745,
+  "note": "Same previous fitted XGBoost on development rows versus grouped out-of-fold predictions. In-sample scores are not unseen-subject evidence."
+}

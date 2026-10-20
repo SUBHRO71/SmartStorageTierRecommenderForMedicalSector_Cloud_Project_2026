@@ -1,0 +1,3120 @@
+{
+  "fold": 2,
+  "candidates": [
+    {
+      "id": "original_pooled_hard_0",
+      "config": {
+        "id": "original_pooled_hard_0",
+        "features": "original",
+        "strategy": "pooled",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 300,
+          "max_depth": 1,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6481481481481481,
+        "balanced_accuracy_90d": 0.6494708079690095,
+        "subject_weighted_balanced_accuracy_90d": 0.6515779950913858,
+        "auc_90d": 0.7146167681239624,
+        "subject_weighted_auc_90d": 0.7160562899434482,
+        "brier_90d": 0.21166970907311705,
+        "subject_weighted_brier_90d": 0.2103328900674928,
+        "confusion": {
+          "tn": 137,
+          "fp": 71,
+          "fn": 100,
+          "tp": 178
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_pooled_hard_1",
+      "config": {
+        "id": "original_pooled_hard_1",
+        "features": "original",
+        "strategy": "pooled",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 2,
+          "min_child_weight": 1,
+          "reg_lambda": 1,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.7,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6584362139917695,
+        "balanced_accuracy_90d": 0.6790433038184837,
+        "subject_weighted_balanced_accuracy_90d": 0.6837072040228868,
+        "auc_90d": 0.744509200332042,
+        "subject_weighted_auc_90d": 0.7267870179935145,
+        "brier_90d": 0.20597099347821077,
+        "subject_weighted_brier_90d": 0.21613400473636635,
+        "confusion": {
+          "tn": 171,
+          "fp": 37,
+          "fn": 129,
+          "tp": 149
+        }
+      },
+      "selective": {
+        "cutoff": 0.6,
+        "inner_coverage": 0.360082304526749,
+        "inner_metrics": {
+          "n": 175,
+          "subjects": 73,
+          "prevalence_90d": 0.5371428571428571,
+          "accuracy_90d": 0.8057142857142857,
+          "balanced_accuracy_90d": 0.8123194116101917,
+          "subject_weighted_balanced_accuracy_90d": 0.7751567019720872,
+          "auc_90d": 0.8316259521933281,
+          "subject_weighted_auc_90d": 0.8131023997560496,
+          "brier_90d": 0.15686495094992997,
+          "subject_weighted_brier_90d": 0.1775396413393682,
+          "confusion": {
+            "tn": 73,
+            "fp": 8,
+            "fn": 26,
+            "tp": 68
+          }
+        }
+      }
+    },
+    {
+      "id": "original_pooled_hard_2",
+      "config": {
+        "id": "original_pooled_hard_2",
+        "features": "original",
+        "strategy": "pooled",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 3,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6975308641975309,
+        "balanced_accuracy_90d": 0.6944521306032098,
+        "subject_weighted_balanced_accuracy_90d": 0.6907639465121577,
+        "auc_90d": 0.7423301743220807,
+        "subject_weighted_auc_90d": 0.7264224032772842,
+        "brier_90d": 0.20609702732941737,
+        "subject_weighted_brier_90d": 0.21392160557641052,
+        "confusion": {
+          "tn": 140,
+          "fp": 68,
+          "fn": 79,
+          "tp": 199
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_pooled_hard_3",
+      "config": {
+        "id": "original_pooled_hard_3",
+        "features": "original",
+        "strategy": "pooled",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 220,
+          "max_depth": 3,
+          "min_child_weight": 8,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6934156378600823,
+        "balanced_accuracy_90d": 0.6987237133370228,
+        "subject_weighted_balanced_accuracy_90d": 0.704064396875808,
+        "auc_90d": 0.7308557000553403,
+        "subject_weighted_auc_90d": 0.7190359617396337,
+        "brier_90d": 0.20624007502013333,
+        "subject_weighted_brier_90d": 0.2087418244818669,
+        "confusion": {
+          "tn": 153,
+          "fp": 55,
+          "fn": 94,
+          "tp": 184
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_pooled_hard_4",
+      "config": {
+        "id": "original_pooled_hard_4",
+        "features": "original",
+        "strategy": "pooled",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 4,
+          "min_child_weight": 10,
+          "reg_lambda": 20,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6893004115226338,
+        "balanced_accuracy_90d": 0.6939160210293304,
+        "subject_weighted_balanced_accuracy_90d": 0.7008947424409284,
+        "auc_90d": 0.733155783065855,
+        "subject_weighted_auc_90d": 0.7219688558147286,
+        "brier_90d": 0.20553283039831194,
+        "subject_weighted_brier_90d": 0.20849809621691587,
+        "confusion": {
+          "tn": 151,
+          "fp": 57,
+          "fn": 94,
+          "tp": 184
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_pooled_hard_5",
+      "config": {
+        "id": "original_pooled_hard_5",
+        "features": "original",
+        "strategy": "pooled",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 5,
+          "min_child_weight": 3,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.5,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.7037037037037037,
+        "balanced_accuracy_90d": 0.6931896790260099,
+        "subject_weighted_balanced_accuracy_90d": 0.6851635422160682,
+        "auc_90d": 0.7417767708909795,
+        "subject_weighted_auc_90d": 0.7278859575994571,
+        "brier_90d": 0.20393140935651616,
+        "subject_weighted_brier_90d": 0.20963900741322342,
+        "confusion": {
+          "tn": 129,
+          "fp": 79,
+          "fn": 65,
+          "tp": 213
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_pooled_soft_0",
+      "config": {
+        "id": "original_pooled_soft_0",
+        "features": "original",
+        "strategy": "pooled",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 300,
+          "max_depth": 1,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.65,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6111111111111112,
+        "balanced_accuracy_90d": 0.6322288323187604,
+        "subject_weighted_balanced_accuracy_90d": 0.6549393249347877,
+        "auc_90d": 0.7039637520752628,
+        "subject_weighted_auc_90d": 0.7129361202407086,
+        "brier_90d": 0.214791162806053,
+        "subject_weighted_brier_90d": 0.2116093990152497,
+        "confusion": {
+          "tn": 162,
+          "fp": 46,
+          "fn": 143,
+          "tp": 135
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_pooled_soft_1",
+      "config": {
+        "id": "original_pooled_soft_1",
+        "features": "original",
+        "strategy": "pooled",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 2,
+          "min_child_weight": 1,
+          "reg_lambda": 1,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6893004115226338,
+        "balanced_accuracy_90d": 0.6902843110127282,
+        "subject_weighted_balanced_accuracy_90d": 0.6853636870203612,
+        "auc_90d": 0.7377300083010514,
+        "subject_weighted_auc_90d": 0.7210941183426763,
+        "brier_90d": 0.2090031336620262,
+        "subject_weighted_brier_90d": 0.21773958138899283,
+        "confusion": {
+          "tn": 145,
+          "fp": 63,
+          "fn": 88,
+          "tp": 190
+        }
+      },
+      "selective": {
+        "cutoff": 0.6,
+        "inner_coverage": 0.3497942386831276,
+        "inner_metrics": {
+          "n": 170,
+          "subjects": 77,
+          "prevalence_90d": 0.6058823529411764,
+          "accuracy_90d": 0.8,
+          "balanced_accuracy_90d": 0.7801767859730473,
+          "subject_weighted_balanced_accuracy_90d": 0.7698496587759689,
+          "auc_90d": 0.8243732792348935,
+          "subject_weighted_auc_90d": 0.8093411157974005,
+          "brier_90d": 0.16927488287573617,
+          "subject_weighted_brier_90d": 0.18966956180381037,
+          "confusion": {
+            "tn": 46,
+            "fp": 21,
+            "fn": 13,
+            "tp": 90
+          }
+        }
+      }
+    },
+    {
+      "id": "original_pooled_soft_2",
+      "config": {
+        "id": "original_pooled_soft_2",
+        "features": "original",
+        "strategy": "pooled",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 3,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6975308641975309,
+        "balanced_accuracy_90d": 0.6896098505810736,
+        "subject_weighted_balanced_accuracy_90d": 0.680110119896647,
+        "auc_90d": 0.7349284034311012,
+        "subject_weighted_auc_90d": 0.7158551352271422,
+        "brier_90d": 0.20858165492566047,
+        "subject_weighted_brier_90d": 0.21662544353612,
+        "confusion": {
+          "tn": 132,
+          "fp": 76,
+          "fn": 71,
+          "tp": 207
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_pooled_soft_3",
+      "config": {
+        "id": "original_pooled_soft_3",
+        "features": "original",
+        "strategy": "pooled",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 220,
+          "max_depth": 3,
+          "min_child_weight": 8,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6954732510288066,
+        "balanced_accuracy_90d": 0.6968905644714998,
+        "subject_weighted_balanced_accuracy_90d": 0.7037989529238632,
+        "auc_90d": 0.7254513696734919,
+        "subject_weighted_auc_90d": 0.7174481422678409,
+        "brier_90d": 0.20813607953027674,
+        "subject_weighted_brier_90d": 0.21016954164313587,
+        "confusion": {
+          "tn": 147,
+          "fp": 61,
+          "fn": 87,
+          "tp": 191
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_pooled_soft_4",
+      "config": {
+        "id": "original_pooled_soft_4",
+        "features": "original",
+        "strategy": "pooled",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 4,
+          "min_child_weight": 10,
+          "reg_lambda": 20,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.7078189300411523,
+        "balanced_accuracy_90d": 0.6998132263420034,
+        "subject_weighted_balanced_accuracy_90d": 0.7058627176079213,
+        "auc_90d": 0.7289966104039844,
+        "subject_weighted_auc_90d": 0.7156282038811465,
+        "brier_90d": 0.20698466279627312,
+        "subject_weighted_brier_90d": 0.20974861241167006,
+        "confusion": {
+          "tn": 134,
+          "fp": 74,
+          "fn": 68,
+          "tp": 210
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_pooled_soft_5",
+      "config": {
+        "id": "original_pooled_soft_5",
+        "features": "original",
+        "strategy": "pooled",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 5,
+          "min_child_weight": 3,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.5,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.7098765432098766,
+        "balanced_accuracy_90d": 0.6925325124515772,
+        "subject_weighted_balanced_accuracy_90d": 0.6854830561343703,
+        "auc_90d": 0.7377127144438295,
+        "subject_weighted_auc_90d": 0.721273002337417,
+        "brier_90d": 0.20624544612455328,
+        "subject_weighted_brier_90d": 0.21239718428765889,
+        "confusion": {
+          "tn": 119,
+          "fp": 89,
+          "fn": 52,
+          "tp": 226
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_specialists_hard_0",
+      "config": {
+        "id": "original_specialists_hard_0",
+        "features": "original",
+        "strategy": "specialists",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 300,
+          "max_depth": 1,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6646090534979424,
+        "balanced_accuracy_90d": 0.6729385722191477,
+        "subject_weighted_balanced_accuracy_90d": 0.6914350266597726,
+        "auc_90d": 0.7145389457664637,
+        "subject_weighted_auc_90d": 0.7017867427250049,
+        "brier_90d": 0.21505120893204172,
+        "subject_weighted_brier_90d": 0.21818885419092446,
+        "confusion": {
+          "tn": 152,
+          "fp": 56,
+          "fn": 107,
+          "tp": 171
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_specialists_hard_1",
+      "config": {
+        "id": "original_specialists_hard_1",
+        "features": "original",
+        "strategy": "specialists",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 2,
+          "min_child_weight": 1,
+          "reg_lambda": 1,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.7,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6584362139917695,
+        "balanced_accuracy_90d": 0.6772274488101826,
+        "subject_weighted_balanced_accuracy_90d": 0.6683629970242171,
+        "auc_90d": 0.7339599474266741,
+        "subject_weighted_auc_90d": 0.7137255697255536,
+        "brier_90d": 0.2138161369544534,
+        "subject_weighted_brier_90d": 0.22570436616943015,
+        "confusion": {
+          "tn": 168,
+          "fp": 40,
+          "fn": 126,
+          "tp": 152
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_specialists_hard_2",
+      "config": {
+        "id": "original_specialists_hard_2",
+        "features": "original",
+        "strategy": "specialists",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 3,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.65,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6604938271604939,
+        "balanced_accuracy_90d": 0.6693414499169894,
+        "subject_weighted_balanced_accuracy_90d": 0.6745139372100544,
+        "auc_90d": 0.7225460016602102,
+        "subject_weighted_auc_90d": 0.7136055466446221,
+        "brier_90d": 0.21446442900121082,
+        "subject_weighted_brier_90d": 0.21807291932464382,
+        "confusion": {
+          "tn": 152,
+          "fp": 56,
+          "fn": 109,
+          "tp": 169
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_specialists_hard_3",
+      "config": {
+        "id": "original_specialists_hard_3",
+        "features": "original",
+        "strategy": "specialists",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 220,
+          "max_depth": 3,
+          "min_child_weight": 8,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.5,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6831275720164609,
+        "balanced_accuracy_90d": 0.6818622025456558,
+        "subject_weighted_balanced_accuracy_90d": 0.6908512221617544,
+        "auc_90d": 0.6953341173215274,
+        "subject_weighted_auc_90d": 0.6909832159442921,
+        "brier_90d": 0.21906715677211797,
+        "subject_weighted_brier_90d": 0.21554753939259097,
+        "confusion": {
+          "tn": 140,
+          "fp": 68,
+          "fn": 86,
+          "tp": 192
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_specialists_hard_4",
+      "config": {
+        "id": "original_specialists_hard_4",
+        "features": "original",
+        "strategy": "specialists",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 4,
+          "min_child_weight": 10,
+          "reg_lambda": 20,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6049382716049383,
+        "balanced_accuracy_90d": 0.6014111787493082,
+        "subject_weighted_balanced_accuracy_90d": 0.6154232445410036,
+        "auc_90d": 0.6391550221361373,
+        "subject_weighted_auc_90d": 0.6438654881712809,
+        "brier_90d": 0.2349848476631411,
+        "subject_weighted_brier_90d": 0.23435575105336992,
+        "confusion": {
+          "tn": 120,
+          "fp": 88,
+          "fn": 104,
+          "tp": 174
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_specialists_hard_5",
+      "config": {
+        "id": "original_specialists_hard_5",
+        "features": "original",
+        "strategy": "specialists",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 5,
+          "min_child_weight": 3,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6666666666666666,
+        "balanced_accuracy_90d": 0.6735265633646929,
+        "subject_weighted_balanced_accuracy_90d": 0.6864425645230052,
+        "auc_90d": 0.7266965273934699,
+        "subject_weighted_auc_90d": 0.7178164840641156,
+        "brier_90d": 0.21000303112820545,
+        "subject_weighted_brier_90d": 0.21264102832017637,
+        "confusion": {
+          "tn": 150,
+          "fp": 58,
+          "fn": 104,
+          "tp": 174
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_specialists_soft_0",
+      "config": {
+        "id": "original_specialists_soft_0",
+        "features": "original",
+        "strategy": "specialists",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 300,
+          "max_depth": 1,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6584362139917695,
+        "balanced_accuracy_90d": 0.6608847537354732,
+        "subject_weighted_balanced_accuracy_90d": 0.6852019484946482,
+        "auc_90d": 0.7058401355838406,
+        "subject_weighted_auc_90d": 0.692910490164721,
+        "brier_90d": 0.21802496483731876,
+        "subject_weighted_brier_90d": 0.2206287272660022,
+        "confusion": {
+          "tn": 141,
+          "fp": 67,
+          "fn": 99,
+          "tp": 179
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_specialists_soft_1",
+      "config": {
+        "id": "original_specialists_soft_1",
+        "features": "original",
+        "strategy": "specialists",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 2,
+          "min_child_weight": 1,
+          "reg_lambda": 1,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.4,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.7098765432098766,
+        "balanced_accuracy_90d": 0.6798215273934698,
+        "subject_weighted_balanced_accuracy_90d": 0.666660429049461,
+        "auc_90d": 0.7307432899833979,
+        "subject_weighted_auc_90d": 0.7065197218320838,
+        "brier_90d": 0.2155780642376837,
+        "subject_weighted_brier_90d": 0.22919463207750604,
+        "confusion": {
+          "tn": 98,
+          "fp": 110,
+          "fn": 31,
+          "tp": 247
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_specialists_soft_2",
+      "config": {
+        "id": "original_specialists_soft_2",
+        "features": "original",
+        "strategy": "specialists",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 3,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.5,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.7057613168724279,
+        "balanced_accuracy_90d": 0.690145960154953,
+        "subject_weighted_balanced_accuracy_90d": 0.6838050490731695,
+        "auc_90d": 0.7224162977310459,
+        "subject_weighted_auc_90d": 0.7067864244573185,
+        "brier_90d": 0.2135954221575456,
+        "subject_weighted_brier_90d": 0.21893017173208612,
+        "confusion": {
+          "tn": 121,
+          "fp": 87,
+          "fn": 56,
+          "tp": 222
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_specialists_soft_3",
+      "config": {
+        "id": "original_specialists_soft_3",
+        "features": "original",
+        "strategy": "specialists",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 220,
+          "max_depth": 3,
+          "min_child_weight": 8,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6790123456790124,
+        "balanced_accuracy_90d": 0.6776597952407304,
+        "subject_weighted_balanced_accuracy_90d": 0.6880961042114648,
+        "auc_90d": 0.695031474820144,
+        "subject_weighted_auc_90d": 0.6867027145257247,
+        "brier_90d": 0.2184396164480933,
+        "subject_weighted_brier_90d": 0.2165543168651297,
+        "confusion": {
+          "tn": 139,
+          "fp": 69,
+          "fn": 87,
+          "tp": 191
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_specialists_soft_4",
+      "config": {
+        "id": "original_specialists_soft_4",
+        "features": "original",
+        "strategy": "specialists",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 4,
+          "min_child_weight": 10,
+          "reg_lambda": 20,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6358024691358025,
+        "balanced_accuracy_90d": 0.6271790260099612,
+        "subject_weighted_balanced_accuracy_90d": 0.6302720118398599,
+        "auc_90d": 0.6397343663530715,
+        "subject_weighted_auc_90d": 0.6472565922839306,
+        "brier_90d": 0.23510058491239877,
+        "subject_weighted_brier_90d": 0.2362131121116228,
+        "confusion": {
+          "tn": 118,
+          "fp": 90,
+          "fn": 87,
+          "tp": 191
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_specialists_soft_5",
+      "config": {
+        "id": "original_specialists_soft_5",
+        "features": "original",
+        "strategy": "specialists",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 5,
+          "min_child_weight": 3,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.5,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.7057613168724279,
+        "balanced_accuracy_90d": 0.6871195351411179,
+        "subject_weighted_balanced_accuracy_90d": 0.6903382901639928,
+        "auc_90d": 0.7241889180962923,
+        "subject_weighted_auc_90d": 0.7083573208123023,
+        "brier_90d": 0.21051230343576435,
+        "subject_weighted_brier_90d": 0.21438548285048856,
+        "confusion": {
+          "tn": 116,
+          "fp": 92,
+          "fn": 51,
+          "tp": 227
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_pooled_hard_0",
+      "config": {
+        "id": "temporal_pooled_hard_0",
+        "features": "temporal",
+        "strategy": "pooled",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 300,
+          "max_depth": 1,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.65,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6234567901234568,
+        "balanced_accuracy_90d": 0.6472571942446044,
+        "subject_weighted_balanced_accuracy_90d": 0.6687582997332773,
+        "auc_90d": 0.7133802573325954,
+        "subject_weighted_auc_90d": 0.7116437970392089,
+        "brier_90d": 0.2128008848226233,
+        "subject_weighted_brier_90d": 0.2129962799523094,
+        "confusion": {
+          "tn": 169,
+          "fp": 39,
+          "fn": 144,
+          "tp": 134
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_pooled_hard_1",
+      "config": {
+        "id": "temporal_pooled_hard_1",
+        "features": "temporal",
+        "strategy": "pooled",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 2,
+          "min_child_weight": 1,
+          "reg_lambda": 1,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6707818930041153,
+        "balanced_accuracy_90d": 0.6801501106806862,
+        "subject_weighted_balanced_accuracy_90d": 0.6902300801625999,
+        "auc_90d": 0.7400387382401772,
+        "subject_weighted_auc_90d": 0.7285169403861024,
+        "brier_90d": 0.20864579202972958,
+        "subject_weighted_brier_90d": 0.21413344622040084,
+        "confusion": {
+          "tn": 155,
+          "fp": 53,
+          "fn": 107,
+          "tp": 171
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_pooled_hard_2",
+      "config": {
+        "id": "temporal_pooled_hard_2",
+        "features": "temporal",
+        "strategy": "pooled",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 3,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6954732510288066,
+        "balanced_accuracy_90d": 0.6920482844493636,
+        "subject_weighted_balanced_accuracy_90d": 0.6991194017141599,
+        "auc_90d": 0.7460656474820143,
+        "subject_weighted_auc_90d": 0.7324349042361807,
+        "brier_90d": 0.20524683820137773,
+        "subject_weighted_brier_90d": 0.21225267254000837,
+        "confusion": {
+          "tn": 139,
+          "fp": 69,
+          "fn": 79,
+          "tp": 199
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_pooled_hard_3",
+      "config": {
+        "id": "temporal_pooled_hard_3",
+        "features": "temporal",
+        "strategy": "pooled",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 220,
+          "max_depth": 3,
+          "min_child_weight": 8,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6748971193415638,
+        "balanced_accuracy_90d": 0.6746679579413393,
+        "subject_weighted_balanced_accuracy_90d": 0.6901265963730892,
+        "auc_90d": 0.7247077338129497,
+        "subject_weighted_auc_90d": 0.7192787352752052,
+        "brier_90d": 0.20977108911400308,
+        "subject_weighted_brier_90d": 0.21089487098328108,
+        "confusion": {
+          "tn": 140,
+          "fp": 68,
+          "fn": 90,
+          "tp": 188
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_pooled_hard_4",
+      "config": {
+        "id": "temporal_pooled_hard_4",
+        "features": "temporal",
+        "strategy": "pooled",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 4,
+          "min_child_weight": 10,
+          "reg_lambda": 20,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6893004115226338,
+        "balanced_accuracy_90d": 0.6890737410071943,
+        "subject_weighted_balanced_accuracy_90d": 0.7017455787917252,
+        "auc_90d": 0.7319019784172662,
+        "subject_weighted_auc_90d": 0.7208514567722247,
+        "brier_90d": 0.20741239413848112,
+        "subject_weighted_brier_90d": 0.2094922685094683,
+        "confusion": {
+          "tn": 143,
+          "fp": 65,
+          "fn": 86,
+          "tp": 192
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_pooled_hard_5",
+      "config": {
+        "id": "temporal_pooled_hard_5",
+        "features": "temporal",
+        "strategy": "pooled",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 5,
+          "min_child_weight": 3,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6954732510288066,
+        "balanced_accuracy_90d": 0.6932588544548977,
+        "subject_weighted_balanced_accuracy_90d": 0.6967777371132615,
+        "auc_90d": 0.7384131156613171,
+        "subject_weighted_auc_90d": 0.7301571963004488,
+        "brier_90d": 0.20726783439710555,
+        "subject_weighted_brier_90d": 0.21096744097901782,
+        "confusion": {
+          "tn": 141,
+          "fp": 67,
+          "fn": 81,
+          "tp": 197
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_pooled_soft_0",
+      "config": {
+        "id": "temporal_pooled_soft_0",
+        "features": "temporal",
+        "strategy": "pooled",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 300,
+          "max_depth": 1,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6460905349794238,
+        "balanced_accuracy_90d": 0.642224681793027,
+        "subject_weighted_balanced_accuracy_90d": 0.6664361483835594,
+        "auc_90d": 0.706186012728279,
+        "subject_weighted_auc_90d": 0.7067335789567027,
+        "brier_90d": 0.21558825193977477,
+        "subject_weighted_brier_90d": 0.21444305128936986,
+        "confusion": {
+          "tn": 128,
+          "fp": 80,
+          "fn": 92,
+          "tp": 186
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_pooled_soft_1",
+      "config": {
+        "id": "temporal_pooled_soft_1",
+        "features": "temporal",
+        "strategy": "pooled",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 2,
+          "min_child_weight": 1,
+          "reg_lambda": 1,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6728395061728395,
+        "balanced_accuracy_90d": 0.673474681793027,
+        "subject_weighted_balanced_accuracy_90d": 0.6813397153422556,
+        "auc_90d": 0.733371956281129,
+        "subject_weighted_auc_90d": 0.7236348654274013,
+        "brier_90d": 0.21213753288962145,
+        "subject_weighted_brier_90d": 0.2168334233393575,
+        "confusion": {
+          "tn": 141,
+          "fp": 67,
+          "fn": 92,
+          "tp": 186
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_pooled_soft_2",
+      "config": {
+        "id": "temporal_pooled_soft_2",
+        "features": "temporal",
+        "strategy": "pooled",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 3,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.7119341563786008,
+        "balanced_accuracy_90d": 0.7009892086330936,
+        "subject_weighted_balanced_accuracy_90d": 0.7015364799193188,
+        "auc_90d": 0.7404797315993358,
+        "subject_weighted_auc_90d": 0.7255502266910618,
+        "brier_90d": 0.20736301162311818,
+        "subject_weighted_brier_90d": 0.2140845015918647,
+        "confusion": {
+          "tn": 130,
+          "fp": 78,
+          "fn": 62,
+          "tp": 216
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_pooled_soft_3",
+      "config": {
+        "id": "temporal_pooled_soft_3",
+        "features": "temporal",
+        "strategy": "pooled",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 220,
+          "max_depth": 3,
+          "min_child_weight": 8,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.65,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6625514403292181,
+        "balanced_accuracy_90d": 0.6723505810736027,
+        "subject_weighted_balanced_accuracy_90d": 0.6986326777703938,
+        "auc_90d": 0.7228227033757609,
+        "subject_weighted_auc_90d": 0.7158069665230216,
+        "brier_90d": 0.21070726442913487,
+        "subject_weighted_brier_90d": 0.21137345880695355,
+        "confusion": {
+          "tn": 154,
+          "fp": 54,
+          "fn": 110,
+          "tp": 168
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_pooled_soft_4",
+      "config": {
+        "id": "temporal_pooled_soft_4",
+        "features": "temporal",
+        "strategy": "pooled",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 4,
+          "min_child_weight": 10,
+          "reg_lambda": 20,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.5,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6954732510288066,
+        "balanced_accuracy_90d": 0.6751003043718871,
+        "subject_weighted_balanced_accuracy_90d": 0.6918885007509592,
+        "auc_90d": 0.7269040536801328,
+        "subject_weighted_auc_90d": 0.7181286920003102,
+        "brier_90d": 0.20937135721233885,
+        "subject_weighted_brier_90d": 0.21036992497118306,
+        "confusion": {
+          "tn": 111,
+          "fp": 97,
+          "fn": 51,
+          "tp": 227
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_pooled_soft_5",
+      "config": {
+        "id": "temporal_pooled_soft_5",
+        "features": "temporal",
+        "strategy": "pooled",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 5,
+          "min_child_weight": 3,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.7037037037037037,
+        "balanced_accuracy_90d": 0.693794964028777,
+        "subject_weighted_balanced_accuracy_90d": 0.6999128079901351,
+        "auc_90d": 0.7365367321527392,
+        "subject_weighted_auc_90d": 0.7263349382326709,
+        "brier_90d": 0.20825977170542648,
+        "subject_weighted_brier_90d": 0.21240260497283872,
+        "confusion": {
+          "tn": 130,
+          "fp": 78,
+          "fn": 66,
+          "tp": 212
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_specialists_hard_0",
+      "config": {
+        "id": "temporal_specialists_hard_0",
+        "features": "temporal",
+        "strategy": "specialists",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 300,
+          "max_depth": 1,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6646090534979424,
+        "balanced_accuracy_90d": 0.6729385722191477,
+        "subject_weighted_balanced_accuracy_90d": 0.6850317294548137,
+        "auc_90d": 0.6991128251245158,
+        "subject_weighted_auc_90d": 0.6928077107129564,
+        "brier_90d": 0.22110965901919674,
+        "subject_weighted_brier_90d": 0.22214940704615932,
+        "confusion": {
+          "tn": 152,
+          "fp": 56,
+          "fn": 107,
+          "tp": 171
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_specialists_hard_1",
+      "config": {
+        "id": "temporal_specialists_hard_1",
+        "features": "temporal",
+        "strategy": "specialists",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 2,
+          "min_child_weight": 1,
+          "reg_lambda": 1,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.676954732510288,
+        "balanced_accuracy_90d": 0.6728348090758163,
+        "subject_weighted_balanced_accuracy_90d": 0.6792479599101807,
+        "auc_90d": 0.7336140702822357,
+        "subject_weighted_auc_90d": 0.7264251108196684,
+        "brier_90d": 0.2156541978124773,
+        "subject_weighted_brier_90d": 0.22020976963608752,
+        "confusion": {
+          "tn": 134,
+          "fp": 74,
+          "fn": 83,
+          "tp": 195
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_specialists_hard_2",
+      "config": {
+        "id": "temporal_specialists_hard_2",
+        "features": "temporal",
+        "strategy": "specialists",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 3,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6995884773662552,
+        "balanced_accuracy_90d": 0.6956454067515219,
+        "subject_weighted_balanced_accuracy_90d": 0.6982565664916331,
+        "auc_90d": 0.733164429994466,
+        "subject_weighted_auc_90d": 0.726347877619764,
+        "brier_90d": 0.2104371567369147,
+        "subject_weighted_brier_90d": 0.21284664841548342,
+        "confusion": {
+          "tn": 139,
+          "fp": 69,
+          "fn": 77,
+          "tp": 201
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_specialists_hard_3",
+      "config": {
+        "id": "temporal_specialists_hard_3",
+        "features": "temporal",
+        "strategy": "specialists",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 220,
+          "max_depth": 3,
+          "min_child_weight": 8,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.65,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6399176954732511,
+        "balanced_accuracy_90d": 0.6622509684560044,
+        "subject_weighted_balanced_accuracy_90d": 0.6838327518389391,
+        "auc_90d": 0.7016031405644714,
+        "subject_weighted_auc_90d": 0.6972989419788027,
+        "brier_90d": 0.215341141844992,
+        "subject_weighted_brier_90d": 0.21250535956938676,
+        "confusion": {
+          "tn": 170,
+          "fp": 38,
+          "fn": 137,
+          "tp": 141
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_specialists_hard_4",
+      "config": {
+        "id": "temporal_specialists_hard_4",
+        "features": "temporal",
+        "strategy": "specialists",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 4,
+          "min_child_weight": 10,
+          "reg_lambda": 20,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.65,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.551440329218107,
+        "balanced_accuracy_90d": 0.5861234089651356,
+        "subject_weighted_balanced_accuracy_90d": 0.6239714570627577,
+        "auc_90d": 0.6611182208079689,
+        "subject_weighted_auc_90d": 0.6636611577114313,
+        "brier_90d": 0.2294146227534909,
+        "subject_weighted_brier_90d": 0.22922803581435547,
+        "confusion": {
+          "tn": 172,
+          "fp": 36,
+          "fn": 182,
+          "tp": 96
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_specialists_hard_5",
+      "config": {
+        "id": "temporal_specialists_hard_5",
+        "features": "temporal",
+        "strategy": "specialists",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 5,
+          "min_child_weight": 3,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.7037037037037037,
+        "balanced_accuracy_90d": 0.6986372440509131,
+        "subject_weighted_balanced_accuracy_90d": 0.7008615412555008,
+        "auc_90d": 0.725658895960155,
+        "subject_weighted_auc_90d": 0.7221518835981071,
+        "brier_90d": 0.21037384336480086,
+        "subject_weighted_brier_90d": 0.2113131314673219,
+        "confusion": {
+          "tn": 138,
+          "fp": 70,
+          "fn": 74,
+          "tp": 204
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_specialists_soft_0",
+      "config": {
+        "id": "temporal_specialists_soft_0",
+        "features": "temporal",
+        "strategy": "specialists",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 300,
+          "max_depth": 1,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6440329218106996,
+        "balanced_accuracy_90d": 0.643452545655783,
+        "subject_weighted_balanced_accuracy_90d": 0.6763453712830536,
+        "auc_90d": 0.6973315578306585,
+        "subject_weighted_auc_90d": 0.6902431434892462,
+        "brier_90d": 0.22163463867409536,
+        "subject_weighted_brier_90d": 0.22239014994137776,
+        "confusion": {
+          "tn": 133,
+          "fp": 75,
+          "fn": 98,
+          "tp": 180
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_specialists_soft_1",
+      "config": {
+        "id": "temporal_specialists_soft_1",
+        "features": "temporal",
+        "strategy": "specialists",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 2,
+          "min_child_weight": 1,
+          "reg_lambda": 1,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.5,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6893004115226338,
+        "balanced_accuracy_90d": 0.6709151909241837,
+        "subject_weighted_balanced_accuracy_90d": 0.6727689517847681,
+        "auc_90d": 0.7322132678472606,
+        "subject_weighted_auc_90d": 0.7164813376349594,
+        "brier_90d": 0.21656287779482325,
+        "subject_weighted_brier_90d": 0.22296061931181724,
+        "confusion": {
+          "tn": 113,
+          "fp": 95,
+          "fn": 56,
+          "tp": 222
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_specialists_soft_2",
+      "config": {
+        "id": "temporal_specialists_soft_2",
+        "features": "temporal",
+        "strategy": "specialists",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 3,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6954732510288066,
+        "balanced_accuracy_90d": 0.6902324294410626,
+        "subject_weighted_balanced_accuracy_90d": 0.6876627393471717,
+        "auc_90d": 0.7250363171001659,
+        "subject_weighted_auc_90d": 0.7135676813315823,
+        "brier_90d": 0.21264844572522926,
+        "subject_weighted_brier_90d": 0.2162926128912159,
+        "confusion": {
+          "tn": 136,
+          "fp": 72,
+          "fn": 76,
+          "tp": 202
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_specialists_soft_3",
+      "config": {
+        "id": "temporal_specialists_soft_3",
+        "features": "temporal",
+        "strategy": "specialists",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 220,
+          "max_depth": 3,
+          "min_child_weight": 8,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.668724279835391,
+        "balanced_accuracy_90d": 0.6632194244604317,
+        "subject_weighted_balanced_accuracy_90d": 0.6843787086505881,
+        "auc_90d": 0.6988015356945214,
+        "subject_weighted_auc_90d": 0.695644527972252,
+        "brier_90d": 0.21578096598400415,
+        "subject_weighted_brier_90d": 0.21289355965539106,
+        "confusion": {
+          "tn": 130,
+          "fp": 78,
+          "fn": 83,
+          "tp": 195
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_specialists_soft_4",
+      "config": {
+        "id": "temporal_specialists_soft_4",
+        "features": "temporal",
+        "strategy": "specialists",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 4,
+          "min_child_weight": 10,
+          "reg_lambda": 20,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6378600823045267,
+        "balanced_accuracy_90d": 0.6289775871610404,
+        "subject_weighted_balanced_accuracy_90d": 0.6325953967637186,
+        "auc_90d": 0.6557052434975097,
+        "subject_weighted_auc_90d": 0.654912098024349,
+        "brier_90d": 0.23169115913361915,
+        "subject_weighted_brier_90d": 0.23110552405610135,
+        "confusion": {
+          "tn": 118,
+          "fp": 90,
+          "fn": 86,
+          "tp": 192
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_specialists_soft_5",
+      "config": {
+        "id": "temporal_specialists_soft_5",
+        "features": "temporal",
+        "strategy": "specialists",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 5,
+          "min_child_weight": 3,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6851851851851852,
+        "balanced_accuracy_90d": 0.6836607636967349,
+        "subject_weighted_balanced_accuracy_90d": 0.6872590990740882,
+        "auc_90d": 0.7219580105146651,
+        "subject_weighted_auc_90d": 0.7127082512910087,
+        "brier_90d": 0.21170651811569294,
+        "subject_weighted_brier_90d": 0.2132586287693043,
+        "confusion": {
+          "tn": 140,
+          "fp": 68,
+          "fn": 85,
+          "tp": 193
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_pooled_hard_0",
+      "config": {
+        "id": "temporal_radiomics_pooled_hard_0",
+        "features": "temporal_radiomics",
+        "strategy": "pooled",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 300,
+          "max_depth": 1,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.65,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.654320987654321,
+        "balanced_accuracy_90d": 0.6766567515218594,
+        "subject_weighted_balanced_accuracy_90d": 0.6991964058213641,
+        "auc_90d": 0.7271029330381849,
+        "subject_weighted_auc_90d": 0.7236512881218462,
+        "brier_90d": 0.20812337263797012,
+        "subject_weighted_brier_90d": 0.20765310475966475,
+        "confusion": {
+          "tn": 173,
+          "fp": 35,
+          "fn": 133,
+          "tp": 145
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_pooled_hard_1",
+      "config": {
+        "id": "temporal_radiomics_pooled_hard_1",
+        "features": "temporal_radiomics",
+        "strategy": "pooled",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 2,
+          "min_child_weight": 1,
+          "reg_lambda": 1,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.65,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6810699588477366,
+        "balanced_accuracy_90d": 0.6994327614831212,
+        "subject_weighted_balanced_accuracy_90d": 0.7087810120691784,
+        "auc_90d": 0.7535711815163253,
+        "subject_weighted_auc_90d": 0.7497329244154539,
+        "brier_90d": 0.20112858244110937,
+        "subject_weighted_brier_90d": 0.20359724391271664,
+        "confusion": {
+          "tn": 172,
+          "fp": 36,
+          "fn": 119,
+          "tp": 159
+        }
+      },
+      "selective": {
+        "cutoff": 0.5,
+        "inner_coverage": 0.4588477366255144,
+        "inner_metrics": {
+          "n": 223,
+          "subjects": 82,
+          "prevalence_90d": 0.5919282511210763,
+          "accuracy_90d": 0.8071748878923767,
+          "balanced_accuracy_90d": 0.8115218115218115,
+          "subject_weighted_balanced_accuracy_90d": 0.7858689360182672,
+          "auc_90d": 0.8292540792540792,
+          "subject_weighted_auc_90d": 0.7922986702501402,
+          "brier_90d": 0.15494732272572045,
+          "subject_weighted_brier_90d": 0.17685774729092554,
+          "confusion": {
+            "tn": 76,
+            "fp": 15,
+            "fn": 28,
+            "tp": 104
+          }
+        }
+      }
+    },
+    {
+      "id": "temporal_radiomics_pooled_hard_2",
+      "config": {
+        "id": "temporal_radiomics_pooled_hard_2",
+        "features": "temporal_radiomics",
+        "strategy": "pooled",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 3,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.7242798353909465,
+        "balanced_accuracy_90d": 0.7263074156059768,
+        "subject_weighted_balanced_accuracy_90d": 0.7389833436386049,
+        "auc_90d": 0.7641550221361373,
+        "subject_weighted_auc_90d": 0.7546051172365272,
+        "brier_90d": 0.19628621079361275,
+        "subject_weighted_brier_90d": 0.20002399415833602,
+        "confusion": {
+          "tn": 154,
+          "fp": 54,
+          "fn": 80,
+          "tp": 198
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_pooled_hard_3",
+      "config": {
+        "id": "temporal_radiomics_pooled_hard_3",
+        "features": "temporal_radiomics",
+        "strategy": "pooled",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 220,
+          "max_depth": 3,
+          "min_child_weight": 8,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.5,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.720164609053498,
+        "balanced_accuracy_90d": 0.7112098782512452,
+        "subject_weighted_balanced_accuracy_90d": 0.7157049154513646,
+        "auc_90d": 0.7548768677365799,
+        "subject_weighted_auc_90d": 0.7438949641516576,
+        "brier_90d": 0.19872922563212023,
+        "subject_weighted_brier_90d": 0.19947238685798463,
+        "confusion": {
+          "tn": 135,
+          "fp": 73,
+          "fn": 63,
+          "tp": 215
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_pooled_hard_4",
+      "config": {
+        "id": "temporal_radiomics_pooled_hard_4",
+        "features": "temporal_radiomics",
+        "strategy": "pooled",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 4,
+          "min_child_weight": 10,
+          "reg_lambda": 20,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.7016460905349794,
+        "balanced_accuracy_90d": 0.7022862479247372,
+        "subject_weighted_balanced_accuracy_90d": 0.7150437477699263,
+        "auc_90d": 0.7498530022136137,
+        "subject_weighted_auc_90d": 0.7424276683941794,
+        "brier_90d": 0.20021677721986583,
+        "subject_weighted_brier_90d": 0.1999030606313854,
+        "confusion": {
+          "tn": 147,
+          "fp": 61,
+          "fn": 84,
+          "tp": 194
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_pooled_hard_5",
+      "config": {
+        "id": "temporal_radiomics_pooled_hard_5",
+        "features": "temporal_radiomics",
+        "strategy": "pooled",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 5,
+          "min_child_weight": 3,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.7283950617283951,
+        "balanced_accuracy_90d": 0.729299252905368,
+        "subject_weighted_balanced_accuracy_90d": 0.733022734946395,
+        "auc_90d": 0.7602293165467625,
+        "subject_weighted_auc_90d": 0.7464438288599927,
+        "brier_90d": 0.1973960022836185,
+        "subject_weighted_brier_90d": 0.20223346417390287,
+        "confusion": {
+          "tn": 153,
+          "fp": 55,
+          "fn": 77,
+          "tp": 201
+        }
+      },
+      "selective": {
+        "cutoff": 0.5,
+        "inner_coverage": 0.40329218106995884,
+        "inner_metrics": {
+          "n": 196,
+          "subjects": 77,
+          "prevalence_90d": 0.6173469387755102,
+          "accuracy_90d": 0.8061224489795918,
+          "balanced_accuracy_90d": 0.7872176308539944,
+          "subject_weighted_balanced_accuracy_90d": 0.7534736283597312,
+          "auc_90d": 0.7948209366391185,
+          "subject_weighted_auc_90d": 0.7435077667744915,
+          "brier_90d": 0.16183954768920633,
+          "subject_weighted_brier_90d": 0.19867215147640716,
+          "confusion": {
+            "tn": 53,
+            "fp": 22,
+            "fn": 16,
+            "tp": 105
+          }
+        }
+      }
+    },
+    {
+      "id": "temporal_radiomics_pooled_soft_0",
+      "config": {
+        "id": "temporal_radiomics_pooled_soft_0",
+        "features": "temporal_radiomics",
+        "strategy": "pooled",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 300,
+          "max_depth": 1,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.65,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.654320987654321,
+        "balanced_accuracy_90d": 0.6718144714997233,
+        "subject_weighted_balanced_accuracy_90d": 0.6962443106843552,
+        "auc_90d": 0.7228745849474267,
+        "subject_weighted_auc_90d": 0.7196368935583717,
+        "brier_90d": 0.21001376772017885,
+        "subject_weighted_brier_90d": 0.20917608657564396,
+        "confusion": {
+          "tn": 165,
+          "fp": 43,
+          "fn": 125,
+          "tp": 153
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_pooled_soft_1",
+      "config": {
+        "id": "temporal_radiomics_pooled_soft_1",
+        "features": "temporal_radiomics",
+        "strategy": "pooled",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 2,
+          "min_child_weight": 1,
+          "reg_lambda": 1,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.65,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6975308641975309,
+        "balanced_accuracy_90d": 0.7095842556723851,
+        "subject_weighted_balanced_accuracy_90d": 0.7183317083165424,
+        "auc_90d": 0.7545742252351965,
+        "subject_weighted_auc_90d": 0.7461098860962894,
+        "brier_90d": 0.20300805742662878,
+        "subject_weighted_brier_90d": 0.20675989807938489,
+        "confusion": {
+          "tn": 165,
+          "fp": 43,
+          "fn": 104,
+          "tp": 174
+        }
+      },
+      "selective": {
+        "cutoff": 0.6,
+        "inner_coverage": 0.33539094650205764,
+        "inner_metrics": {
+          "n": 163,
+          "subjects": 73,
+          "prevalence_90d": 0.656441717791411,
+          "accuracy_90d": 0.8159509202453987,
+          "balanced_accuracy_90d": 0.8002336448598131,
+          "subject_weighted_balanced_accuracy_90d": 0.7676566045291469,
+          "auc_90d": 0.818090787716956,
+          "subject_weighted_auc_90d": 0.7733058454864445,
+          "brier_90d": 0.15428262620670244,
+          "subject_weighted_brier_90d": 0.18594829700272347,
+          "confusion": {
+            "tn": 42,
+            "fp": 14,
+            "fn": 16,
+            "tp": 91
+          }
+        }
+      }
+    },
+    {
+      "id": "temporal_radiomics_pooled_soft_2",
+      "config": {
+        "id": "temporal_radiomics_pooled_soft_2",
+        "features": "temporal_radiomics",
+        "strategy": "pooled",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 3,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.720164609053498,
+        "balanced_accuracy_90d": 0.7184732982844494,
+        "subject_weighted_balanced_accuracy_90d": 0.7333222969117893,
+        "auc_90d": 0.7637399695628113,
+        "subject_weighted_auc_90d": 0.7486528396056755,
+        "brier_90d": 0.1967754035906872,
+        "subject_weighted_brier_90d": 0.20119593619001128,
+        "confusion": {
+          "tn": 147,
+          "fp": 61,
+          "fn": 75,
+          "tp": 203
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_pooled_soft_3",
+      "config": {
+        "id": "temporal_radiomics_pooled_soft_3",
+        "features": "temporal_radiomics",
+        "strategy": "pooled",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 220,
+          "max_depth": 3,
+          "min_child_weight": 8,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.7098765432098766,
+        "balanced_accuracy_90d": 0.7125069175428888,
+        "subject_weighted_balanced_accuracy_90d": 0.7328167821138134,
+        "auc_90d": 0.7501037631433315,
+        "subject_weighted_auc_90d": 0.7448447547773974,
+        "brier_90d": 0.20185802404577471,
+        "subject_weighted_brier_90d": 0.20079663563096078,
+        "confusion": {
+          "tn": 152,
+          "fp": 56,
+          "fn": 85,
+          "tp": 193
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_pooled_soft_4",
+      "config": {
+        "id": "temporal_radiomics_pooled_soft_4",
+        "features": "temporal_radiomics",
+        "strategy": "pooled",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 4,
+          "min_child_weight": 10,
+          "reg_lambda": 20,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.65,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6872427983539094,
+        "balanced_accuracy_90d": 0.6957491698948534,
+        "subject_weighted_balanced_accuracy_90d": 0.7229612364592393,
+        "auc_90d": 0.7442757332595462,
+        "subject_weighted_auc_90d": 0.7416498857559644,
+        "brier_90d": 0.20351733725132018,
+        "subject_weighted_brier_90d": 0.20205805923630749,
+        "confusion": {
+          "tn": 157,
+          "fp": 51,
+          "fn": 101,
+          "tp": 177
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_pooled_soft_5",
+      "config": {
+        "id": "temporal_radiomics_pooled_soft_5",
+        "features": "temporal_radiomics",
+        "strategy": "pooled",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 5,
+          "min_child_weight": 3,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.720164609053498,
+        "balanced_accuracy_90d": 0.7093940232429441,
+        "subject_weighted_balanced_accuracy_90d": 0.7164005569775553,
+        "auc_90d": 0.7535711815163254,
+        "subject_weighted_auc_90d": 0.7442092251771304,
+        "brier_90d": 0.20174005334396158,
+        "subject_weighted_brier_90d": 0.2041337650217784,
+        "confusion": {
+          "tn": 132,
+          "fp": 76,
+          "fn": 60,
+          "tp": 218
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_specialists_hard_0",
+      "config": {
+        "id": "temporal_radiomics_specialists_hard_0",
+        "features": "temporal_radiomics",
+        "strategy": "specialists",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 300,
+          "max_depth": 1,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6728395061728395,
+        "balanced_accuracy_90d": 0.6831592418372994,
+        "subject_weighted_balanced_accuracy_90d": 0.710731013429682,
+        "auc_90d": 0.7238776286662978,
+        "subject_weighted_auc_90d": 0.7212858029440976,
+        "brier_90d": 0.21217491406555333,
+        "subject_weighted_brier_90d": 0.21005135160128255,
+        "confusion": {
+          "tn": 157,
+          "fp": 51,
+          "fn": 108,
+          "tp": 170
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_specialists_hard_1",
+      "config": {
+        "id": "temporal_radiomics_specialists_hard_1",
+        "features": "temporal_radiomics",
+        "strategy": "specialists",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 2,
+          "min_child_weight": 1,
+          "reg_lambda": 1,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.45,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.720164609053498,
+        "balanced_accuracy_90d": 0.7045517432208079,
+        "subject_weighted_balanced_accuracy_90d": 0.7104641878354077,
+        "auc_90d": 0.7597969701162147,
+        "subject_weighted_auc_90d": 0.7507320030915217,
+        "brier_90d": 0.2029042856546556,
+        "subject_weighted_brier_90d": 0.20642532376992398,
+        "confusion": {
+          "tn": 124,
+          "fp": 84,
+          "fn": 52,
+          "tp": 226
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_specialists_hard_2",
+      "config": {
+        "id": "temporal_radiomics_specialists_hard_2",
+        "features": "temporal_radiomics",
+        "strategy": "specialists",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 3,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.7098765432098766,
+        "balanced_accuracy_90d": 0.7161386275594909,
+        "subject_weighted_balanced_accuracy_90d": 0.7303732758356591,
+        "auc_90d": 0.751236510791367,
+        "subject_weighted_auc_90d": 0.7474658828584329,
+        "brier_90d": 0.20135635145335976,
+        "subject_weighted_brier_90d": 0.1986131752925811,
+        "confusion": {
+          "tn": 158,
+          "fp": 50,
+          "fn": 91,
+          "tp": 187
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_specialists_hard_3",
+      "config": {
+        "id": "temporal_radiomics_specialists_hard_3",
+        "features": "temporal_radiomics",
+        "strategy": "specialists",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 220,
+          "max_depth": 3,
+          "min_child_weight": 8,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6851851851851852,
+        "balanced_accuracy_90d": 0.6975823187603762,
+        "subject_weighted_balanced_accuracy_90d": 0.7170899428835027,
+        "auc_90d": 0.7234798699501936,
+        "subject_weighted_auc_90d": 0.7349252126392596,
+        "brier_90d": 0.2074236853516137,
+        "subject_weighted_brier_90d": 0.1998805309740682,
+        "confusion": {
+          "tn": 163,
+          "fp": 45,
+          "fn": 108,
+          "tp": 170
+        }
+      },
+      "selective": {
+        "cutoff": 0.4,
+        "inner_coverage": 0.41358024691358025,
+        "inner_metrics": {
+          "n": 201,
+          "subjects": 71,
+          "prevalence_90d": 0.6716417910447762,
+          "accuracy_90d": 0.8009950248756219,
+          "balanced_accuracy_90d": 0.7937710437710437,
+          "subject_weighted_balanced_accuracy_90d": 0.7523873329197655,
+          "auc_90d": 0.7494949494949494,
+          "subject_weighted_auc_90d": 0.6841400388802457,
+          "brier_90d": 0.15883597225848672,
+          "subject_weighted_brier_90d": 0.1882039903798865,
+          "confusion": {
+            "tn": 51,
+            "fp": 15,
+            "fn": 25,
+            "tp": 110
+          }
+        }
+      }
+    },
+    {
+      "id": "temporal_radiomics_specialists_hard_4",
+      "config": {
+        "id": "temporal_radiomics_specialists_hard_4",
+        "features": "temporal_radiomics",
+        "strategy": "specialists",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 4,
+          "min_child_weight": 10,
+          "reg_lambda": 20,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.7,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.565843621399177,
+        "balanced_accuracy_90d": 0.6059767570558937,
+        "subject_weighted_balanced_accuracy_90d": 0.6539715953504537,
+        "auc_90d": 0.6869638904261206,
+        "subject_weighted_auc_90d": 0.7030471142900356,
+        "brier_90d": 0.22210962317539829,
+        "subject_weighted_brier_90d": 0.2187404903853773,
+        "confusion": {
+          "tn": 184,
+          "fp": 24,
+          "fn": 187,
+          "tp": 91
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_specialists_hard_5",
+      "config": {
+        "id": "temporal_radiomics_specialists_hard_5",
+        "features": "temporal_radiomics",
+        "strategy": "specialists",
+        "week91": "hard",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 5,
+          "min_child_weight": 3,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.7037037037037037,
+        "balanced_accuracy_90d": 0.7119535141117875,
+        "subject_weighted_balanced_accuracy_90d": 0.7305793755186782,
+        "auc_90d": 0.7486251383508578,
+        "subject_weighted_auc_90d": 0.7463745544718995,
+        "brier_90d": 0.20145713025567746,
+        "subject_weighted_brier_90d": 0.1974956611102762,
+        "confusion": {
+          "tn": 160,
+          "fp": 48,
+          "fn": 96,
+          "tp": 182
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_specialists_soft_0",
+      "config": {
+        "id": "temporal_radiomics_specialists_soft_0",
+        "features": "temporal_radiomics",
+        "strategy": "specialists",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 300,
+          "max_depth": 1,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6872427983539094,
+        "balanced_accuracy_90d": 0.6866698948533481,
+        "subject_weighted_balanced_accuracy_90d": 0.71313090693208,
+        "auc_90d": 0.7243877974543442,
+        "subject_weighted_auc_90d": 0.7207614133189625,
+        "brier_90d": 0.2133433231109808,
+        "subject_weighted_brier_90d": 0.21116053489337563,
+        "confusion": {
+          "tn": 142,
+          "fp": 66,
+          "fn": 86,
+          "tp": 192
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_specialists_soft_1",
+      "config": {
+        "id": "temporal_radiomics_specialists_soft_1",
+        "features": "temporal_radiomics",
+        "strategy": "specialists",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 2,
+          "min_child_weight": 1,
+          "reg_lambda": 1,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.65,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6975308641975309,
+        "balanced_accuracy_90d": 0.701110265633647,
+        "subject_weighted_balanced_accuracy_90d": 0.7115627411360084,
+        "auc_90d": 0.7525508439402324,
+        "subject_weighted_auc_90d": 0.7417818927273342,
+        "brier_90d": 0.20813144285864918,
+        "subject_weighted_brier_90d": 0.21115014755791794,
+        "confusion": {
+          "tn": 151,
+          "fp": 57,
+          "fn": 90,
+          "tp": 188
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_specialists_soft_2",
+      "config": {
+        "id": "temporal_radiomics_specialists_soft_2",
+        "features": "temporal_radiomics",
+        "strategy": "specialists",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 3,
+          "min_child_weight": 3,
+          "reg_lambda": 5,
+          "learning_rate": 0.05
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.7016460905349794,
+        "balanced_accuracy_90d": 0.699259822910902,
+        "subject_weighted_balanced_accuracy_90d": 0.7109462530927446,
+        "auc_90d": 0.7458927089097953,
+        "subject_weighted_auc_90d": 0.7423316714324399,
+        "brier_90d": 0.20467643227331236,
+        "subject_weighted_brier_90d": 0.2023236812689786,
+        "confusion": {
+          "tn": 142,
+          "fp": 66,
+          "fn": 79,
+          "tp": 199
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_specialists_soft_3",
+      "config": {
+        "id": "temporal_radiomics_specialists_soft_3",
+        "features": "temporal_radiomics",
+        "strategy": "specialists",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 220,
+          "max_depth": 3,
+          "min_child_weight": 8,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6872427983539094,
+        "balanced_accuracy_90d": 0.6884857498616491,
+        "subject_weighted_balanced_accuracy_90d": 0.717188239101116,
+        "auc_90d": 0.7246212645268401,
+        "subject_weighted_auc_90d": 0.737208550070865,
+        "brier_90d": 0.20963383370882746,
+        "subject_weighted_brier_90d": 0.20167715596042504,
+        "confusion": {
+          "tn": 145,
+          "fp": 63,
+          "fn": 89,
+          "tp": 189
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_specialists_soft_4",
+      "config": {
+        "id": "temporal_radiomics_specialists_soft_4",
+        "features": "temporal_radiomics",
+        "strategy": "specialists",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 400,
+          "max_depth": 4,
+          "min_child_weight": 10,
+          "reg_lambda": 20,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.65,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.5864197530864198,
+        "balanced_accuracy_90d": 0.6094355285002767,
+        "subject_weighted_balanced_accuracy_90d": 0.6485795574755107,
+        "auc_90d": 0.6757920586607638,
+        "subject_weighted_auc_90d": 0.6956428827541017,
+        "brier_90d": 0.2245085083822369,
+        "subject_weighted_brier_90d": 0.22074399680773982,
+        "confusion": {
+          "tn": 160,
+          "fp": 48,
+          "fn": 153,
+          "tp": 125
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "temporal_radiomics_specialists_soft_5",
+      "config": {
+        "id": "temporal_radiomics_specialists_soft_5",
+        "features": "temporal_radiomics",
+        "strategy": "specialists",
+        "week91": "soft",
+        "missing": "native",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 250,
+          "max_depth": 5,
+          "min_child_weight": 3,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.6,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.7016460905349794,
+        "balanced_accuracy_90d": 0.7022862479247372,
+        "subject_weighted_balanced_accuracy_90d": 0.723426419750399,
+        "auc_90d": 0.7399955035971222,
+        "subject_weighted_auc_90d": 0.7404761782335986,
+        "brier_90d": 0.20523093012600813,
+        "subject_weighted_brier_90d": 0.20062028945310914,
+        "confusion": {
+          "tn": 147,
+          "fp": 61,
+          "fn": 84,
+          "tp": 194
+        }
+      },
+      "selective": null
+    },
+    {
+      "id": "original_pooled_hard_median_reference",
+      "config": {
+        "id": "original_pooled_hard_median_reference",
+        "features": "original",
+        "strategy": "pooled",
+        "week91": "hard",
+        "missing": "median",
+        "params": {
+          "subsample": 0.85,
+          "colsample_bytree": 0.85,
+          "n_estimators": 220,
+          "max_depth": 3,
+          "min_child_weight": 8,
+          "reg_lambda": 10,
+          "learning_rate": 0.04
+        }
+      },
+      "threshold": 0.55,
+      "metrics": {
+        "n": 486,
+        "subjects": 92,
+        "prevalence_90d": 0.5720164609053497,
+        "accuracy_90d": 0.6831275720164609,
+        "balanced_accuracy_90d": 0.6830727725511898,
+        "subject_weighted_balanced_accuracy_90d": 0.6871320645722603,
+        "auc_90d": 0.7336400110680686,
+        "subject_weighted_auc_90d": 0.7155387176080437,
+        "brier_90d": 0.205678111566541,
+        "subject_weighted_brier_90d": 0.2099386343760068,
+        "confusion": {
+          "tn": 142,
+          "fp": 66,
+          "fn": 88,
+          "tp": 190
+        }
+      },
+      "selective": null
+    }
+  ],
+  "selected_full": {
+    "id": "temporal_radiomics_pooled_hard_2",
+    "config": {
+      "id": "temporal_radiomics_pooled_hard_2",
+      "features": "temporal_radiomics",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 250,
+        "max_depth": 3,
+        "min_child_weight": 3,
+        "reg_lambda": 5,
+        "learning_rate": 0.05
+      }
+    },
+    "threshold": 0.55,
+    "metrics": {
+      "n": 486,
+      "subjects": 92,
+      "prevalence_90d": 0.5720164609053497,
+      "accuracy_90d": 0.7242798353909465,
+      "balanced_accuracy_90d": 0.7263074156059768,
+      "subject_weighted_balanced_accuracy_90d": 0.7389833436386049,
+      "auc_90d": 0.7641550221361373,
+      "subject_weighted_auc_90d": 0.7546051172365272,
+      "brier_90d": 0.19628621079361275,
+      "subject_weighted_brier_90d": 0.20002399415833602,
+      "confusion": {
+        "tn": 154,
+        "fp": 54,
+        "fn": 80,
+        "tp": 198
+      }
+    },
+    "selective": null
+  },
+  "selected_selective": {
+    "id": "temporal_radiomics_pooled_hard_1",
+    "config": {
+      "id": "temporal_radiomics_pooled_hard_1",
+      "features": "temporal_radiomics",
+      "strategy": "pooled",
+      "week91": "hard",
+      "missing": "native",
+      "params": {
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "n_estimators": 400,
+        "max_depth": 2,
+        "min_child_weight": 1,
+        "reg_lambda": 1,
+        "learning_rate": 0.04
+      }
+    },
+    "threshold": 0.65,
+    "metrics": {
+      "n": 486,
+      "subjects": 92,
+      "prevalence_90d": 0.5720164609053497,
+      "accuracy_90d": 0.6810699588477366,
+      "balanced_accuracy_90d": 0.6994327614831212,
+      "subject_weighted_balanced_accuracy_90d": 0.7087810120691784,
+      "auc_90d": 0.7535711815163253,
+      "subject_weighted_auc_90d": 0.7497329244154539,
+      "brier_90d": 0.20112858244110937,
+      "subject_weighted_brier_90d": 0.20359724391271664,
+      "confusion": {
+        "tn": 172,
+        "fp": 36,
+        "fn": 119,
+        "tp": 159
+      }
+    },
+    "selective": {
+      "cutoff": 0.5,
+      "inner_coverage": 0.4588477366255144,
+      "inner_metrics": {
+        "n": 223,
+        "subjects": 82,
+        "prevalence_90d": 0.5919282511210763,
+        "accuracy_90d": 0.8071748878923767,
+        "balanced_accuracy_90d": 0.8115218115218115,
+        "subject_weighted_balanced_accuracy_90d": 0.7858689360182672,
+        "auc_90d": 0.8292540792540792,
+        "subject_weighted_auc_90d": 0.7922986702501402,
+        "brier_90d": 0.15494732272572045,
+        "subject_weighted_brier_90d": 0.17685774729092554,
+        "confusion": {
+          "tn": 76,
+          "fp": 15,
+          "fn": 28,
+          "tp": 104
+        }
+      }
+    }
+  },
+  "outer_full": {
+    "n": 117,
+    "subjects": 26,
+    "prevalence_90d": 0.5384615384615384,
+    "accuracy_90d": 0.6239316239316239,
+    "balanced_accuracy_90d": 0.623015873015873,
+    "subject_weighted_balanced_accuracy_90d": 0.6715758751492711,
+    "auc_90d": 0.6840094062316284,
+    "subject_weighted_auc_90d": 0.7212997090648864,
+    "brier_90d": 0.24211761484605954,
+    "subject_weighted_brier_90d": 0.22876565906510524,
+    "mae_days": 40.36500664246388,
+    "subject_weighted_mae_days": 42.02401562789487,
+    "median_absolute_error_days": 30.501808166503906,
+    "within_28_days": 0.452991452991453,
+    "confusion": {
+      "tn": 33,
+      "fp": 21,
+      "fn": 23,
+      "tp": 40
+    }
+  },
+  "outer_selective_coverage": 0.5042735042735043,
+  "outer_selective": {
+    "n": 59,
+    "subjects": 22,
+    "prevalence_90d": 0.5932203389830508,
+    "accuracy_90d": 0.7457627118644068,
+    "balanced_accuracy_90d": 0.7529761904761905,
+    "subject_weighted_balanced_accuracy_90d": 0.7422563443137552,
+    "auc_90d": 0.7714285714285715,
+    "subject_weighted_auc_90d": 0.7692220415264173,
+    "brier_90d": 0.1960589559033829,
+    "subject_weighted_brier_90d": 0.20057249328432322,
+    "confusion": {
+      "tn": 19,
+      "fp": 5,
+      "fn": 10,
+      "tp": 25
+    }
+  },
+  "elapsed_seconds": 178.0153505000053,
+  "patient_overlap": 0
+}

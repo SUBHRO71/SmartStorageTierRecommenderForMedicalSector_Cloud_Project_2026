@@ -1,0 +1,8 @@
+numpy==2.2.6
+scipy==1.16.2
+pandas==2.3.2
+scikit-learn==1.7.2
+openpyxl==3.1.5
+# After this file: python -m pip install --no-deps scikit-survival==0.25.0
+# Only sksurv.ensemble is used. Windows/Python 3.13 has a forest wheel, but
+# the unrelated optional ECOS solver needs a compiler. That solver is unused.

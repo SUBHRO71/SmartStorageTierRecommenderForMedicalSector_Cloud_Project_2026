@@ -1,0 +1,207 @@
+{
+  "family": "survival_forest",
+  "fold": 0,
+  "candidates": [
+    {
+      "id": "setting0_history",
+      "setting": 0,
+      "feature_set": "history",
+      "threshold": 0.45,
+      "metrics": {
+        "n": 491,
+        "subjects": 97,
+        "prevalence_90d": 0.570264765784114,
+        "accuracy_90d": 0.6945010183299389,
+        "balanced_accuracy_90d": 0.6649881516587678,
+        "subject_weighted_balanced_accuracy_90d": 0.6545550885330915,
+        "auc_90d": 0.7149119837508462,
+        "subject_weighted_auc_90d": 0.6647718512735464,
+        "brier_90d": 0.20976060013608772,
+        "subject_weighted_brier_90d": 0.21853084782687565,
+        "mae_days": 46.27291242362526,
+        "subject_weighted_mae_days": 69.01530735957661,
+        "median_absolute_error_days": 28.0,
+        "within_28_days": 0.5112016293279023,
+        "confusion": {
+          "tn": 96,
+          "fp": 115,
+          "fn": 35,
+          "tp": 245
+        }
+      },
+      "warnings": []
+    },
+    {
+      "id": "setting1_history",
+      "setting": 1,
+      "feature_set": "history",
+      "threshold": 0.5,
+      "metrics": {
+        "n": 491,
+        "subjects": 97,
+        "prevalence_90d": 0.570264765784114,
+        "accuracy_90d": 0.6945010183299389,
+        "balanced_accuracy_90d": 0.6760832769126608,
+        "subject_weighted_balanced_accuracy_90d": 0.6608244294273737,
+        "auc_90d": 0.7194397427217333,
+        "subject_weighted_auc_90d": 0.6790714731619788,
+        "brier_90d": 0.20846620394448562,
+        "subject_weighted_brier_90d": 0.21759020280202485,
+        "mae_days": 46.276985743380855,
+        "subject_weighted_mae_days": 69.03433573030297,
+        "median_absolute_error_days": 28.0,
+        "within_28_days": 0.5478615071283096,
+        "confusion": {
+          "tn": 115,
+          "fp": 96,
+          "fn": 54,
+          "tp": 226
+        }
+      },
+      "warnings": []
+    },
+    {
+      "id": "setting0_history_masks_technical",
+      "setting": 0,
+      "feature_set": "history_masks_technical",
+      "threshold": 0.5,
+      "metrics": {
+        "n": 491,
+        "subjects": 97,
+        "prevalence_90d": 0.570264765784114,
+        "accuracy_90d": 0.6639511201629328,
+        "balanced_accuracy_90d": 0.6463777928232906,
+        "subject_weighted_balanced_accuracy_90d": 0.6798464946406532,
+        "auc_90d": 0.6976811103588355,
+        "subject_weighted_auc_90d": 0.7275135794638932,
+        "brier_90d": 0.21727571917899252,
+        "subject_weighted_brier_90d": 0.21134564331230735,
+        "mae_days": 45.84521384928717,
+        "subject_weighted_mae_days": 62.292417871192875,
+        "median_absolute_error_days": 35.0,
+        "within_28_days": 0.46028513238289204,
+        "confusion": {
+          "tn": 110,
+          "fp": 101,
+          "fn": 64,
+          "tp": 216
+        }
+      },
+      "warnings": []
+    },
+    {
+      "id": "setting1_history_masks_technical",
+      "setting": 1,
+      "feature_set": "history_masks_technical",
+      "threshold": 0.55,
+      "metrics": {
+        "n": 491,
+        "subjects": 97,
+        "prevalence_90d": 0.570264765784114,
+        "accuracy_90d": 0.6720977596741344,
+        "balanced_accuracy_90d": 0.6786306702775897,
+        "subject_weighted_balanced_accuracy_90d": 0.7074320319664307,
+        "auc_90d": 0.7323375084631009,
+        "subject_weighted_auc_90d": 0.7445568038597844,
+        "brier_90d": 0.20895401531819233,
+        "subject_weighted_brier_90d": 0.20272500723391318,
+        "mae_days": 43.806517311608964,
+        "subject_weighted_mae_days": 60.69940258515152,
+        "median_absolute_error_days": 28.0,
+        "within_28_days": 0.5254582484725051,
+        "confusion": {
+          "tn": 153,
+          "fp": 58,
+          "fn": 103,
+          "tp": 177
+        }
+      },
+      "warnings": []
+    }
+  ],
+  "classifier": {
+    "id": "setting1_history_masks_technical",
+    "setting": 1,
+    "feature_set": "history_masks_technical",
+    "threshold": 0.55,
+    "metrics": {
+      "n": 491,
+      "subjects": 97,
+      "prevalence_90d": 0.570264765784114,
+      "accuracy_90d": 0.6720977596741344,
+      "balanced_accuracy_90d": 0.6786306702775897,
+      "subject_weighted_balanced_accuracy_90d": 0.7074320319664307,
+      "auc_90d": 0.7323375084631009,
+      "subject_weighted_auc_90d": 0.7445568038597844,
+      "brier_90d": 0.20895401531819233,
+      "subject_weighted_brier_90d": 0.20272500723391318,
+      "mae_days": 43.806517311608964,
+      "subject_weighted_mae_days": 60.69940258515152,
+      "median_absolute_error_days": 28.0,
+      "within_28_days": 0.5254582484725051,
+      "confusion": {
+        "tn": 153,
+        "fp": 58,
+        "fn": 103,
+        "tp": 177
+      }
+    },
+    "warnings": []
+  },
+  "regressor": {
+    "id": "setting1_history_masks_technical",
+    "setting": 1,
+    "feature_set": "history_masks_technical",
+    "threshold": 0.55,
+    "metrics": {
+      "n": 491,
+      "subjects": 97,
+      "prevalence_90d": 0.570264765784114,
+      "accuracy_90d": 0.6720977596741344,
+      "balanced_accuracy_90d": 0.6786306702775897,
+      "subject_weighted_balanced_accuracy_90d": 0.7074320319664307,
+      "auc_90d": 0.7323375084631009,
+      "subject_weighted_auc_90d": 0.7445568038597844,
+      "brier_90d": 0.20895401531819233,
+      "subject_weighted_brier_90d": 0.20272500723391318,
+      "mae_days": 43.806517311608964,
+      "subject_weighted_mae_days": 60.69940258515152,
+      "median_absolute_error_days": 28.0,
+      "within_28_days": 0.5254582484725051,
+      "confusion": {
+        "tn": 153,
+        "fp": 58,
+        "fn": 103,
+        "tp": 177
+      }
+    },
+    "warnings": []
+  },
+  "outer_metrics": {
+    "n": 112,
+    "subjects": 21,
+    "prevalence_90d": 0.5446428571428571,
+    "accuracy_90d": 0.6964285714285714,
+    "balanced_accuracy_90d": 0.6988106718097075,
+    "subject_weighted_balanced_accuracy_90d": 0.7341398922629332,
+    "auc_90d": 0.759884281581485,
+    "subject_weighted_auc_90d": 0.8246599246230591,
+    "brier_90d": 0.20006394060843682,
+    "subject_weighted_brier_90d": 0.16650939753726757,
+    "mae_days": 38.464285714285715,
+    "subject_weighted_mae_days": 44.44330167964621,
+    "median_absolute_error_days": 20.5,
+    "within_28_days": 0.6696428571428571,
+    "confusion": {
+      "tn": 37,
+      "fp": 14,
+      "fn": 20,
+      "tp": 41
+    }
+  },
+  "fit_subjects": 97,
+  "evaluation_subjects": 21,
+  "patient_overlap": 0,
+  "seconds": 2.342432300094515,
+  "warnings": []
+}

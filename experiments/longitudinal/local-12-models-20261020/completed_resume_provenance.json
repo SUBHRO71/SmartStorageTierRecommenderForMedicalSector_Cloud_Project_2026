@@ -1,0 +1,13 @@
+{
+  "original_training_sha256": {
+    "benchmark.py": "6cd8bc545a8fe9c4fdda9c8f35be6642dd605bfb5bdf35ee50e760c733038135",
+    "benchmark_models.py": "6484136052fc4fa2ca91c443861fab73d642615470867e685b0e61b3ecf972f1",
+    "benchmark_data.py": "bff5ba2dadaf5769360666da3de756cf6c6dbd14a742626c75809a99c68fe6db"
+  },
+  "completed_resume_sha256": {
+    "benchmark.py": "6945752586b3b2b2e7cd73e6eac4b8da026256ef719d3deeaf32826a456dc619",
+    "benchmark_models.py": "6484136052fc4fa2ca91c443861fab73d642615470867e685b0e61b3ecf972f1",
+    "benchmark_data.py": "bff5ba2dadaf5769360666da3de756cf6c6dbd14a742626c75809a99c68fe6db"
+  },
+  "scope": "Completed-model aggregation only; all model/data code unchanged; no training performed"
+}

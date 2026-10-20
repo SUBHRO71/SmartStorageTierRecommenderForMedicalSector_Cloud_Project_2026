@@ -1,5 +1,9 @@
 # V2 local implementation and verification
 
+> Update, 20 October 2026: the AWS v2 pilot is now implemented and deployed.
+> See [deployment status](../aws/DEPLOYMENT_STATUS.md) and the
+> [AWS plan](AWS_V2_DEPLOYMENT.md). The boundaries below record the earlier local milestone.
+
 **Date:** 11 October 2026\
 **Scope:** Working local cancer-imaging archive and redesigned dashboard.\
 **Target requirements:** [PRD](PRD_V2_TCIA_BRATS.md), [dashboard specification](DASHBOARD_V2_SPEC.md).

@@ -1,0 +1,46 @@
+{
+  "cohort_prior_median": {
+    "n": 603,
+    "subjects": 118,
+    "prevalence_90d": 0.5655058043117744,
+    "accuracy_90d": 0.5655058043117744,
+    "balanced_accuracy_90d": 0.5,
+    "subject_weighted_balanced_accuracy_90d": 0.5,
+    "auc_90d": 0.5106668756016207,
+    "subject_weighted_auc_90d": 0.507444964329075,
+    "brier_90d": 0.24658261257702632,
+    "subject_weighted_brier_90d": 0.24542144710896704,
+    "mae_days": 50.99336650082919,
+    "subject_weighted_mae_days": 70.14512850891215,
+    "median_absolute_error_days": 35.0,
+    "within_28_days": 0.4577114427860697,
+    "confusion": {
+      "tn": 0,
+      "fp": 262,
+      "fn": 0,
+      "tp": 341
+    }
+  },
+  "cohort_prior_last_gap": {
+    "n": 603,
+    "subjects": 118,
+    "prevalence_90d": 0.5655058043117744,
+    "accuracy_90d": 0.5655058043117744,
+    "balanced_accuracy_90d": 0.5,
+    "subject_weighted_balanced_accuracy_90d": 0.5,
+    "auc_90d": 0.5106668756016207,
+    "subject_weighted_auc_90d": 0.507444964329075,
+    "brier_90d": 0.24658261257702632,
+    "subject_weighted_brier_90d": 0.24542144710896704,
+    "mae_days": 56.21558872305141,
+    "subject_weighted_mae_days": 77.716164413298,
+    "median_absolute_error_days": 35.0,
+    "within_28_days": 0.4577114427860697,
+    "confusion": {
+      "tn": 0,
+      "fp": 262,
+      "fn": 0,
+      "tp": 341
+    }
+  }
+}

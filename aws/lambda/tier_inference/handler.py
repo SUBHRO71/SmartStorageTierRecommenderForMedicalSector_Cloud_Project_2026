@@ -85,9 +85,15 @@ def _write_audit(resources, scan_id, event_type, details):
 
 
 def process_record(record, resources, engine):
-    bucket = record["s3"]["bucket"]["name"]
-    key = urllib.parse.unquote_plus(record["s3"]["object"]["key"])
-    size = int(record["s3"]["object"]["size"])
+    if record.get("source") == "aws.s3":
+        detail = record["detail"]
+        bucket = detail["bucket"]["name"]
+        key = detail["object"]["key"]
+        size = int(detail["object"]["size"])
+    else:
+        bucket = record["s3"]["bucket"]["name"]
+        key = urllib.parse.unquote_plus(record["s3"]["object"]["key"])
+        size = int(record["s3"]["object"]["size"])
     scan_id = stable_scan_id(bucket, key)
     table = resources["table"]
 
@@ -205,7 +211,8 @@ def lambda_handler(event, context):
     if event.get("source") == "aws.events":
         return {"statusCode": 200, "body": json.dumps(reconcile(resources))}
     processed = []
-    for record in event.get("Records", []):
+    records = [event] if event.get("source") == "aws.s3" and event.get("detail-type") == "Object Created" else event.get("Records", [])
+    for record in records:
         try:
             processed.append(process_record(record, resources, engine))
         except Exception:

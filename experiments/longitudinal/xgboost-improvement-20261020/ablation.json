@@ -1,0 +1,257 @@
+{
+  "note": "Each restricted search selects on inner folds and evaluates outer rows. Hypotheses overlap; this is exploratory and not a causal attribution. Median reference has one fixed setting, other groups allow tuning.",
+  "results": [
+    {
+      "hypothesis": "Original compact features",
+      "metrics": {
+        "n": 603,
+        "subjects": 118,
+        "prevalence_90d": 0.5655058043117744,
+        "accuracy_90d": 0.6733001658374793,
+        "balanced_accuracy_90d": 0.6691421727742831,
+        "subject_weighted_balanced_accuracy_90d": 0.6735359594427172,
+        "auc_90d": 0.7277148485594681,
+        "subject_weighted_auc_90d": 0.7178799688716311,
+        "brier_90d": 0.20872535477537893,
+        "subject_weighted_brier_90d": 0.21456896161504432,
+        "confusion": {
+          "tn": 167,
+          "fp": 95,
+          "fn": 102,
+          "tp": 239
+        }
+      },
+      "selected_by_fold": [
+        "original_pooled_hard_median_reference",
+        "original_specialists_hard_0",
+        "original_pooled_soft_4",
+        "original_pooled_hard_4",
+        "original_pooled_hard_0"
+      ]
+    },
+    {
+      "hypothesis": "Add history and current/prior changes",
+      "metrics": {
+        "n": 603,
+        "subjects": 118,
+        "prevalence_90d": 0.5655058043117744,
+        "accuracy_90d": 0.6832504145936982,
+        "balanced_accuracy_90d": 0.6757292202995232,
+        "subject_weighted_balanced_accuracy_90d": 0.6794307468623912,
+        "auc_90d": 0.7358801011842134,
+        "subject_weighted_auc_90d": 0.7247477037729813,
+        "brier_90d": 0.2074273835477425,
+        "subject_weighted_brier_90d": 0.21448995767674897,
+        "confusion": {
+          "tn": 162,
+          "fp": 100,
+          "fn": 91,
+          "tp": 250
+        }
+      },
+      "selected_by_fold": [
+        "temporal_pooled_hard_4",
+        "temporal_pooled_hard_4",
+        "temporal_pooled_hard_4",
+        "temporal_pooled_soft_1",
+        "temporal_pooled_hard_4"
+      ]
+    },
+    {
+      "hypothesis": "Add current radiomics",
+      "metrics": {
+        "n": 603,
+        "subjects": 118,
+        "prevalence_90d": 0.5655058043117744,
+        "accuracy_90d": 0.6699834162520729,
+        "balanced_accuracy_90d": 0.6631147724474491,
+        "subject_weighted_balanced_accuracy_90d": 0.6761028455256122,
+        "auc_90d": 0.7213964316894629,
+        "subject_weighted_auc_90d": 0.715618558563426,
+        "brier_90d": 0.21480274118070294,
+        "subject_weighted_brier_90d": 0.21988053809178054,
+        "confusion": {
+          "tn": 160,
+          "fp": 102,
+          "fn": 97,
+          "tp": 244
+        }
+      },
+      "selected_by_fold": [
+        "temporal_radiomics_pooled_hard_2",
+        "temporal_radiomics_specialists_hard_0",
+        "temporal_radiomics_pooled_hard_2",
+        "temporal_radiomics_pooled_soft_5",
+        "temporal_radiomics_pooled_soft_5"
+      ]
+    },
+    {
+      "hypothesis": "Pooled cohorts",
+      "metrics": {
+        "n": 603,
+        "subjects": 118,
+        "prevalence_90d": 0.5655058043117744,
+        "accuracy_90d": 0.6799336650082919,
+        "balanced_accuracy_90d": 0.6705860625461709,
+        "subject_weighted_balanced_accuracy_90d": 0.6841563476240866,
+        "auc_90d": 0.7215755187929529,
+        "subject_weighted_auc_90d": 0.7159557296679385,
+        "brier_90d": 0.2131309419889752,
+        "subject_weighted_brier_90d": 0.21683691262229374,
+        "confusion": {
+          "tn": 157,
+          "fp": 105,
+          "fn": 88,
+          "tp": 253
+        }
+      },
+      "selected_by_fold": [
+        "original_pooled_hard_median_reference",
+        "temporal_pooled_hard_4",
+        "temporal_radiomics_pooled_hard_2",
+        "original_pooled_hard_4",
+        "temporal_pooled_hard_4"
+      ]
+    },
+    {
+      "hypothesis": "Separate cohort models",
+      "metrics": {
+        "n": 603,
+        "subjects": 118,
+        "prevalence_90d": 0.5655058043117744,
+        "accuracy_90d": 0.6451077943615257,
+        "balanced_accuracy_90d": 0.6433312439837926,
+        "subject_weighted_balanced_accuracy_90d": 0.6659195276028923,
+        "auc_90d": 0.6944941908620805,
+        "subject_weighted_auc_90d": 0.6921025539914859,
+        "brier_90d": 0.2249248997472497,
+        "subject_weighted_brier_90d": 0.22697941697083418,
+        "confusion": {
+          "tn": 165,
+          "fp": 97,
+          "fn": 117,
+          "tp": 224
+        }
+      },
+      "selected_by_fold": [
+        "original_specialists_hard_3",
+        "original_specialists_hard_0",
+        "temporal_radiomics_specialists_hard_5",
+        "original_specialists_hard_0",
+        "temporal_radiomics_specialists_hard_0"
+      ]
+    },
+    {
+      "hypothesis": "Hard original training labels",
+      "metrics": {
+        "n": 603,
+        "subjects": 118,
+        "prevalence_90d": 0.5655058043117744,
+        "accuracy_90d": 0.6600331674958541,
+        "balanced_accuracy_90d": 0.6569698462089498,
+        "subject_weighted_balanced_accuracy_90d": 0.6772461717710805,
+        "auc_90d": 0.7136397215195541,
+        "subject_weighted_auc_90d": 0.7075117138379978,
+        "brier_90d": 0.21643500155955725,
+        "subject_weighted_brier_90d": 0.2205896780922523,
+        "confusion": {
+          "tn": 166,
+          "fp": 96,
+          "fn": 109,
+          "tp": 232
+        }
+      },
+      "selected_by_fold": [
+        "original_pooled_hard_median_reference",
+        "original_specialists_hard_0",
+        "temporal_radiomics_pooled_hard_2",
+        "original_pooled_hard_4",
+        "temporal_pooled_hard_4"
+      ]
+    },
+    {
+      "hypothesis": "Soft weekly-boundary training sensitivity",
+      "metrics": {
+        "n": 603,
+        "subjects": 118,
+        "prevalence_90d": 0.5655058043117744,
+        "accuracy_90d": 0.6600331674958541,
+        "balanced_accuracy_90d": 0.6534328759150232,
+        "subject_weighted_balanced_accuracy_90d": 0.6690745014177998,
+        "auc_90d": 0.7036780013879251,
+        "subject_weighted_auc_90d": 0.6994721641626136,
+        "brier_90d": 0.2211589276248971,
+        "subject_weighted_brier_90d": 0.2248775069196825,
+        "confusion": {
+          "tn": 158,
+          "fp": 104,
+          "fn": 101,
+          "tp": 240
+        }
+      },
+      "selected_by_fold": [
+        "temporal_pooled_soft_3",
+        "original_specialists_soft_0",
+        "temporal_radiomics_pooled_soft_2",
+        "original_pooled_soft_4",
+        "temporal_radiomics_pooled_soft_5"
+      ]
+    },
+    {
+      "hypothesis": "Native missing-value handling",
+      "metrics": {
+        "n": 603,
+        "subjects": 118,
+        "prevalence_90d": 0.5655058043117744,
+        "accuracy_90d": 0.6550580431177446,
+        "balanced_accuracy_90d": 0.6521288979427369,
+        "subject_weighted_balanced_accuracy_90d": 0.6714556715066646,
+        "auc_90d": 0.713908352174789,
+        "subject_weighted_auc_90d": 0.7093276968905635,
+        "brier_90d": 0.21643693559004634,
+        "subject_weighted_brier_90d": 0.21998876923789906,
+        "confusion": {
+          "tn": 165,
+          "fp": 97,
+          "fn": 111,
+          "tp": 230
+        }
+      },
+      "selected_by_fold": [
+        "temporal_pooled_hard_4",
+        "original_specialists_hard_0",
+        "temporal_radiomics_pooled_hard_2",
+        "original_pooled_hard_4",
+        "temporal_pooled_hard_4"
+      ]
+    },
+    {
+      "hypothesis": "Fixed median-imputed reference",
+      "metrics": {
+        "n": 603,
+        "subjects": 118,
+        "prevalence_90d": 0.5655058043117744,
+        "accuracy_90d": 0.693200663349917,
+        "balanced_accuracy_90d": 0.6858532381186899,
+        "subject_weighted_balanced_accuracy_90d": 0.6812906859756674,
+        "auc_90d": 0.7417396073515257,
+        "subject_weighted_auc_90d": 0.7331141181895676,
+        "brier_90d": 0.2025910387480153,
+        "subject_weighted_brier_90d": 0.2053755480913343,
+        "confusion": {
+          "tn": 165,
+          "fp": 97,
+          "fn": 88,
+          "tp": 253
+        }
+      },
+      "selected_by_fold": [
+        "original_pooled_hard_median_reference",
+        "original_pooled_hard_median_reference",
+        "original_pooled_hard_median_reference",
+        "original_pooled_hard_median_reference",
+        "original_pooled_hard_median_reference"
+      ]
+    }
+  ]
+}

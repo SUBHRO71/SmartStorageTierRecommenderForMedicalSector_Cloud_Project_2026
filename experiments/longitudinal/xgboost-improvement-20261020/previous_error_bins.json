@@ -1,0 +1,74 @@
+[
+  {
+    "cohort": "LUMIERE",
+    "interval_bin": "(-0.001, 30.0]",
+    "n": 93,
+    "error_rate": 0.20430107526881722
+  },
+  {
+    "cohort": "LUMIERE",
+    "interval_bin": "(112.0, 180.0]",
+    "n": 49,
+    "error_rate": 0.3673469387755102
+  },
+  {
+    "cohort": "LUMIERE",
+    "interval_bin": "(180.0, 2000.0]",
+    "n": 15,
+    "error_rate": 0.2
+  },
+  {
+    "cohort": "LUMIERE",
+    "interval_bin": "(30.0, 60.0]",
+    "n": 53,
+    "error_rate": 0.3584905660377358
+  },
+  {
+    "cohort": "LUMIERE",
+    "interval_bin": "(60.0, 90.0]",
+    "n": 72,
+    "error_rate": 0.375
+  },
+  {
+    "cohort": "LUMIERE",
+    "interval_bin": "(90.0, 112.0]",
+    "n": 130,
+    "error_rate": 0.45384615384615384
+  },
+  {
+    "cohort": "TCGA-GBM",
+    "interval_bin": "(-0.001, 30.0]",
+    "n": 59,
+    "error_rate": 0.1864406779661017
+  },
+  {
+    "cohort": "TCGA-GBM",
+    "interval_bin": "(112.0, 180.0]",
+    "n": 29,
+    "error_rate": 0.27586206896551724
+  },
+  {
+    "cohort": "TCGA-GBM",
+    "interval_bin": "(180.0, 2000.0]",
+    "n": 28,
+    "error_rate": 0.07142857142857142
+  },
+  {
+    "cohort": "TCGA-GBM",
+    "interval_bin": "(30.0, 60.0]",
+    "n": 32,
+    "error_rate": 0.15625
+  },
+  {
+    "cohort": "TCGA-GBM",
+    "interval_bin": "(60.0, 90.0]",
+    "n": 32,
+    "error_rate": 0.4375
+  },
+  {
+    "cohort": "TCGA-GBM",
+    "interval_bin": "(90.0, 112.0]",
+    "n": 11,
+    "error_rate": 0.36363636363636365
+  }
+]

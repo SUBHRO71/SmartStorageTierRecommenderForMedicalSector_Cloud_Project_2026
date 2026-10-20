@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { cloudMode } from '../runtime';
 import { Link } from 'react-router-dom';
 import { ArrowRightIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 import { displayTime, useArchive } from './ArchiveContext';
@@ -14,5 +15,5 @@ export function Quality() {
 export function Operations() {
   const { data, studies } = useArchive();
   const events = (data?.events || []).filter(e => studies.some(s => s.id === e.study_id));
-  return <ArchiveGate><PageHeading title="Operations" description="A visible trail from import to placement and restore." /><div className="notice"><strong>Local execution</strong><span>Placement and restore events here simulate a complete bundle. No AWS objects are moved.</span></div><section className="panel"><div className="section-heading"><h2>Operation history</h2><span className="subtle-label">Latest 100 archive events</span></div>{events.map(e => <div className="operation-row" key={e.id}><span className="timeline-dot" /><div><Link to={`/studies/${e.study_id}`}>{e.kind.replaceAll('_', ' ').toLowerCase()}</Link><p>{e.details.message}</p><small>{e.study_id} · Version {e.details.version}</small></div><time dateTime={e.created}>{displayTime(e.created)}</time></div>)}{!events.length && <div className="table-empty">Import a study to start the operation history.</div>}</section></ArchiveGate>;
+  return <ArchiveGate><PageHeading title="Operations" description="A visible trail from import to placement and restore." /><div className="notice"><strong>{cloudMode ? 'AWS execution' : 'Local execution'}</strong><span>{cloudMode ? 'S3 member states are reconciled every five minutes. Requested placement remains pending until S3 confirms every member.' : 'Placement and restore events here simulate a complete bundle. No AWS objects are moved.'}</span></div><section className="panel"><div className="section-heading"><h2>Operation history</h2><span className="subtle-label">Latest 100 archive events</span></div>{events.map(e => <div className="operation-row" key={e.id}><span className="timeline-dot" /><div><Link to={`/studies/${e.study_id}`}>{e.kind.replaceAll('_', ' ').toLowerCase()}</Link><p>{e.details.message}</p><small>{e.study_id} · Version {e.details.version}</small></div><time dateTime={e.created}>{displayTime(e.created)}</time></div>)}{!events.length && <div className="table-empty">Import a study to start the operation history.</div>}</section></ArchiveGate>;
 }

@@ -1,96 +1,71 @@
-# dataset/
+# Dataset and provenance
 
-Data used to train and evaluate the tier recommendation model, and the documentation that
-explains it. **Owner: Mehul Anand.**
+Owner: Mehul Anand. Current experiment: 20 October 2026.
 
-## Layout
+The executed experiment uses TCGA-GBM MRI timeline metadata and LUMIERE timelines
+plus publisher-produced segmentation shape summaries. See the
+[model report](../architecture/LONGITUDINAL_MODEL_REPORT.md) for measured counts,
+exact releases, subject splits, metrics, model references and limitations.
 
-| Path | Contents |
+| Folder | Contents |
 | --- | --- |
-| `raw/` | Data exactly as downloaded from the source. Never edited, never overwritten. |
-| `processed/` | Anything derived from `raw/` by a script — cleaned tables, extracted features, train/val/test splits. |
-| `dataset_description.pdf` | Full documentation of what was used, where it came from, and its licence |
+| `raw/longitudinal/` | Unmodified publisher metadata, checksum manifest and a small permitted LUMIERE image sample; ignored by Git |
+| `processed/longitudinal/` | Reproducible visit examples, subject splits and test predictions; ignored by Git |
+| `../src/ml_model/longitudinal/` | Acquisition, preprocessing, training, selective sample download and cost replay scripts |
+| `../src/ml_model/longitudinal_model.json` | Portable fitted experimental visit-proxy forest, without patient IDs |
 
-Every file in `processed/` must be reproducible by running a script in
-[`../src/ml_model/`](../src/ml_model/) against `raw/`. If you cannot regenerate it, it does not
-belong there.
+Run from the repository root:
 
----
+```powershell
+python -m pip install -r src/ml_model/longitudinal/requirements.txt
+python -m pip install --no-deps scikit-survival==0.25.0
+python src/ml_model/longitudinal/download.py
+python src/ml_model/longitudinal/train.py
+python src/ml_model/longitudinal/sample.py
+python src/ml_model/longitudinal/replay.py
+```
 
-## Rules — read before committing anything
+The explicit forest-wheel installation avoids the unused ECOS solver build on
+Windows/Python 3.13; the core dependencies are installed first.
+The deployed runtime only needs the portable artifact and Python standard library.
+The sample fetcher reads selected members of the public LUMIERE ZIP with byte ranges
+and refuses an accidental full 32 GB download.
 
-**1. Do not commit large files.**
-GitHub rejects files over 100 MB and warns above 50 MB. Medical imaging datasets are far larger
-than that. Commit the *download and preprocessing scripts*, not the data itself.
+## What the label means
 
-**2. Do not commit patient-identifiable data. Ever.**
-Even from a public de-identified dataset, do not commit raw DICOM files containing patient tags.
-Git history is permanent — deleting a file in a later commit does **not** remove it from the
-repository. This mistake cannot be undone by a normal commit.
+The label is days until the next recorded MRI visit, conditional on another visit
+being present in the archive. TCGA visits on the same date are collapsed;
+LUMIERE visits in the same anonymized week are collapsed, retaining the first
+within-week record for predictors. Terminal outcomes are unknown and excluded
+from supervised evaluation, rather than being labelled no follow-up.
 
-**3. What to commit instead:**
-- The script that downloads the data
-- The preprocessing script
-- A small sample (10–20 rows) so others can see the schema and test their code
-- A checksum or manifest listing the expected files
-- `dataset_description.pdf`
+A later visit does not establish that an earlier file was retrieved. No matching
+retrieval logs were obtained for either release. This is not a claim that no
+public medical access-log dataset exists anywhere. Actual timestamped object
+access and restore events are needed to evaluate the intended retrieval target.
 
----
+## Access and handling
 
-## The data problem — read this before choosing a dataset
+The TCGA file used here is the publisher-linked 2015 NBIA metadata digest. The
+current collection has controlled-access image downloads; no controlled TCGA
+pixels were acquired or uploaded. Clinical outcome dates were not combined with
+anonymized imaging dates.
 
-This project needs three kinds of data. **Only two of them can be downloaded.**
+LUMIERE metadata and the four-volume sample come from the publisher's public
+Figshare release. The author repository specifies non-commercial use; this pilot
+is restricted to non-commercial research and private AWS storage. Publisher
+DeepBraTumIA summaries are distinct from our frozen MONAI model's masks.
 
-| Needed | Available? | Source |
-| --- | --- | --- |
-| Medical images + DICOM metadata | Yes | TCIA preserves real DICOM headers |
-| Storage access traces (generic) | Yes | SNIA IOTTA Repository |
-| **Medical image retrieval logs — the training label** | **No** | Does not exist publicly |
+Never commit raw scans, patient-level tables, clinical exports or credentials.
+Keep checksums and acquisition scripts so local derived outputs can be reproduced.
+The earlier NIH ChestX-ray14 workflow is historical and is not training data for
+this longitudinal experiment.
 
-No public dataset records *who retrieved which scan, and when*. Those records exist only inside
-hospital PACS audit trails (IHE ATNA format), they are protected patient information, and no
-institution releases them.
+## Local 12-model comparison
 
-**This means our training label cannot be downloaded. It has to be derived.**
-
-### The workaround
-
-Derive a proxy label from follow-up timestamps: when a patient returns for a later scan, the
-radiologist almost always pulls up the earlier one to compare. So a later study for the same
-patient is evidence that the earlier study was retrieved.
-
-**State this openly in the report as a proxy, not ground truth.** It will miss retrievals that
-happen without a new scan being taken — multidisciplinary team meetings, second opinions, research
-requests. Pair it with a sensitivity analysis showing how much the results depend on the
-assumption. Being upfront about this is far stronger than implying we have real access logs.
-
-There is published precedent for exactly this framing: Yayan et al., *Scientific Reports*,
-December 2025, "Exploratory associations between radiographic findings and metadata-derived
-proxies of 90-day follow-up in 112,120 ChestX-ray14 radiographs."
-
----
-
-## Candidate datasets — all free
-
-| Dataset | Access | Notes |
-| --- | --- | --- |
-| **NIH ChestX-ray14** | Fully open, no registration | 112,120 images. `Data_Entry_2017.csv` has `Patient ID` **and** `Follow-up #` — a ready-made proxy signal. Best starting point. |
-| **TCIA** | Mostly open | Real DICOM with headers intact. Use this if we need genuine DICOM metadata features. |
-| **MIMIC-CXR / MIMIC-IV** | Free but credentialed | 377,110 images, real timestamps, patient-linked. Requires CITI training + a data use agreement. Free of charge, takes a few days. |
-| **Project Imaging-X portal** | Open | Catalogue of 1000+ open datasets, filterable by modality and annotation type. Use it to search rather than hunting one at a time. |
-
-**Warning:** many public datasets are distributed as PNG or JPEG, which destroys the DICOM header.
-Half our planned features come from that header — check before committing to a dataset.
-
----
-
-## `dataset_description.pdf` must document
-
-- Which dataset(s) were used and the exact version or release date
-- Where it was downloaded from, with a working link
-- Licence and citation requirements — several require a specific citation
-- Number of records, images, patients
-- The preprocessing applied, step by step
-- Train/validation/test split sizes and how the split was made
-- How the label was derived, and its stated limitations
-- Any class imbalance, and how it was handled
+See the [experiment index](../experiments/longitudinal/README.md). The benchmark
+uses nested patient-group validation and preserves the previously inspected test
+partition as diagnostic-only data. It saves all 12 local model bundles and every
+candidate/fold prediction under `processed/longitudinal/benchmarks/`; aggregate
+results and plots live under `experiments/longitudinal/`. No AWS action is part
+of this benchmark.

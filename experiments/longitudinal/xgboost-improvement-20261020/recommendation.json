@@ -1,0 +1,11 @@
+{
+  "retain_previous_local_xgboost": true,
+  "expanded_candidate_promoted": false,
+  "full_coverage_80pct_met": false,
+  "selective_80pct_met": false,
+  "original_subject_balanced_accuracy": 0.6849617045788745,
+  "expanded_subject_balanced_accuracy": 0.6772461717710805,
+  "fixed_reference_raw_accuracy": 0.693200663349917,
+  "aws_actions": "none",
+  "original_local_bundle": "dataset/processed/longitudinal/benchmarks/local-12-models-20261020/models/xgboost.pkl"
+}

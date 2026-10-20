@@ -1,0 +1,24 @@
+{
+  "cohorts": {
+    "LUMIERE": {
+      "intervals": 412,
+      "subjects": 69,
+      "missing_mask_fraction": 0.1820388349514563,
+      "intervals_recorded_91_days": 40,
+      "previous_error_rate": 0.35194174757281554
+    },
+    "TCGA-GBM": {
+      "intervals": 191,
+      "subjects": 49,
+      "missing_mask_fraction": 1.0,
+      "intervals_recorded_91_days": 2,
+      "previous_error_rate": 0.23036649214659685
+    }
+  },
+  "development_intervals": 603,
+  "development_subjects": 118,
+  "causes_are_hypotheses": true,
+  "weekly_boundary_note": "LUMIERE 91-day recorded gaps can represent true gaps of 85..97 days; original 90-day evaluation labels remain unchanged.",
+  "missing_note": "TCGA has no published masks in this input set; absence is not a zero volume. Native XGBoost missingness is compared with median imputation.",
+  "feature_note": "Past-to-current mask/metadata changes and richer current radiomics were omitted from the prior compact feature set."
+}

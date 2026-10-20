@@ -1,14 +1,15 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Amplify } from '@aws-amplify/core';
 import { Auth } from '@aws-amplify/auth';
+import { userPoolId, clientId, region } from '../runtime';
 
 // Configure Amplify (only if real env vars are present, otherwise mock)
-if (import.meta.env.VITE_COGNITO_USER_POOL_ID) {
+if (userPoolId) {
   Amplify.configure({
     Auth: {
-      region: import.meta.env.VITE_AWS_REGION || 'us-east-1',
-      userPoolId: import.meta.env.VITE_COGNITO_USER_POOL_ID,
-      userPoolWebClientId: import.meta.env.VITE_COGNITO_CLIENT_ID,
+      region,
+      userPoolId,
+      userPoolWebClientId: clientId,
     }
   });
 }
@@ -20,7 +21,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   
   // Use mock auth if no AWS configuration is provided
-  const isMockAuth = !import.meta.env.VITE_COGNITO_USER_POOL_ID;
+  const isMockAuth = !userPoolId;
 
   useEffect(() => {
     checkUser();
@@ -61,6 +62,9 @@ export const AuthProvider = ({ children }) => {
       });
     } else {
       const authResult = await Auth.signIn(username, password);
+      if (authResult.challengeName) {
+        throw new Error('Your account requires a password or verification step. Ask the administrator to complete account setup.');
+      }
       setUser(authResult);
       return authResult;
     }

@@ -26,16 +26,21 @@ def now():
     return datetime.now(timezone.utc).isoformat()
 
 
-def policy(study, horizon=12, accesses=1):
+def policy(study, horizon=12, accesses=1, *, use_forecast=True):
     """Compare per-object monetary costs, after explicit access constraints.
 
     Uses the existing checked-in engineering snapshot, not current AWS prices.
-    Workload is a declared scenario, never an image-derived access probability.
+    Workload is declared, or explicitly enabled as an experimental first-event
+    visit proxy. A next-visit probability is not a general retrieval count.
     """
     if not math.isfinite(horizon) or not 0 < horizon <= 120:
         raise ValueError("Horizon must be between 0 and 120 months")
     if not math.isfinite(accesses) or not 0 <= accesses <= 1000:
         raise ValueError("Expected study accesses must be between 0 and 1000")
+    forecast = study.get("forecast", {})
+    proxy = use_forecast and forecast.get("storage_scenario_enabled", False)
+    if proxy:
+        horizon, accesses = 3, forecast["probability_90d"]
     prices = json.loads((ROOT / "src/ml_model/retrieval_policy_weights.json").read_text())["price_snapshot"]
     protection = study["access"]
     reasons = []
@@ -63,6 +68,11 @@ def policy(study, horizon=12, accesses=1):
     if any(obj["bytes"] < 131072 for obj in study["objects"]):
         allowed = ["STANDARD"]
         reasons.append("The bundle contains an object below the default Lifecycle transition size.")
+    if proxy:
+        reasons.append("Experimental 90-day scenario: one possible complete-bundle access at the next recorded visit; its probability weights retrieval cost.")
+        if forecast["probability_30d"] >= .5:
+            allowed = ["STANDARD"]
+            reasons.append("At least 50% modeled probability of a recorded visit within 30 days keeps this pilot bundle in Standard.")
     candidates = []
     for tier in TIERS:
         settings = prices["tiers"][tier]
@@ -85,9 +95,11 @@ def policy(study, horizon=12, accesses=1):
     if not reasons:
         reasons.append("Lowest modeled monetary cost among tiers compatible with the declared access time.")
     return {"tier": chosen, "reason": " ".join(reasons), "candidates": candidates,
-            "version": "study-policy-v2.1", "horizon": horizon, "accesses": accesses,
+            "version": "study-policy-v2.2", "horizon": horizon, "accesses": accesses,
             "price_snapshot": {k: prices[k] for k in ("currency", "region", "reviewed_on")},
-            "scope": "declared workload simulation", "limitations": "Engineering snapshot; excludes prior-tier exit charges, egress, compute, hot previews and other service overhead. Not an AWS bill."}
+            "scope": "experimental first-event visit proxy" if proxy else "declared workload simulation",
+            "forecast_model": forecast.get("model_id") if proxy else None,
+            "limitations": ("Assumes the next recorded visit causes exactly one bundle retrieval; additional retrievals are unmodeled. " if proxy else "") + "Engineering snapshot; excludes prior-tier exit charges, egress, compute, hot previews and other service overhead. Not an AWS bill."}
 
 
 class Archive:
@@ -128,7 +140,9 @@ class Archive:
             study["version"] = version + 1
             study["updated"] = now()
             conn.execute("INSERT OR REPLACE INTO archive_studies VALUES (?,?)", (study["id"], json.dumps(study)))
-            conn.execute("INSERT INTO archive_events VALUES (?,?,?,?,?)", (str(uuid.uuid4()), study["id"], kind, now(), json.dumps({"message": details, "mode": "local", "version": study["version"]})))
+            from flask import g, has_app_context
+            actor = getattr(g, "actor", "local") if has_app_context() else "system"
+            conn.execute("INSERT INTO archive_events VALUES (?,?,?,?,?)", (str(uuid.uuid4()), study["id"], kind, now(), json.dumps({"message": details, "mode": getattr(self, "mode", "LOCAL"), "actor": actor, "version": study["version"]})))
         return study
 
     def events(self, study_id=None):
@@ -150,7 +164,7 @@ class Archive:
             previous = study["decision"]
             study["decision"] = policy(study, previous["horizon"], previous["accesses"])
             conn.execute("UPDATE archive_studies SET record=? WHERE id=?", (json.dumps(study), identifier))
-            conn.execute("INSERT INTO archive_events VALUES (?,?,?,?,?)", (str(uuid.uuid4()),identifier,"ANALYSIS_"+result["status"],now(),json.dumps({"message":result.get("message","Model output saved"),"mode":"local","version":study["version"]})))
+            conn.execute("INSERT INTO archive_events VALUES (?,?,?,?,?)", (str(uuid.uuid4()),identifier,"ANALYSIS_"+result["status"],now(),json.dumps({"message":result.get("message","Model output saved"),"mode":getattr(self,"mode","LOCAL"),"actor":"worker","version":study["version"]})))
 
     def recover_interrupted_analysis(self):
         for study in self.studies():

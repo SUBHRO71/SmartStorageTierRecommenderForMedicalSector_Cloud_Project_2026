@@ -1,0 +1,3 @@
+-r ../src/backend/requirements.txt
+-r ../src/ml_model/requirements_mri.txt
+PyJWT[crypto]==2.10.1

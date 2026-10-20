@@ -1,0 +1,49 @@
+{
+  "n_intervals": 118,
+  "bundle_bytes": 18404657,
+  "bundle_objects": 4,
+  "horizon_days": 90,
+  "assumptions": "Each held-out interval represents a fresh four-file bundle with the measured sample's size; next visit within 90 days causes one retrieval. 12-hour declared tolerance. No proactive restore. Age-only keeps age-zero objects Standard. Fixed engineering price snapshot.",
+  "scenarios": [
+    {
+      "extra_unmodeled_bundle_accesses": 0,
+      "totals_usd": {
+        "all_standard": 0.13968095583822404,
+        "age_only": 0.13968095583822404,
+        "fixed_workload_policy": 0.05955375460055964,
+        "model": 0.06099913283223134,
+        "hindsight_unconstrained_lower_bound": 0.059478523470473756
+      },
+      "savings_vs_standard_pct": 56.329671094977726,
+      "cold_placements": 116,
+      "cold_bundles_with_access": 75
+    },
+    {
+      "extra_unmodeled_bundle_accesses": 1,
+      "totals_usd": {
+        "all_standard": 0.13986975583822434,
+        "age_only": 0.13986975583822434,
+        "fixed_workload_policy": 0.09549040770961603,
+        "model": 0.09632989012588,
+        "hindsight_unconstrained_lower_bound": 0.09549040770961603
+      },
+      "savings_vs_standard_pct": 31.12886374285464,
+      "cold_placements": 116,
+      "cold_bundles_with_access": 116
+    },
+    {
+      "extra_unmodeled_bundle_accesses": 5,
+      "totals_usd": {
+        "all_standard": 0.1406249558382244,
+        "age_only": 0.1406249558382244,
+        "fixed_workload_policy": 0.23923702014584095,
+        "model": 0.237652919300474,
+        "hindsight_unconstrained_lower_bound": 0.1406249558382244
+      },
+      "savings_vs_standard_pct": -68.99768457447269,
+      "cold_placements": 116,
+      "cold_bundles_with_access": 116
+    }
+  ],
+  "limitations": "Counterfactual, not measured AWS savings or retrieval validation. Excludes compute/EBS, cache, egress, tagging/API overhead, subsequent tier changes and their exit charges. Conditional follow-up selection and unobserved retrievals limit inference."
+}

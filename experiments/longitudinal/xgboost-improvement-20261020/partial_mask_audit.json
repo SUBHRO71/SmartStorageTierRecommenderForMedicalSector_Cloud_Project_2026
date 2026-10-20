@@ -1,0 +1,10 @@
+{
+  "development_lumiere_intervals": 412,
+  "combined_three_region_summary_missing": 75,
+  "all_three_region_summaries_available": 337,
+  "two_region_summaries_available": 38,
+  "one_region_summary_available": 5,
+  "no_region_summary_available": 32,
+  "partial_summaries_lost_by_combined_aggregation": 43,
+  "note": "A missing combined volume is not evidence that an MRI or mask is absent. Current regional features preserve available components; unknown regions are not set to zero."
+}

@@ -1,0 +1,9 @@
+{
+  "classification": "xgboost",
+  "timing": "xgboost",
+  "selection_scope": "exploratory nested CV; not ranked by the previously inspected test",
+  "production_model_unchanged": true,
+  "production_model_sha256_after": "4881b6d69961787879fb67ed6c6fe655f7d0d1557a1272ef4c7cb0456d6634af",
+  "completed_utc": "2026-10-20T16:38:57.516015+00:00",
+  "completed_families": 12
+}

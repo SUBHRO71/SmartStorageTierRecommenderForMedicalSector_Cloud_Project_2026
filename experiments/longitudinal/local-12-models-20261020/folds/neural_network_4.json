@@ -1,0 +1,221 @@
+{
+  "family": "neural_network",
+  "fold": 4,
+  "candidates": [
+    {
+      "id": "setting0_history",
+      "setting": 0,
+      "feature_set": "history",
+      "threshold": 0.6,
+      "metrics": {
+        "n": 494,
+        "subjects": 94,
+        "prevalence_90d": 0.5668016194331984,
+        "accuracy_90d": 0.6983805668016194,
+        "balanced_accuracy_90d": 0.6975801068090788,
+        "subject_weighted_balanced_accuracy_90d": 0.6967733305018262,
+        "auc_90d": 0.7392439919893191,
+        "subject_weighted_auc_90d": 0.7079677429502624,
+        "brier_90d": 0.20333002545476864,
+        "subject_weighted_brier_90d": 0.2025044235268729,
+        "mae_days": 43.59306984494254,
+        "subject_weighted_mae_days": 48.057927700073016,
+        "median_absolute_error_days": 25.885664597064906,
+        "within_28_days": 0.5465587044534413,
+        "confusion": {
+          "tn": 148,
+          "fp": 66,
+          "fn": 83,
+          "tp": 197
+        }
+      },
+      "warnings": [
+        "ConvergenceWarning: lbfgs failed to converge after 300 iteration(s) (status=1):\nSTOP: TOTAL NO. OF ITERATIONS REACHED LIMIT\n\nIncrease the number of iterations to improve the convergence (max_iter=300).\nYou might also want to scale the data as shown in:\n    https://scikit-learn.org/stable/modules/preprocessing.html"
+      ]
+    },
+    {
+      "id": "setting1_history",
+      "setting": 1,
+      "feature_set": "history",
+      "threshold": 0.65,
+      "metrics": {
+        "n": 494,
+        "subjects": 94,
+        "prevalence_90d": 0.5668016194331984,
+        "accuracy_90d": 0.6497975708502024,
+        "balanced_accuracy_90d": 0.6475634178905207,
+        "subject_weighted_balanced_accuracy_90d": 0.6671787395295885,
+        "auc_90d": 0.6708277703604807,
+        "subject_weighted_auc_90d": 0.6612073972649957,
+        "brier_90d": 0.25868146404006215,
+        "subject_weighted_brier_90d": 0.23679839790208804,
+        "mae_days": 58.578947894878354,
+        "subject_weighted_mae_days": 61.83277993513973,
+        "median_absolute_error_days": 28.358885026264254,
+        "within_28_days": 0.4898785425101215,
+        "confusion": {
+          "tn": 135,
+          "fp": 79,
+          "fn": 94,
+          "tp": 186
+        }
+      },
+      "warnings": [
+        "ConvergenceWarning: lbfgs failed to converge after 300 iteration(s) (status=1):\nSTOP: TOTAL NO. OF ITERATIONS REACHED LIMIT\n\nIncrease the number of iterations to improve the convergence (max_iter=300).\nYou might also want to scale the data as shown in:\n    https://scikit-learn.org/stable/modules/preprocessing.html"
+      ]
+    },
+    {
+      "id": "setting0_history_masks_technical",
+      "setting": 0,
+      "feature_set": "history_masks_technical",
+      "threshold": 0.7,
+      "metrics": {
+        "n": 494,
+        "subjects": 94,
+        "prevalence_90d": 0.5668016194331984,
+        "accuracy_90d": 0.5951417004048583,
+        "balanced_accuracy_90d": 0.5998998664886515,
+        "subject_weighted_balanced_accuracy_90d": 0.6423398949623746,
+        "auc_90d": 0.6298898531375167,
+        "subject_weighted_auc_90d": 0.6724069010332315,
+        "brier_90d": 0.3109602811645891,
+        "subject_weighted_brier_90d": 0.28003690751719046,
+        "mae_days": 86.79853546082134,
+        "subject_weighted_mae_days": 82.77351997503618,
+        "median_absolute_error_days": 40.48216062013752,
+        "within_28_days": 0.39473684210526316,
+        "confusion": {
+          "tn": 136,
+          "fp": 78,
+          "fn": 122,
+          "tp": 158
+        }
+      },
+      "warnings": [
+        "ConvergenceWarning: lbfgs failed to converge after 300 iteration(s) (status=1):\nSTOP: TOTAL NO. OF ITERATIONS REACHED LIMIT\n\nIncrease the number of iterations to improve the convergence (max_iter=300).\nYou might also want to scale the data as shown in:\n    https://scikit-learn.org/stable/modules/preprocessing.html"
+      ]
+    },
+    {
+      "id": "setting1_history_masks_technical",
+      "setting": 1,
+      "feature_set": "history_masks_technical",
+      "threshold": 0.55,
+      "metrics": {
+        "n": 494,
+        "subjects": 94,
+        "prevalence_90d": 0.5668016194331984,
+        "accuracy_90d": 0.5526315789473685,
+        "balanced_accuracy_90d": 0.5513851802403205,
+        "subject_weighted_balanced_accuracy_90d": 0.6025856466216242,
+        "auc_90d": 0.544826435246996,
+        "subject_weighted_auc_90d": 0.6072400587459774,
+        "brier_90d": 0.4139910733912585,
+        "subject_weighted_brier_90d": 0.35199634127067947,
+        "mae_days": 217.51165432754755,
+        "subject_weighted_mae_days": 153.17965772953778,
+        "median_absolute_error_days": 52.04130907452809,
+        "within_28_days": 0.3157894736842105,
+        "confusion": {
+          "tn": 116,
+          "fp": 98,
+          "fn": 123,
+          "tp": 157
+        }
+      },
+      "warnings": [
+        "ConvergenceWarning: lbfgs failed to converge after 300 iteration(s) (status=1):\nSTOP: TOTAL NO. OF ITERATIONS REACHED LIMIT\n\nIncrease the number of iterations to improve the convergence (max_iter=300).\nYou might also want to scale the data as shown in:\n    https://scikit-learn.org/stable/modules/preprocessing.html"
+      ]
+    }
+  ],
+  "classifier": {
+    "id": "setting0_history",
+    "setting": 0,
+    "feature_set": "history",
+    "threshold": 0.6,
+    "metrics": {
+      "n": 494,
+      "subjects": 94,
+      "prevalence_90d": 0.5668016194331984,
+      "accuracy_90d": 0.6983805668016194,
+      "balanced_accuracy_90d": 0.6975801068090788,
+      "subject_weighted_balanced_accuracy_90d": 0.6967733305018262,
+      "auc_90d": 0.7392439919893191,
+      "subject_weighted_auc_90d": 0.7079677429502624,
+      "brier_90d": 0.20333002545476864,
+      "subject_weighted_brier_90d": 0.2025044235268729,
+      "mae_days": 43.59306984494254,
+      "subject_weighted_mae_days": 48.057927700073016,
+      "median_absolute_error_days": 25.885664597064906,
+      "within_28_days": 0.5465587044534413,
+      "confusion": {
+        "tn": 148,
+        "fp": 66,
+        "fn": 83,
+        "tp": 197
+      }
+    },
+    "warnings": [
+      "ConvergenceWarning: lbfgs failed to converge after 300 iteration(s) (status=1):\nSTOP: TOTAL NO. OF ITERATIONS REACHED LIMIT\n\nIncrease the number of iterations to improve the convergence (max_iter=300).\nYou might also want to scale the data as shown in:\n    https://scikit-learn.org/stable/modules/preprocessing.html"
+    ]
+  },
+  "regressor": {
+    "id": "setting0_history",
+    "setting": 0,
+    "feature_set": "history",
+    "threshold": 0.6,
+    "metrics": {
+      "n": 494,
+      "subjects": 94,
+      "prevalence_90d": 0.5668016194331984,
+      "accuracy_90d": 0.6983805668016194,
+      "balanced_accuracy_90d": 0.6975801068090788,
+      "subject_weighted_balanced_accuracy_90d": 0.6967733305018262,
+      "auc_90d": 0.7392439919893191,
+      "subject_weighted_auc_90d": 0.7079677429502624,
+      "brier_90d": 0.20333002545476864,
+      "subject_weighted_brier_90d": 0.2025044235268729,
+      "mae_days": 43.59306984494254,
+      "subject_weighted_mae_days": 48.057927700073016,
+      "median_absolute_error_days": 25.885664597064906,
+      "within_28_days": 0.5465587044534413,
+      "confusion": {
+        "tn": 148,
+        "fp": 66,
+        "fn": 83,
+        "tp": 197
+      }
+    },
+    "warnings": [
+      "ConvergenceWarning: lbfgs failed to converge after 300 iteration(s) (status=1):\nSTOP: TOTAL NO. OF ITERATIONS REACHED LIMIT\n\nIncrease the number of iterations to improve the convergence (max_iter=300).\nYou might also want to scale the data as shown in:\n    https://scikit-learn.org/stable/modules/preprocessing.html"
+    ]
+  },
+  "outer_metrics": {
+    "n": 109,
+    "subjects": 24,
+    "prevalence_90d": 0.5596330275229358,
+    "accuracy_90d": 0.6055045871559633,
+    "balanced_accuracy_90d": 0.6031420765027322,
+    "subject_weighted_balanced_accuracy_90d": 0.5830613838941201,
+    "auc_90d": 0.5959699453551912,
+    "subject_weighted_auc_90d": 0.5238044856983541,
+    "brier_90d": 0.25919175830332175,
+    "subject_weighted_brier_90d": 0.27169298444791806,
+    "mae_days": 62.57700008329851,
+    "subject_weighted_mae_days": 127.79537976741746,
+    "median_absolute_error_days": 30.928039747753292,
+    "within_28_days": 0.45871559633027525,
+    "confusion": {
+      "tn": 28,
+      "fp": 20,
+      "fn": 23,
+      "tp": 38
+    }
+  },
+  "fit_subjects": 94,
+  "evaluation_subjects": 24,
+  "patient_overlap": 0,
+  "seconds": 2.4921453000279143,
+  "warnings": [
+    "ConvergenceWarning: lbfgs failed to converge after 300 iteration(s) (status=1):\nSTOP: TOTAL NO. OF ITERATIONS REACHED LIMIT\n\nIncrease the number of iterations to improve the convergence (max_iter=300).\nYou might also want to scale the data as shown in:\n    https://scikit-learn.org/stable/modules/preprocessing.html"
+  ]
+}

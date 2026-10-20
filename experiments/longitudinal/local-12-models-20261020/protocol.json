@@ -1,0 +1,127 @@
+{
+  "protocol": {
+    "version": 1,
+    "seed": 20261020,
+    "outer_folds": 5,
+    "inner_folds": 3,
+    "families": [
+      "linear",
+      "decision_tree",
+      "random_forest",
+      "extra_trees",
+      "adaboost",
+      "gradient_boosting",
+      "hist_gradient_boosting",
+      "xgboost",
+      "rbf_svm",
+      "nearest_neighbors",
+      "neural_network",
+      "survival_forest"
+    ],
+    "settings": [
+      0,
+      1
+    ],
+    "feature_sets": {
+      "history": [
+        "cohort_lumiere",
+        "visit_index",
+        "elapsed_days",
+        "last_gap_days",
+        "median_gap_days",
+        "mean_gap_days",
+        "gap_std_days"
+      ],
+      "history_masks_technical": [
+        "cohort_lumiere",
+        "visit_index",
+        "elapsed_days",
+        "last_gap_days",
+        "median_gap_days",
+        "mean_gap_days",
+        "gap_std_days",
+        "log_mask_volume",
+        "enhancing_fraction",
+        "edema_fraction",
+        "current_series_count",
+        "log_source_bytes",
+        "log_source_image_count",
+        "log_mean_original_voxels",
+        "mean_field_strength",
+        "mean_mask_sphericity",
+        "log_max_mask_diameter"
+      ]
+    },
+    "thresholds": [
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75
+    ],
+    "classification_selection": "inner OOF subject-weighted balanced accuracy, then Brier; threshold tuned inside inner CV",
+    "timing_selection": "inner OOF subject-weighted MAE, then unweighted MAE",
+    "family_ranking": "nested outer OOF subject-weighted balanced accuracy; timing ranked separately by subject-weighted MAE",
+    "weights": "equal total weight per subject where estimator supports sample weights; nearest neighbors has no fit sample weights",
+    "holdout": "original inspected test split: diagnostic only, excluded from development and selection",
+    "target": "next recorded visit conditional on a later archived visit; not actual retrieval",
+    "practical_screen": {
+      "subject_weighted_balanced_accuracy_90d": 0.7,
+      "subject_weighted_auc_90d": 0.75,
+      "subject_weighted_mae_days": 35.0,
+      "paired_improvement_ci_lower_bound": 0.0
+    },
+    "note": "The practical screen is exploratory, not evidence of clinical or retrieval safety. Multiple-family selection needs new external validation."
+  },
+  "input_sha256": "30489a908f6e6899a2f19a13d8e0e5d174f5d2c5641aca6368ee2d32f905f94a",
+  "source_sha256": {
+    "benchmark.py": "6cd8bc545a8fe9c4fdda9c8f35be6642dd605bfb5bdf35ee50e760c733038135",
+    "benchmark_models.py": "6484136052fc4fa2ca91c443861fab73d642615470867e685b0e61b3ecf972f1",
+    "benchmark_data.py": "bff5ba2dadaf5769360666da3de756cf6c6dbd14a742626c75809a99c68fe6db"
+  },
+  "production_model_sha256_before": "4881b6d69961787879fb67ed6c6fe655f7d0d1557a1272ef4c7cb0456d6634af",
+  "dataset_audit": {
+    "TCGA-GBM": {
+      "source_series": 5412,
+      "mr_series": 5277,
+      "subjects": 259,
+      "study_uids": 531,
+      "distinct_dates": 482,
+      "repeated_subjects": 60,
+      "metadata_release": "2015 NBIA digest linked by current publisher page; not a pixel-access grant"
+    },
+    "LUMIERE": {
+      "subjects": 91,
+      "source_timepoints": 638,
+      "distinct_weeks": 589,
+      "collapsed_same_week": 49,
+      "repeated_subjects": 83,
+      "mask_features_available": 482
+    }
+  },
+  "development": {
+    "intervals": 603,
+    "labelled_subjects": 118
+  },
+  "inspected_holdout": {
+    "intervals": 118,
+    "labelled_subjects": 25
+  },
+  "unknown_terminal_outcomes": 350,
+  "python": "3.13.7",
+  "packages": {
+    "numpy": "2.2.6",
+    "pandas": "2.3.2",
+    "scipy": "1.16.2",
+    "scikit-learn": "1.7.2",
+    "scikit-survival": "0.25.0",
+    "xgboost": "3.1.1",
+    "joblib": "1.5.2"
+  }
+}

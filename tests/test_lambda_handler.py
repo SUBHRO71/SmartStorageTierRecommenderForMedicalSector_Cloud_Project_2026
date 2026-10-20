@@ -78,6 +78,20 @@ class LambdaHandlerTests(unittest.TestCase):
         self.assertEqual(result["status"], "BLOCKED_MISSING_FEATURES")
         self.assertEqual(resources["s3"].tags, [{"Key": "owner", "Value": "radiology"}])
 
+    def test_eventbridge_object_created_uses_literal_object_key(self):
+        resources = self.resources()
+        event = {
+            "source": "aws.s3",
+            "detail-type": "Object Created",
+            "detail": {
+                "bucket": {"name": "medical-image-store"},
+                "object": {"key": "studies/image+one.png", "size": 1024},
+            },
+        }
+        result = handler.process_record(event, resources, handler._engine())
+        self.assertEqual(result["status"], "BLOCKED_MISSING_FEATURES")
+        self.assertEqual(resources["table"].update["Key"]["scan_id"], handler.stable_scan_id("medical-image-store", "studies/image+one.png"))
+
     def test_existing_tags_are_preserved_when_tier_is_added(self):
         resources = self.resources(
             {
